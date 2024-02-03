@@ -10,6 +10,7 @@ public class UpdateHandlers
 {
     private readonly ITelegramBotClient _botClient;
     private readonly ILogger<UpdateHandlers> _logger;
+    public static Dictionary<string, string> Commands = new();
 
     public UpdateHandlers(ITelegramBotClient botClient, ILogger<UpdateHandlers> logger)
     {
@@ -60,14 +61,16 @@ public class UpdateHandlers
         if (message.Text is not { } messageText)
             return;
 
-        var action = messageText.Split(' ')[0] switch
+        var command = messageText.Split(' ')[0];
+
+        var action = command switch
         {
-            "/inline_keyboard" => SendInlineKeyboard(_botClient, message, cancellationToken),
-            "/keyboard" => SendReplyKeyboard(_botClient, message, cancellationToken),
-            "/remove" => RemoveKeyboard(_botClient, message, cancellationToken),
-            "/photo" => SendFile(_botClient, message, cancellationToken),
-            "/request" => RequestContactAndLocation(_botClient, message, cancellationToken),
-            "/inline_mode" => StartInlineQuery(_botClient, message, cancellationToken),
+            "/start" => StartKeyboard(_botClient, message, cancellationToken),
+            "/how_is_your_satisfaction" => HowIsYourSatisfactionKeyboard(_botClient, message, cancellationToken),
+            "/how_do_you_feel" => HowDoYouFeelKeyboard(_botClient, message, cancellationToken),
+            //"/photo" => SendFile(_botClient, message, cancellationToken),
+            //"/request" => RequestContactAndLocation(_botClient, message, cancellationToken),
+            //"/inline_mode" => StartInlineQuery(_botClient, message, cancellationToken),
             _ => Usage(_botClient, message, cancellationToken)
         };
         Message sentMessage = await action;
@@ -75,7 +78,7 @@ public class UpdateHandlers
 
         // Send inline keyboard
         // You can process responses in BotOnCallbackQueryReceived handler
-        static async Task<Message> SendInlineKeyboard(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
+        static async Task<Message> StartKeyboard(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
         {
             await botClient.SendChatActionAsync(
                 chatId: message.Chat.Id,
@@ -85,54 +88,55 @@ public class UpdateHandlers
             // Simulate longer running task
             await Task.Delay(500, cancellationToken);
 
-            InlineKeyboardMarkup inlineKeyboard = new(
-                new[]
-                {
-                    // first row
-                    new []
-                    {
-                        InlineKeyboardButton.WithCallbackData("1.1", "11"),
-                        InlineKeyboardButton.WithCallbackData("1.2", "12"),
-                    },
-                    // second row
-                    new []
-                    {
-                        InlineKeyboardButton.WithCallbackData("2.1", "21"),
-                        InlineKeyboardButton.WithCallbackData("2.2", "22"),
-                    },
-                });
+            //InlineKeyboardMarkup inlineKeyboard = new(
+            //    new[]
+            //    {
+            //        // first row
+            //        new []
+            //        {
+            //            InlineKeyboardButton.WithCallbackData("1.1", "11"),
+            //            InlineKeyboardButton.WithCallbackData("1.2", "12"),
+            //        },
+            //        // second row
+            //        new []
+            //        {
+            //            InlineKeyboardButton.WithCallbackData("2.1", "21"),
+            //            InlineKeyboardButton.WithCallbackData("2.2", "22"),
+            //        },
+            //    });
 
             return await botClient.SendTextMessageAsync(
                 chatId: message.Chat.Id,
-                text: "Choose",
-                replyMarkup: inlineKeyboard,
+                text: $"به بات ثبت احساس ها و افکار خوش اومدید. امیدواریم بتونیم میزبان ناب ترین احساسات شما باشیم. برای ثبت احساس، فکر و رضایت از زندگی، میتونید از گزینه Menu در پایین، سمت چپ استفاده کنید. با تشکر",
+                //replyMarkup: inlineKeyboard,
                 cancellationToken: cancellationToken);
         }
 
-        static async Task<Message> SendReplyKeyboard(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
+        static async Task<Message> HowIsYourSatisfactionKeyboard(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
         {
             ReplyKeyboardMarkup replyKeyboardMarkup = new(
                 new[]
                 {
-                        new KeyboardButton[] { "1.1", "1.2" },
-                        new KeyboardButton[] { "2.1", "2.2" },
+                    new KeyboardButton[] { "1", "2", "3", "4", "5" }
                 })
             {
                 ResizeKeyboard = true
             };
+            
+            Commands.Add(message.Chat.Username, nameof(HowIsYourSatisfactionKeyboard));
 
             return await botClient.SendTextMessageAsync(
                 chatId: message.Chat.Id,
-                text: "Choose",
+                text: "چه عددی به رضایت از زندگی امروزت میدی؟ هر چی عدد بالاتری انتخاب کنی، یعنی رضایت بیشتری داری",
                 replyMarkup: replyKeyboardMarkup,
                 cancellationToken: cancellationToken);
         }
 
-        static async Task<Message> RemoveKeyboard(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
+        static async Task<Message> HowDoYouFeelKeyboard(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
         {
             return await botClient.SendTextMessageAsync(
                 chatId: message.Chat.Id,
-                text: "Removing keyboard",
+                text: "این قسمت بعدا تکمیل میشه",
                 replyMarkup: new ReplyKeyboardRemove(),
                 cancellationToken: cancellationToken);
         }
@@ -173,13 +177,20 @@ public class UpdateHandlers
 
         static async Task<Message> Usage(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
         {
-            const string usage = "Usage:\n" +
-                                 "/inline_keyboard - send inline keyboard\n" +
-                                 "/keyboard    - send custom keyboard\n" +
-                                 "/remove      - remove custom keyboard\n" +
-                                 "/photo       - send a photo\n" +
-                                 "/request     - request location or contact\n" +
-                                 "/inline_mode - send keyboard with Inline Query";
+            var usage = string.Empty;
+            var previousCommand = Commands.FirstOrDefault(x => x.Key == message.Chat.Username);
+            if (string.IsNullOrEmpty(previousCommand.Key))
+            {
+                usage = "یکی از گزینه های زیر رو انتخاب کن:\n" +
+                        "/start - شروع بات\n" +
+                        "/how_is_your_satisfaction - چقدر از امروز راضی بودی تا الان؟\n" +
+                        "/how_do_you_feel - الان چه احساسی داری؟";
+            }
+            else if (previousCommand.Value == nameof(HowIsYourSatisfactionKeyboard))
+            {
+                usage = "ممنون که رضایت از زندگی امروزت رو ثبت کردی :)";
+                Commands.Remove(message.Chat.Username);
+            }
 
             return await botClient.SendTextMessageAsync(
                 chatId: message.Chat.Id,
