@@ -1,3 +1,4 @@
+using Halood.Repository;
 using Telegram.Bot;
 using Telegram.Bot.Controllers;
 using Telegram.Bot.Services;
@@ -38,6 +39,8 @@ builder.Services.AddHostedService<ConfigureWebhook>();
 builder.Services
     .AddControllers()
     .AddNewtonsoftJson();
+
+builder.Services.AddRepositoryDependencies(builder.Configuration);
 
 var app = builder.Build();
 // Construct webhook route from the Route configuration parameter

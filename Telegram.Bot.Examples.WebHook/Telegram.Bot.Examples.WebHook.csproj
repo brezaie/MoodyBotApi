@@ -16,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Halood.Repository\Halood.Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Files\tux.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

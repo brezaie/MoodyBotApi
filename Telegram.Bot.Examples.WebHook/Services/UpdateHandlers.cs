@@ -1,3 +1,7 @@
+using Halood.Domain.Entities;
+using Halood.Domain.Interfaces.User;
+using Halood.Domain.Interfaces.UserSatisfaction;
+using Newtonsoft.Json;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
@@ -10,12 +14,18 @@ public class UpdateHandlers
 {
     private readonly ITelegramBotClient _botClient;
     private readonly ILogger<UpdateHandlers> _logger;
+    private readonly IUserRepository _userRepository;
+    private readonly IUserSatisfactionRepository _userSatisfactionRepository;
+
     public static Dictionary<string, string> Commands = new();
 
-    public UpdateHandlers(ITelegramBotClient botClient, ILogger<UpdateHandlers> logger)
+    public UpdateHandlers(ITelegramBotClient botClient, ILogger<UpdateHandlers> logger, IUserRepository userRepository,
+        IUserSatisfactionRepository userSatisfactionRepository)
     {
         _botClient = botClient;
         _logger = logger;
+        _userRepository = userRepository;
+        _userSatisfactionRepository = userSatisfactionRepository;
     }
 
 #pragma warning disable IDE0060 // Remove unused parameter
@@ -57,6 +67,22 @@ public class UpdateHandlers
 
     private async Task BotOnMessageReceived(Message message, CancellationToken cancellationToken)
     {
+        var user = await _userRepository.GetByAsync(message.From.Username);
+        if (user is null)
+        {
+            await _userRepository.SaveAsync(new Halood.Domain.Entities.User
+            {
+                Username = message.From.Username,
+                FirstName = message.From.FirstName,
+                LastName = message.From?.LastName,
+                LanguageCode = message.From?.LanguageCode,
+                IsBot = message.From.IsBot,
+                IsPremium = message.From.IsPremium
+            });
+            await _userRepository.CommitAsync();
+        }
+
+
         _logger.LogInformation("Receive message type: {MessageType}", message.Type);
         if (message.Text is not { } messageText)
             return;
@@ -80,6 +106,10 @@ public class UpdateHandlers
         // You can process responses in BotOnCallbackQueryReceived handler
         static async Task<Message> StartKeyboard(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
         {
+
+            var t = JsonConvert.SerializeObject(message);
+            Commands.Remove(message.Chat.Username);
+
             await botClient.SendChatActionAsync(
                 chatId: message.Chat.Id,
                 chatAction: ChatAction.Typing,
@@ -122,8 +152,12 @@ public class UpdateHandlers
             {
                 ResizeKeyboard = true
             };
-            
-            Commands.Add(message.Chat.Username, nameof(HowIsYourSatisfactionKeyboard));
+
+            var doesCommandExist = Commands.FirstOrDefault(x => x.Key == message.Chat.Username);
+            if (doesCommandExist.Value != nameof(HowIsYourSatisfactionKeyboard))
+            {
+                Commands.Add(message.Chat.Username, nameof(HowIsYourSatisfactionKeyboard));
+            }
 
             return await botClient.SendTextMessageAsync(
                 chatId: message.Chat.Id,
@@ -175,7 +209,7 @@ public class UpdateHandlers
                 cancellationToken: cancellationToken);
         }
 
-        static async Task<Message> Usage(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
+        async Task<Message> Usage(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
         {
             var usage = string.Empty;
             var previousCommand = Commands.FirstOrDefault(x => x.Key == message.Chat.Username);
@@ -188,6 +222,33 @@ public class UpdateHandlers
             }
             else if (previousCommand.Value == nameof(HowIsYourSatisfactionKeyboard))
             {
+                if (message.Text.Trim().Length > 1 || !char.IsDigit(message.Text[0]))
+                {
+                    usage = $"مقداری که وارد کردی، معتبر نیست. لطفاً یکی از گزینه های 1 تا 5 رو انتخاب کن";
+                    ReplyKeyboardMarkup replyKeyboardMarkup = new(
+                        new[]
+                        {
+                            new KeyboardButton[] { "1", "2", "3", "4", "5" }
+                        })
+                    {
+                        ResizeKeyboard = true
+                    };
+
+                    return await botClient.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: usage,
+                        replyMarkup: replyKeyboardMarkup,
+                        cancellationToken: cancellationToken);
+                }
+
+                await _userSatisfactionRepository.SaveAsync(new UserSatisfaction
+                {
+                    RegistrationDate = message.Date,
+                    SatisfactionNumber = Convert.ToInt32(message.Text),
+                    UserId = (await _userRepository.GetByAsync(message.Chat.Username)).Id
+                });
+                await _userSatisfactionRepository.CommitAsync();
+
                 usage = "ممنون که رضایت از زندگی امروزت رو ثبت کردی :)";
                 Commands.Remove(message.Chat.Username);
             }
