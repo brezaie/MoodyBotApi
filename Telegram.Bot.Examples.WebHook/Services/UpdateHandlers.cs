@@ -1,7 +1,10 @@
 using Halood.Domain.Entities;
+using Halood.Domain.Enums;
 using Halood.Domain.Interfaces.User;
 using Halood.Domain.Interfaces.UserSatisfaction;
 using Newtonsoft.Json;
+using System;
+using Telegram.Bot.Examples.WebHook;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
@@ -17,7 +20,7 @@ public class UpdateHandlers
     private readonly IUserRepository _userRepository;
     private readonly IUserSatisfactionRepository _userSatisfactionRepository;
 
-    public static Dictionary<string, string> Commands = new();
+    public static Dictionary<string, CommandType> Commands = new();
 
     public UpdateHandlers(ITelegramBotClient botClient, ILogger<UpdateHandlers> logger, IUserRepository userRepository,
         IUserSatisfactionRepository userSatisfactionRepository)
@@ -76,6 +79,7 @@ public class UpdateHandlers
                 FirstName = message.From.FirstName,
                 LastName = message.From?.LastName,
                 LanguageCode = message.From?.LanguageCode,
+                ChatId = message.Chat.Id,
                 IsBot = message.From.IsBot,
                 IsPremium = message.From.IsPremium
             });
@@ -147,21 +151,28 @@ public class UpdateHandlers
             ReplyKeyboardMarkup replyKeyboardMarkup = new(
                 new[]
                 {
-                    new KeyboardButton[] { "1", "2", "3", "4", "5" }
+                    new KeyboardButton[]
+                    {
+                        SatisfactionLevel.Awful.GetDescription(),
+                        SatisfactionLevel.Bad.GetDescription(),
+                        SatisfactionLevel.SoSo.GetDescription(),
+                        SatisfactionLevel.Good.GetDescription(),
+                        SatisfactionLevel.Perfect.GetDescription()
+                    }
                 })
             {
                 ResizeKeyboard = true
             };
 
             var doesCommandExist = Commands.FirstOrDefault(x => x.Key == message.Chat.Username);
-            if (doesCommandExist.Value != nameof(HowIsYourSatisfactionKeyboard))
+            if (doesCommandExist.Value != CommandType.Satisfaction)
             {
-                Commands.Add(message.Chat.Username, nameof(HowIsYourSatisfactionKeyboard));
+                Commands.Add(message.Chat.Username, CommandType.Satisfaction);
             }
 
             return await botClient.SendTextMessageAsync(
                 chatId: message.Chat.Id,
-                text: "چه عددی به رضایت از زندگی امروزت میدی؟ هر چی عدد بالاتری انتخاب کنی، یعنی رضایت بیشتری داری",
+                text: "چقدر از امروزت راضی بودی؟",
                 replyMarkup: replyKeyboardMarkup,
                 cancellationToken: cancellationToken);
         }
@@ -220,15 +231,23 @@ public class UpdateHandlers
                         "/how_is_your_satisfaction - چقدر از امروز راضی بودی تا الان؟\n" +
                         "/how_do_you_feel - الان چه احساسی داری؟";
             }
-            else if (previousCommand.Value == nameof(HowIsYourSatisfactionKeyboard))
+            else if (previousCommand.Value == CommandType.Satisfaction)
             {
-                if (message.Text.Trim().Length > 1 || !char.IsDigit(message.Text[0]))
+                if (((SatisfactionLevel[]) Enum.GetValues(typeof(SatisfactionLevel))).All(x =>
+                        x.GetDescription() != message.Text))
                 {
-                    usage = $"مقداری که وارد کردی، معتبر نیست. لطفاً یکی از گزینه های 1 تا 5 رو انتخاب کن";
+                    usage = $"مقداری که وارد کردی، معتبر نیست. لطفاً یکی از گزینه های زیر رو انتخاب کن";
                     ReplyKeyboardMarkup replyKeyboardMarkup = new(
                         new[]
                         {
-                            new KeyboardButton[] { "1", "2", "3", "4", "5" }
+                            new KeyboardButton[]
+                            {
+                                SatisfactionLevel.Awful.GetDescription(),
+                                SatisfactionLevel.Bad.GetDescription(),
+                                SatisfactionLevel.SoSo.GetDescription(),
+                                SatisfactionLevel.Good.GetDescription(),
+                                SatisfactionLevel.Perfect.GetDescription()
+                            }
                         })
                     {
                         ResizeKeyboard = true
@@ -244,12 +263,13 @@ public class UpdateHandlers
                 await _userSatisfactionRepository.SaveAsync(new UserSatisfaction
                 {
                     RegistrationDate = message.Date,
-                    SatisfactionNumber = Convert.ToInt32(message.Text),
+                    SatisfactionNumber = (int) ((SatisfactionLevel[]) Enum.GetValues(typeof(SatisfactionLevel)))
+                        .FirstOrDefault(x => x.GetDescription() == message.Text),
                     UserId = (await _userRepository.GetByAsync(message.Chat.Username)).Id
                 });
                 await _userSatisfactionRepository.CommitAsync();
 
-                usage = "ممنون که رضایت از زندگی امروزت رو ثبت کردی :)";
+                usage = "ممنون که رضایت از زندگی امروزت رو ثبت کردی 👍";
                 Commands.Remove(message.Chat.Username);
             }
 

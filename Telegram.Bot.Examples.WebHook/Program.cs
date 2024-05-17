@@ -1,6 +1,8 @@
 using Halood.Repository;
+using Hangfire;
 using Telegram.Bot;
 using Telegram.Bot.Controllers;
+using Telegram.Bot.Examples.WebHook.Jobs;
 using Telegram.Bot.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -41,6 +43,15 @@ builder.Services
     .AddNewtonsoftJson();
 
 builder.Services.AddRepositoryDependencies(builder.Configuration);
+builder.Services.AddTransient<IJob, ReminderJob>();
+
+builder.Services.AddHangfire((sp, config) =>
+{
+    var connectionString = sp.GetRequiredService<IConfiguration>().GetConnectionString("DefaultConnection");
+    config.UseSqlServerStorage(connectionString);
+});
+builder.Services.AddHangfireServer();
+
 
 var app = builder.Build();
 // Construct webhook route from the Route configuration parameter
