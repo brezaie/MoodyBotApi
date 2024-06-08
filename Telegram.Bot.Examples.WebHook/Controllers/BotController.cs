@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Telegram.Bot.Filters;
 using Telegram.Bot.Services;
 using Telegram.Bot.Types;
 
@@ -15,6 +14,9 @@ public class BotController : ControllerBase
         CancellationToken cancellationToken)
     {
         await handleUpdateService.HandleUpdateAsync(update, cancellationToken);
+
+        await System.IO.File.WriteAllTextAsync("error.log", "Message Received", cancellationToken);
+
         return Ok();
     }
 }
