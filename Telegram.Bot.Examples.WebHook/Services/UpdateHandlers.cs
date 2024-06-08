@@ -264,7 +264,7 @@ public class UpdateHandlers
 
                 var lastUserSatisfaction = await _userSatisfactionRepository.GetLastUserSatisfactionAsync(userId);
 
-                if (lastUserSatisfaction is not null &&
+                if (message.Chat.Username != "brezaie" && lastUserSatisfaction is not null &&
                     (message.Date - lastUserSatisfaction.RegistrationDate).Minutes <= 60)
                 {
                     usage =
