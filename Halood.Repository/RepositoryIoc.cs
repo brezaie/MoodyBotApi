@@ -20,7 +20,7 @@ public static class RepositoryIoc
         services.AddTransient<IUserRepository, UserRepository>();
         services.AddTransient<IUserSatisfactionRepository, UserSatisfactionRepository>();
 
-        services.Initialize();
+        //services.Initialize();
 
         return services;
     }
