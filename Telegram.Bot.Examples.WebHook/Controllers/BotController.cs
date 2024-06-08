@@ -13,10 +13,18 @@ public class BotController : ControllerBase
         [FromServices] UpdateHandlers handleUpdateService,
         CancellationToken cancellationToken)
     {
-        await handleUpdateService.HandleUpdateAsync(update, cancellationToken);
+        try
+        {
+            await handleUpdateService.HandleUpdateAsync(update, cancellationToken);
 
-        await System.IO.File.WriteAllTextAsync("error.log", "Message Received", cancellationToken);
+            await System.IO.File.WriteAllTextAsync("error.log", "Message Received", cancellationToken);
 
-        return Ok();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            await System.IO.File.WriteAllTextAsync("error.log", $"Message: {ex.Message}", cancellationToken);
+            return BadRequest(ex.Message);
+        }
     }
 }
