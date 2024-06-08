@@ -28,7 +28,7 @@ namespace Telegram.Bot.Examples.WebHook.Controllers
                 };
 
                 RecurringJob.AddOrUpdate("SatisfactionReminderJob", () => _job.Run(),
-                    "* * * * *", jobOptions);
+                    "* 19 * * *", jobOptions);
 
                 return Ok();
             }
