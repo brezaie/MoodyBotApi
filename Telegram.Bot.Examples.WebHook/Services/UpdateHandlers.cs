@@ -260,12 +260,27 @@ public class UpdateHandlers
                         cancellationToken: cancellationToken);
                 }
 
+                var userId = (await _userRepository.GetByAsync(message.Chat.Username)).Id;
+
+                var lastUserSatisfaction = await _userSatisfactionRepository.GetLastUserSatisfactionAsync(userId);
+
+                if (lastUserSatisfaction is not null &&
+                    (message.Date - lastUserSatisfaction.RegistrationDate).Minutes <= 60)
+                {
+                    usage =
+                        $"از آخرین دفعه که میزان رضایت خود را ثبت کرده‌اید، کم‌تر از 1 ساعت گذشته است. پس از گذشت این زمان می‌توانید مجدد رضایت خود را ثبت کنید 🙂";
+                    return await botClient.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: usage,
+                        cancellationToken: cancellationToken);
+                }
+
                 await _userSatisfactionRepository.SaveAsync(new UserSatisfaction
                 {
                     RegistrationDate = message.Date,
                     SatisfactionNumber = (int) ((SatisfactionLevel[]) Enum.GetValues(typeof(SatisfactionLevel)))
                         .FirstOrDefault(x => x.GetDescription() == message.Text),
-                    UserId = (await _userRepository.GetByAsync(message.Chat.Username)).Id
+                    UserId = userId
                 });
                 await _userSatisfactionRepository.CommitAsync();
 
