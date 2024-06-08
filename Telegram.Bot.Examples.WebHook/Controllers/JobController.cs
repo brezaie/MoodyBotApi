@@ -20,15 +20,23 @@ namespace Telegram.Bot.Examples.WebHook.Controllers
         [Route("CreateSatisfactionReminderJob")]
         public ActionResult CreateSatisfactionReminderJob()
         {
-            RecurringJobOptions jobOptions = new()
+            try
             {
-                TimeZone = TimeZoneInfo.Utc
-            };
+                RecurringJobOptions jobOptions = new()
+                {
+                    TimeZone = TimeZoneInfo.Utc
+                };
 
-            RecurringJob.AddOrUpdate("SatisfactionReminderJob", () => _job.Run(),
-                "* * * * *", jobOptions);
+                RecurringJob.AddOrUpdate("SatisfactionReminderJob", () => _job.Run(),
+                    "* * * * *", jobOptions);
 
-            return Ok();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
