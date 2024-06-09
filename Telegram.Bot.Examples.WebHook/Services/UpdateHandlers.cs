@@ -30,9 +30,7 @@ public class UpdateHandlers
         _userRepository = userRepository;
         _userSatisfactionRepository = userSatisfactionRepository;
     }
-
-#pragma warning disable IDE0060 // Remove unused parameter
-#pragma warning disable RCS1163 // Unused parameter.
+    
     public Task HandleErrorAsync(Exception exception, CancellationToken cancellationToken)
 #pragma warning restore RCS1163 // Unused parameter.
 #pragma warning restore IDE0060 // Remove unused parameter

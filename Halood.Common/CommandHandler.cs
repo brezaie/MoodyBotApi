@@ -8,7 +8,12 @@ namespace Halood.Common
     {
         private static Dictionary<string, CommandType> _commands;
 
-        public static ReplyKeyboardMarkup satisfactionLevelReplyKeyboardMarkup = new(
+        public static List<string> SpecialUserNames = new()
+        {
+            "brezaie"
+        };
+
+        public static ReplyKeyboardMarkup SatisfactionLevelReplyKeyboardMarkup = new(
             new[]
             {
                 new KeyboardButton[]
@@ -25,6 +30,7 @@ namespace Halood.Common
         };
 
 
+
         public static void AddCommand(string username, CommandType commandType)
         {
             var doesCommandExist = _commands.FirstOrDefault(x => x.Key == username);
@@ -38,6 +44,12 @@ namespace Halood.Common
         {
             _commands.Remove(username);
         }
-        
+
+        public static CommandType GetCommand(string username)
+        {
+            var command = _commands.FirstOrDefault(x => x.Key == username);
+            return command.Value;
+        }
+
     }
 }

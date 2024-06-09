@@ -4,7 +4,6 @@ using Halood.Domain.Interfaces;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot;
 using Telegram.Bot.Types;
-using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Halood.Service.BotAction;
 
@@ -29,7 +28,7 @@ public class HowIsYourSatisfactionCommandAction : IBotAction
         await _botClient.SendTextMessageAsync(
             chatId: message.Chat.Id,
             text: _text,
-            replyMarkup: CommandHandler.satisfactionLevelReplyKeyboardMarkup,
+            replyMarkup: CommandHandler.SatisfactionLevelReplyKeyboardMarkup,
             cancellationToken: cancellationToken);
     }
 }
