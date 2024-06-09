@@ -15,6 +15,7 @@ public static class ServiceIoC
     public static IServiceCollection AddServiceDependencies(this IServiceCollection services)
     {
         services.AddTransient<IBotAction, StartCommandAction>();
+        services.AddTransient<IBotAction, HowIsYourSatisfactionCommandAction>();
 
         return services;
     }
