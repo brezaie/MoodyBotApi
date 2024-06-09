@@ -1,6 +1,7 @@
 using Halood.Repository;
 using Hangfire;
 using System.Threading;
+using Halood.Service;
 using Telegram.Bot;
 using Telegram.Bot.Controllers;
 using Telegram.Bot.Examples.WebHook.Jobs;
@@ -43,40 +44,25 @@ builder.Services
     .AddControllers()
     .AddNewtonsoftJson();
 
-try
-{
-    builder.Services.AddRepositoryDependencies(builder.Configuration);
-}
-catch (Exception ex)
-{
-    File.WriteAllTextAsync("error.log", $"Repo Message: {ex.Message}");
-}
 
+#region Services
 
-try
-{
-    builder.Services.AddTransient<IJob, ReminderJob>();
-}
-catch (Exception ex)
-{
-    File.WriteAllTextAsync("error.log", $"Job Message: {ex.Message}");
-}
+builder.Services.AddRepositoryDependencies(builder.Configuration);
+builder.Services.AddServiceDependencies();
+builder.Services.AddTransient<IJob, ReminderJob>();
 
+#endregion
 
-try
-{
-    builder.Services.AddHangfire((sp, config) =>
-    {
-        var connectionString = sp.GetRequiredService<IConfiguration>().GetConnectionString("DefaultConnection");
-        config.UseSqlServerStorage(connectionString);
-    });
-    builder.Services.AddHangfireServer();
-}
-catch (Exception ex)
-{
-    File.WriteAllTextAsync("error.log", $"Hangfire Message: {ex.Message}");
-}
+#region Hangfire
 
+builder.Services.AddHangfire((sp, config) =>
+{
+    var connectionString = sp.GetRequiredService<IConfiguration>().GetConnectionString("DefaultConnection");
+    config.UseSqlServerStorage(connectionString);
+});
+builder.Services.AddHangfireServer();
+
+#endregion
 
 var app = builder.Build();
 // Construct webhook route from the Route configuration parameter

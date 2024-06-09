@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Telegram.Bot" Version="19.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Halood.Common\Halood.Common.csproj" />
+    <ProjectReference Include="..\Halood.Domain\Halood.Domain.csproj" />
+    <ProjectReference Include="..\Halood.Repository\Halood.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

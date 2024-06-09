@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Halood.Repository\Halood.Repository.csproj" />
+    <ProjectReference Include="..\Halood.Service\Halood.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>
