@@ -9,6 +9,7 @@ namespace Halood.Domain.Entities
         public bool? IsBot { get; set; }
         public bool? IsPremium { get; set; }
         public string? LanguageCode { get; set; }
+        public bool IsGlobalSatisfactionReminderActive { get; set; }
 
         public List<UserSatisfaction> UserSatisfactions { get; set; }
     }

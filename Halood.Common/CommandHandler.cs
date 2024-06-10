@@ -37,8 +37,15 @@ namespace Halood.Common
                 InlineKeyboardButton.WithCallbackData("ثبت رضایت",
                     CommandType.Satisfaction.GetDescription()),
                 InlineKeyboardButton.WithCallbackData("ثبت احساس", CommandType.Feeling.GetDescription()),
+                InlineKeyboardButton.WithCallbackData("تنظیم یادآور", CommandType.ToggleReminder.GetDescription()),
             });
 
+        public static InlineKeyboardMarkup ReminderToggleInlineKeyboardMarkup = new InlineKeyboardMarkup(
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData("بله", YesNoResponse.Yes.GetDescription()),
+                InlineKeyboardButton.WithCallbackData("خیر", YesNoResponse.No.GetDescription()),
+            });
 
         public static void AddCommand(string username, CommandType commandType)
         {

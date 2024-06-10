@@ -13,5 +13,8 @@ public enum CommandType
     Satisfaction = 2,
 
     [Description("/how_do_you_feel")]
-    Feeling = 3
+    Feeling = 3,
+
+    [Description("/toggle_reminder")]
+    ToggleReminder = 4
 }

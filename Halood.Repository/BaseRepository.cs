@@ -107,6 +107,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity, new()
         return entity;
     }
 
+
     public virtual void Delete(T entity)
     {
         Context.Set<T>().Remove(entity);

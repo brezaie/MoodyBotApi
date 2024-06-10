@@ -20,8 +20,8 @@ public class ReminderJob : IJob
         var text = "این پیام از طریق یادآورِ بات برای شما ارسال شده است.\n" +
                    "کدام یک از ایموجی‌های زیر، میزان رضایت شما از لحظه‌ای که در آن هستید را می‌تواند به بهترین شکل نشان دهد؟\n";
 
-        var users = await _userRepository.GetAllAsync();
-        foreach (var user in users.Where(x => x.ChatId > 0))
+        var users = await _userRepository.GetRemindersAsync();
+        foreach (var user in users)
         {
             CommandHandler.AddCommand(user.Username, CommandType.Satisfaction);
 

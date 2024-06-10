@@ -19,6 +19,7 @@ public class UpdateHandlers
     private readonly IBotAction _howIsYourSatisfactionCommandAction;
     private readonly IBotAction _noCommandAction;
     private readonly IBotAction _startCommandAction;
+    private readonly IBotAction _toggleReminderCommandAction;
 
     public UpdateHandlers(ITelegramBotClient botClient, ILogger<UpdateHandlers> logger, IUserRepository userRepository,
         IEnumerable<IBotAction> botActions)
@@ -31,6 +32,8 @@ public class UpdateHandlers
             botActions.FirstOrDefault(x => x.GetType() == typeof(HowIsYourSatisfactionCommandAction));
         _noCommandAction = botActions.FirstOrDefault(x => x.GetType() == typeof(NoCommandAction));
         _startCommandAction = botActions.FirstOrDefault(x => x.GetType() == typeof(StartCommandAction));
+        _toggleReminderCommandAction =
+            botActions.FirstOrDefault(x => x.GetType() == typeof(ToggleReminderCommandAction));
     }
 
     public Task HandleErrorAsync(Exception exception, CancellationToken cancellationToken)
@@ -135,6 +138,7 @@ public class UpdateHandlers
             "/how_is_your_satisfaction" => _howIsYourSatisfactionCommandAction.Execute(botActionMessage,
                 cancellationToken),
             "/how_do_you_feel" => _howDoYouFeelCommandAction.Execute(botActionMessage, cancellationToken),
+            "/toggle_reminder" => _toggleReminderCommandAction.Execute(botActionMessage, cancellationToken),
             _ => _noCommandAction.Execute(botActionMessage, cancellationToken)
         };
 

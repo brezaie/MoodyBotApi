@@ -12,6 +12,7 @@ public static class ServiceIoC
         services.AddTransient<IBotAction, HowIsYourSatisfactionCommandAction>();
         services.AddTransient<IBotAction, HowDoYouFeelCommandAction>();
         services.AddTransient<IBotAction, NoCommandAction>();
+        services.AddTransient<IBotAction, ToggleReminderCommandAction>();
 
         return services;
     }

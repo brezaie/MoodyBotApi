@@ -15,4 +15,21 @@ public class UserRepository : BaseRepository<User>, IUserRepository
     {
         return await Context.Users.FirstOrDefaultAsync(x => x.Username == username);
     }
+
+    public async Task UpdateAsync(User user)
+    {
+        var entity = await Context.Users
+            .FirstOrDefaultAsync(x => x.Username == user.Username);
+
+        if (entity == null)
+            return;
+
+        entity.IsGlobalSatisfactionReminderActive = user.IsGlobalSatisfactionReminderActive;
+    }
+
+    public async Task<List<User>> GetRemindersAsync()
+    {
+        return await Context.Users.AsNoTracking().Where(x => x.IsGlobalSatisfactionReminderActive && x.ChatId > 0)
+            .ToListAsync();
+    }
 }

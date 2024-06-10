@@ -14,5 +14,6 @@ public class UserConstraint: IEntityTypeConfiguration<User>
         builder.Property(x => x.FirstName).HasMaxLength(200);
         builder.Property(x => x.LastName).HasMaxLength(200);
         builder.Property(x => x.Username).HasMaxLength(200);
+        builder.Property(x => x.IsGlobalSatisfactionReminderActive).HasDefaultValue(true);
     }
 }
