@@ -1,9 +1,9 @@
 using Halood.Common;
+using Halood.Domain.Dtos;
 using Halood.Domain.Enums;
-using Halood.Domain.Interfaces;
+using Halood.Domain.Interfaces.BotAction;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot;
-using Telegram.Bot.Types;
 
 namespace Halood.Service.BotAction;
 
@@ -21,12 +21,12 @@ public class HowIsYourSatisfactionCommandAction : IBotAction
         _logger = logger;
     }
 
-    public async Task Execute(Message message, CancellationToken cancellationToken)
+    public async Task Execute(BotActionMessage message, CancellationToken cancellationToken)
     {
-        CommandHandler.AddCommand(message.Chat.Username, CommandType.Satisfaction);
+        CommandHandler.AddCommand(message.Username, CommandType.Satisfaction);
 
         await _botClient.SendTextMessageAsync(
-            chatId: message.Chat.Id,
+            chatId: message.ChatId,
             text: _text,
             replyMarkup: CommandHandler.SatisfactionLevelReplyKeyboardMarkup,
             cancellationToken: cancellationToken);

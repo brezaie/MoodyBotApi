@@ -1,5 +1,6 @@
 using Halood.Common;
-using Halood.Domain.Interfaces;
+using Halood.Domain.Dtos;
+using Halood.Domain.Interfaces.BotAction;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -22,21 +23,26 @@ public class StartCommandAction : IBotAction
         _logger = logger;
     }
     
-    public async Task Execute(Message message, CancellationToken cancellationToken)
+    public async Task Execute(BotActionMessage message, CancellationToken cancellationToken)
     {
-        CommandHandler.RemoveCommand(message.Chat.Username);
+        CommandHandler.RemoveCommand(message.Username);
 
         await _botClient.SendChatActionAsync(
-            chatId: message.Chat.Id,
+            chatId: message.ChatId,
             chatAction: ChatAction.Typing,
             cancellationToken: cancellationToken);
 
         // Simulate longer running task
-        await Task.Delay(2000, cancellationToken);
+        await Task.Delay(1000, cancellationToken);
 
         await _botClient.SendTextMessageAsync(
-            chatId: message.Chat.Id,
+            chatId: message.ChatId,
             text: _text,
             cancellationToken: cancellationToken);
+    }
+
+    public Task Execute(CallbackQuery callBackQuery, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
     }
 }

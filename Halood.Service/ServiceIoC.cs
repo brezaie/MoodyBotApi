@@ -1,4 +1,4 @@
-using Halood.Domain.Interfaces;
+using Halood.Domain.Interfaces.BotAction;
 using Halood.Service.BotAction;
 using Microsoft.Extensions.DependencyInjection;
 

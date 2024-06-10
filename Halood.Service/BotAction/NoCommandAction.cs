@@ -1,18 +1,15 @@
-using System.Reflection.Metadata.Ecma335;
 using Halood.Common;
 using Halood.Domain.Entities;
 using Halood.Domain.Enums;
-using Halood.Domain.Interfaces;
 using Halood.Domain.Interfaces.User;
 using Halood.Domain.Interfaces.UserSatisfaction;
 using Microsoft.Extensions.Logging;
-using System.Threading;
+using Halood.Domain.Dtos;
 using Telegram.Bot;
-using Telegram.Bot.Types;
-using Telegram.Bot.Types.ReplyMarkups;
+using Halood.Domain.Interfaces.BotAction;
 
 namespace Halood.Service.BotAction;
-    
+
 public class NoCommandAction : IBotAction
 {
     private readonly ITelegramBotClient _botClient;
@@ -21,7 +18,7 @@ public class NoCommandAction : IBotAction
     private readonly IUserRepository _userRepository;
     private readonly IUserSatisfactionRepository _userSatisfactionRepository;
 
-    delegate Task DoAction(Message message, CancellationToken cancellationToken);
+    delegate Task DoAction(BotActionMessage message, CancellationToken cancellationToken);
 
     private Dictionary<CommandType, DoAction> replyActions = new ();
 
@@ -37,27 +34,22 @@ public class NoCommandAction : IBotAction
         replyActions.Add(CommandType.Satisfaction, ExecuteSatisfactionCommandReply);
     }
 
-    public async Task Execute(Message message, CancellationToken cancellationToken)
+    public async Task Execute(BotActionMessage message, CancellationToken cancellationToken)
     {
-        var previousCommand = CommandHandler.GetCommand(message.Chat.Username);
+        var previousCommand = CommandHandler.GetCommand(message.Username);
         await replyActions[previousCommand].Invoke(message, cancellationToken);
     }
-
-    private async Task ExecuteUnknownCommand(Message message, CancellationToken cancellationToken)
+    
+    private async Task ExecuteUnknownCommand(BotActionMessage message, CancellationToken cancellationToken)
     {
-        _text = "یکی از گزینه های زیر رو انتخاب کن:\n" +
-                "/start - شروع بات\n" +
-                "/how_is_your_satisfaction - چقدر از امروز راضی بودی تا الان؟\n" +
-                "/how_do_you_feel - الان چه احساسی داری؟";
-
         await _botClient.SendTextMessageAsync(
-            chatId: message.Chat.Id,
-            text: _text,
-            replyMarkup: new ReplyKeyboardRemove(),
+            chatId: message.ChatId,
+            text: "دستوری برای اجرا انتخاب نشده است. لطفاً یکی از گزینه‌های زیر را انتخاب کنید.",
+            replyMarkup: CommandHandler.MenuInlineKeyboardMarkup,
             cancellationToken: cancellationToken);
     }
 
-    private async Task ExecuteSatisfactionCommandReply(Message message, CancellationToken cancellationToken)
+    private async Task ExecuteSatisfactionCommandReply(BotActionMessage message, CancellationToken cancellationToken)
     {
         // اگر متن وارد شده، هیچ یک از ایموجی های پیشنهادی نبود
         if (((SatisfactionLevel[])Enum.GetValues(typeof(SatisfactionLevel))).All(x =>
@@ -65,24 +57,24 @@ public class NoCommandAction : IBotAction
         {
             _text = $"ایموجی انتخاب شده نادرست می‌باشد. لطفاً یکی از ایموجی‌های پیشنهادی را انتخاب کنید.";
             await _botClient.SendTextMessageAsync(
-                chatId: message.Chat.Id,
+                chatId: message.ChatId,
                 text: _text,
                 replyMarkup: CommandHandler.SatisfactionLevelReplyKeyboardMarkup,
                 cancellationToken: cancellationToken);
             return;
         }
 
-        var userId = (await _userRepository.GetByAsync(message.Chat.Username)).Id;
+        var userId = (await _userRepository.GetByAsync(message.Username)).Id;
         var lastUserSatisfaction = await _userSatisfactionRepository.GetLastUserSatisfactionAsync(userId);
 
-        if (!CommandHandler.SpecialUserNames.Contains(message.Chat.Username) &&
+        if (!CommandHandler.SpecialUserNames.Contains(message.Username) &&
             lastUserSatisfaction is not null &&
             (message.Date - lastUserSatisfaction.RegistrationDate).Minutes <= 60)
         {
             _text =
                 $"از آخرین دفعه که میزان رضایت خود را ثبت کرده‌اید، کم‌تر از 1 ساعت گذشته است. پس از گذشت این زمان می‌توانید مجدد رضایت خود را ثبت کنید 🙂";
             await _botClient.SendTextMessageAsync(
-                chatId: message.Chat.Id,
+                chatId: message.ChatId,
                 text: _text,
                 cancellationToken: cancellationToken);
             return;
@@ -97,11 +89,11 @@ public class NoCommandAction : IBotAction
         });
         await _userSatisfactionRepository.CommitAsync();
 
-        CommandHandler.RemoveCommand(message.Chat.Username);
+        CommandHandler.RemoveCommand(message.Username);
 
         _text = "رضایت از زندگی این لحظه‌تان را با موفقیت ثبت کردید  👍";
         await _botClient.SendTextMessageAsync(
-            chatId: message.Chat.Id,
+            chatId: message.ChatId,
             text: _text,
             cancellationToken: cancellationToken);
     }

@@ -30,6 +30,15 @@ namespace Halood.Common
         };
 
 
+        public static InlineKeyboardMarkup MenuInlineKeyboardMarkup = new InlineKeyboardMarkup(
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData("شروع", CommandType.Start.GetDescription()),
+                InlineKeyboardButton.WithCallbackData("ثبت رضایت",
+                    CommandType.Satisfaction.GetDescription()),
+                InlineKeyboardButton.WithCallbackData("ثبت احساس", CommandType.Feeling.GetDescription()),
+            });
+
 
         public static void AddCommand(string username, CommandType commandType)
         {
@@ -51,6 +60,9 @@ namespace Halood.Common
 
         public static CommandType GetCommand(string username)
         {
+            if (_commands == null)
+                return CommandType.Unknown;
+
             var command = _commands.FirstOrDefault(x => x.Key == username);
             return command.Value;
         }

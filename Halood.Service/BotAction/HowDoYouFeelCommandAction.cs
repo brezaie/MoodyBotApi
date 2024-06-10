@@ -1,7 +1,7 @@
-using Halood.Domain.Interfaces;
+using Halood.Domain.Dtos;
+using Halood.Domain.Interfaces.BotAction;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot;
-using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Halood.Service.BotAction;
@@ -19,10 +19,10 @@ public class HowDoYouFeelCommandAction : IBotAction
         _logger = logger;
     }
 
-    public async Task Execute(Message message, CancellationToken cancellationToken)
+    public async Task Execute(BotActionMessage message, CancellationToken cancellationToken)
     {
         await _botClient.SendTextMessageAsync(
-            chatId: message.Chat.Id,
+            chatId: message.ChatId,
             text: _text,
             replyMarkup: new ReplyKeyboardRemove(),
             cancellationToken: cancellationToken);
