@@ -21,26 +21,24 @@ public class UpdateHandlers
     private readonly ITelegramBotClient _botClient;
     private readonly ILogger<UpdateHandlers> _logger;
     private readonly IUserRepository _userRepository;
-    private readonly IUserSatisfactionRepository _userSatisfactionRepository;
     private readonly IBotAction _howDoYouFeelCommandAction;
     private readonly IBotAction _howIsYourSatisfactionCommandAction;
     private readonly IBotAction _noCommandAction;
     private readonly IBotAction _startCommandAction;
 
-
     public UpdateHandlers(ITelegramBotClient botClient, ILogger<UpdateHandlers> logger, IUserRepository userRepository,
-        IUserSatisfactionRepository userSatisfactionRepository, IEnumerable<IBotAction> botActions)
+        IEnumerable<IBotAction> botActions)
     {
         _botClient = botClient;
         _logger = logger;
         _userRepository = userRepository;
-        _userSatisfactionRepository = userSatisfactionRepository;
         _howDoYouFeelCommandAction = botActions.FirstOrDefault(x => x.GetType() == typeof(HowDoYouFeelCommandAction));
-        _howIsYourSatisfactionCommandAction = botActions.FirstOrDefault(x => x.GetType() == typeof(HowIsYourSatisfactionCommandAction));
+        _howIsYourSatisfactionCommandAction =
+            botActions.FirstOrDefault(x => x.GetType() == typeof(HowIsYourSatisfactionCommandAction));
         _noCommandAction = botActions.FirstOrDefault(x => x.GetType() == typeof(NoCommandAction));
         _startCommandAction = botActions.FirstOrDefault(x => x.GetType() == typeof(StartCommandAction));
     }
-    
+
     public Task HandleErrorAsync(Exception exception, CancellationToken cancellationToken)
 #pragma warning restore RCS1163 // Unused parameter.
 #pragma warning restore IDE0060 // Remove unused parameter

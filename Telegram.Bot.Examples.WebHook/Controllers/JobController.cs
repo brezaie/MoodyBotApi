@@ -47,5 +47,20 @@ namespace Telegram.Bot.Examples.WebHook.Controllers
 
             return Ok();
         }
+
+        [HttpGet]
+        [Route("IsAlive")]
+        public ActionResult IsAlive()
+        {
+            try
+            {
+                return Ok("Yes");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return BadRequest($"No, because {ex.Message}");
+            }
+        }
     }
 }

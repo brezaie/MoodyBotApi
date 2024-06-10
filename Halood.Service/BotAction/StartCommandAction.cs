@@ -32,7 +32,7 @@ public class StartCommandAction : IBotAction
             cancellationToken: cancellationToken);
 
         // Simulate longer running task
-        await Task.Delay(500, cancellationToken);
+        await Task.Delay(2000, cancellationToken);
 
         await _botClient.SendTextMessageAsync(
             chatId: message.Chat.Id,
