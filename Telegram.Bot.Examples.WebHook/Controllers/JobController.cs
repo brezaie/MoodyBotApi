@@ -18,7 +18,7 @@ namespace Telegram.Bot.Examples.WebHook.Controllers
 
         [HttpGet]
         [Route("CreateSatisfactionReminderJob")]
-        public ActionResult CreateSatisfactionReminderJob()
+        public ActionResult CreateSatisfactionReminderJob(string cronExp)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace Telegram.Bot.Examples.WebHook.Controllers
                 };
 
                 RecurringJob.AddOrUpdate("SatisfactionReminderJob", () => _job.Run(),
-                    "* 19 * * *", jobOptions);
+                    cronExp, jobOptions);
 
                 return Ok();
             }
