@@ -1,5 +1,6 @@
 using Halood.Domain.Interfaces.User;
 using System.Threading;
+using Halood.Common;
 using Halood.Domain.Enums;
 using Telegram.Bot.Services;
 using Telegram.Bot.Types;
@@ -39,7 +40,7 @@ public class ReminderJob : IJob
                 ResizeKeyboard = true
             };
 
-            UpdateHandlers.Commands.Add(user.Username, CommandType.Satisfaction);
+            CommandHandler.AddCommand(user.Username, CommandType.Satisfaction);
 
             await _botClient.SendTextMessageAsync(
                 chatId: user.ChatId,

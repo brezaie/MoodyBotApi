@@ -1,3 +1,4 @@
+using System.Reflection.Metadata.Ecma335;
 using Halood.Common;
 using Halood.Domain.Entities;
 using Halood.Domain.Enums;
@@ -11,7 +12,7 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Halood.Service.BotAction;
-
+    
 public class NoCommandAction : IBotAction
 {
     private readonly ITelegramBotClient _botClient;
@@ -20,32 +21,26 @@ public class NoCommandAction : IBotAction
     private readonly IUserRepository _userRepository;
     private readonly IUserSatisfactionRepository _userSatisfactionRepository;
 
-    public NoCommandAction(ITelegramBotClient botClient, ILogger<NoCommandAction> logger, string text,
+    delegate Task DoAction(Message message, CancellationToken cancellationToken);
+
+    private Dictionary<CommandType, DoAction> replyActions = new ();
+
+    public NoCommandAction(ITelegramBotClient botClient, ILogger<NoCommandAction> logger,
         IUserRepository userRepository, IUserSatisfactionRepository userSatisfactionRepository)
     {
         _botClient = botClient;
         _logger = logger;
-        _text = text;
         _userRepository = userRepository;
         _userSatisfactionRepository = userSatisfactionRepository;
+
+        replyActions.Add(CommandType.Unknown, ExecuteUnknownCommand);
+        replyActions.Add(CommandType.Satisfaction, ExecuteSatisfactionCommandReply);
     }
 
     public async Task Execute(Message message, CancellationToken cancellationToken)
     {
         var previousCommand = CommandHandler.GetCommand(message.Chat.Username);
-        switch (previousCommand)
-        {
-            case CommandType.Unknown:
-                await ExecuteUnknownCommand(message, cancellationToken);
-                break;
-            case CommandType.Satisfaction:
-                await ExecuteSatisfactionCommandReply(message, cancellationToken);
-                break;
-            case CommandType.Feeling:
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
+        await replyActions[previousCommand].Invoke(message, cancellationToken);
     }
 
     private async Task ExecuteUnknownCommand(Message message, CancellationToken cancellationToken)
@@ -74,6 +69,7 @@ public class NoCommandAction : IBotAction
                 text: _text,
                 replyMarkup: CommandHandler.SatisfactionLevelReplyKeyboardMarkup,
                 cancellationToken: cancellationToken);
+            return;
         }
 
         var userId = (await _userRepository.GetByAsync(message.Chat.Username)).Id;
@@ -89,6 +85,7 @@ public class NoCommandAction : IBotAction
                 chatId: message.Chat.Id,
                 text: _text,
                 cancellationToken: cancellationToken);
+            return;
         }
 
         await _userSatisfactionRepository.SaveAsync(new UserSatisfaction
@@ -102,7 +99,7 @@ public class NoCommandAction : IBotAction
 
         CommandHandler.RemoveCommand(message.Chat.Username);
 
-        _text = "رضایت از زندگی این لحظه‌ات رو با موفقیت ثبت کردی  👍";
+        _text = "رضایت از زندگی این لحظه‌تان را با موفقیت ثبت کردید  👍";
         await _botClient.SendTextMessageAsync(
             chatId: message.Chat.Id,
             text: _text,

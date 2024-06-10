@@ -10,6 +10,8 @@ public static class ServiceIoC
     {
         services.AddTransient<IBotAction, StartCommandAction>();
         services.AddTransient<IBotAction, HowIsYourSatisfactionCommandAction>();
+        services.AddTransient<IBotAction, HowDoYouFeelCommandAction>();
+        services.AddTransient<IBotAction, NoCommandAction>();
 
         return services;
     }

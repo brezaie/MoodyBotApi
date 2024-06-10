@@ -4,6 +4,9 @@ using Halood.Domain.Interfaces.User;
 using Halood.Domain.Interfaces.UserSatisfaction;
 using Newtonsoft.Json;
 using System;
+using Halood.Common;
+using Halood.Domain.Interfaces;
+using Halood.Service.BotAction;
 using Telegram.Bot.Examples.WebHook;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
@@ -19,16 +22,23 @@ public class UpdateHandlers
     private readonly ILogger<UpdateHandlers> _logger;
     private readonly IUserRepository _userRepository;
     private readonly IUserSatisfactionRepository _userSatisfactionRepository;
+    private readonly IBotAction _howDoYouFeelCommandAction;
+    private readonly IBotAction _howIsYourSatisfactionCommandAction;
+    private readonly IBotAction _noCommandAction;
+    private readonly IBotAction _startCommandAction;
 
-    public static Dictionary<string, CommandType> Commands = new();
 
     public UpdateHandlers(ITelegramBotClient botClient, ILogger<UpdateHandlers> logger, IUserRepository userRepository,
-        IUserSatisfactionRepository userSatisfactionRepository)
+        IUserSatisfactionRepository userSatisfactionRepository, IEnumerable<IBotAction> botActions)
     {
         _botClient = botClient;
         _logger = logger;
         _userRepository = userRepository;
         _userSatisfactionRepository = userSatisfactionRepository;
+        _howDoYouFeelCommandAction = botActions.FirstOrDefault(x => x.GetType() == typeof(HowDoYouFeelCommandAction));
+        _howIsYourSatisfactionCommandAction = botActions.FirstOrDefault(x => x.GetType() == typeof(HowIsYourSatisfactionCommandAction));
+        _noCommandAction = botActions.FirstOrDefault(x => x.GetType() == typeof(NoCommandAction));
+        _startCommandAction = botActions.FirstOrDefault(x => x.GetType() == typeof(StartCommandAction));
     }
     
     public Task HandleErrorAsync(Exception exception, CancellationToken cancellationToken)
@@ -93,97 +103,14 @@ public class UpdateHandlers
 
         var action = command switch
         {
-            "/start" => StartKeyboard(_botClient, message, cancellationToken),
-            "/how_is_your_satisfaction" => HowIsYourSatisfactionKeyboard(_botClient, message, cancellationToken),
-            "/how_do_you_feel" => HowDoYouFeelKeyboard(_botClient, message, cancellationToken),
-            //"/photo" => SendFile(_botClient, message, cancellationToken),
-            //"/request" => RequestContactAndLocation(_botClient, message, cancellationToken),
-            //"/inline_mode" => StartInlineQuery(_botClient, message, cancellationToken),
-            _ => Usage(_botClient, message, cancellationToken)
+            "/start" => _startCommandAction.Execute(message, cancellationToken),
+            "/how_is_your_satisfaction" => _howIsYourSatisfactionCommandAction.Execute(message, cancellationToken),
+            "/how_do_you_feel" => _howDoYouFeelCommandAction.Execute(message, cancellationToken),
+            _ => _noCommandAction.Execute(message, cancellationToken)
         };
-        Message sentMessage = await action;
-        _logger.LogInformation("The message was sent with id: {SentMessageId}", sentMessage.MessageId);
 
-        // Send inline keyboard
-        // You can process responses in BotOnCallbackQueryReceived handler
-        static async Task<Message> StartKeyboard(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
-        {
-
-            var t = JsonConvert.SerializeObject(message);
-            Commands.Remove(message.Chat.Username);
-
-            await botClient.SendChatActionAsync(
-                chatId: message.Chat.Id,
-                chatAction: ChatAction.Typing,
-                cancellationToken: cancellationToken);
-
-            // Simulate longer running task
-            await Task.Delay(500, cancellationToken);
-
-            //InlineKeyboardMarkup inlineKeyboard = new(
-            //    new[]
-            //    {
-            //        // first row
-            //        new []
-            //        {
-            //            InlineKeyboardButton.WithCallbackData("1.1", "11"),
-            //            InlineKeyboardButton.WithCallbackData("1.2", "12"),
-            //        },
-            //        // second row
-            //        new []
-            //        {
-            //            InlineKeyboardButton.WithCallbackData("2.1", "21"),
-            //            InlineKeyboardButton.WithCallbackData("2.2", "22"),
-            //        },
-            //    });
-
-            return await botClient.SendTextMessageAsync(
-                chatId: message.Chat.Id,
-                text: $"به بات ثبت احساس ها و افکار خوش اومدید. امیدواریم بتونیم میزبان ناب ترین احساسات شما باشیم. برای ثبت احساس، فکر و رضایت از زندگی، میتونید از گزینه Menu در پایین، سمت چپ استفاده کنید. با تشکر",
-                //replyMarkup: inlineKeyboard,
-                cancellationToken: cancellationToken);
-        }
-
-        static async Task<Message> HowIsYourSatisfactionKeyboard(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
-        {
-            ReplyKeyboardMarkup replyKeyboardMarkup = new(
-                new[]
-                {
-                    new KeyboardButton[]
-                    {
-                        SatisfactionLevel.Awful.GetDescription(),
-                        SatisfactionLevel.Bad.GetDescription(),
-                        SatisfactionLevel.SoSo.GetDescription(),
-                        SatisfactionLevel.Good.GetDescription(),
-                        SatisfactionLevel.Perfect.GetDescription()
-                    }
-                })
-            {
-                ResizeKeyboard = true
-            };
-
-            var doesCommandExist = Commands.FirstOrDefault(x => x.Key == message.Chat.Username);
-            if (doesCommandExist.Value != CommandType.Satisfaction)
-            {
-                Commands.Add(message.Chat.Username, CommandType.Satisfaction);
-            }
-
-            return await botClient.SendTextMessageAsync(
-                chatId: message.Chat.Id,
-                text: "چقدر از امروزت راضی بودی؟",
-                replyMarkup: replyKeyboardMarkup,
-                cancellationToken: cancellationToken);
-        }
-
-        static async Task<Message> HowDoYouFeelKeyboard(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
-        {
-            return await botClient.SendTextMessageAsync(
-                chatId: message.Chat.Id,
-                text: "این قسمت بعدا تکمیل میشه",
-                replyMarkup: new ReplyKeyboardRemove(),
-                cancellationToken: cancellationToken);
-        }
-
+        await action;
+        
         static async Task<Message> SendFile(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
         {
             await botClient.SendChatActionAsync(
@@ -215,81 +142,6 @@ public class UpdateHandlers
                 chatId: message.Chat.Id,
                 text: "Who or Where are you?",
                 replyMarkup: RequestReplyKeyboard,
-                cancellationToken: cancellationToken);
-        }
-
-        async Task<Message> Usage(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
-        {
-            var usage = string.Empty;
-            var previousCommand = Commands.FirstOrDefault(x => x.Key == message.Chat.Username);
-            if (string.IsNullOrEmpty(previousCommand.Key))
-            {
-                usage = "یکی از گزینه های زیر رو انتخاب کن:\n" +
-                        "/start - شروع بات\n" +
-                        "/how_is_your_satisfaction - چقدر از امروز راضی بودی تا الان؟\n" +
-                        "/how_do_you_feel - الان چه احساسی داری؟";
-            }
-            else if (previousCommand.Value == CommandType.Satisfaction)
-            {
-                if (((SatisfactionLevel[]) Enum.GetValues(typeof(SatisfactionLevel))).All(x =>
-                        x.GetDescription() != message.Text))
-                {
-                    usage = $"مقداری که وارد کردی، معتبر نیست. لطفاً یکی از گزینه های زیر رو انتخاب کن";
-                    ReplyKeyboardMarkup replyKeyboardMarkup = new(
-                        new[]
-                        {
-                            new KeyboardButton[]
-                            {
-                                SatisfactionLevel.Awful.GetDescription(),
-                                SatisfactionLevel.Bad.GetDescription(),
-                                SatisfactionLevel.SoSo.GetDescription(),
-                                SatisfactionLevel.Good.GetDescription(),
-                                SatisfactionLevel.Perfect.GetDescription()
-                            }
-                        })
-                    {
-                        ResizeKeyboard = true
-                    };
-
-                    return await botClient.SendTextMessageAsync(
-                        chatId: message.Chat.Id,
-                        text: usage,
-                        replyMarkup: replyKeyboardMarkup,
-                        cancellationToken: cancellationToken);
-                }
-
-                var userId = (await _userRepository.GetByAsync(message.Chat.Username)).Id;
-
-                var lastUserSatisfaction = await _userSatisfactionRepository.GetLastUserSatisfactionAsync(userId);
-
-                if (message.Chat.Username != "brezaie" && lastUserSatisfaction is not null &&
-                    (message.Date - lastUserSatisfaction.RegistrationDate).Minutes <= 60)
-                {
-                    usage =
-                        $"از آخرین دفعه که میزان رضایت خود را ثبت کرده‌اید، کم‌تر از 1 ساعت گذشته است. پس از گذشت این زمان می‌توانید مجدد رضایت خود را ثبت کنید 🙂";
-                    return await botClient.SendTextMessageAsync(
-                        chatId: message.Chat.Id,
-                        text: usage,
-                        cancellationToken: cancellationToken);
-                }
-
-                await _userSatisfactionRepository.SaveAsync(new UserSatisfaction
-                {
-                    RegistrationDate = message.Date,
-                    SatisfactionNumber = (int) ((SatisfactionLevel[]) Enum.GetValues(typeof(SatisfactionLevel)))
-                        .FirstOrDefault(x => x.GetDescription() == message.Text),
-                    UserId = userId
-                });
-                await _userSatisfactionRepository.CommitAsync();
-
-                usage = "ممنون که رضایت از زندگی امروزت رو ثبت کردی 👍";
-                Commands.Remove(message.Chat.Username);
-            }
-
-            return await botClient.SendTextMessageAsync(
-                chatId: message.Chat.Id,
-                text: usage,
-                replyMarkup: new ReplyKeyboardRemove(),
                 cancellationToken: cancellationToken);
         }
 

@@ -12,7 +12,7 @@ public class HowIsYourSatisfactionCommandAction : IBotAction
     private readonly ITelegramBotClient _botClient;
     private readonly ILogger<HowIsYourSatisfactionCommandAction> _logger;
     private string _text =
-        $"چه میزان از این لحظه‌ای که در آن هستی، رضایت داری؟ \n";
+        $"کدام یک از ایموجی‌های زیر، میزان رضایت شما از لحظه‌ای که در آن هستید را می‌تواند به بهترین شکل نشان دهد؟";
 
     public HowIsYourSatisfactionCommandAction(ITelegramBotClient botClient,
         ILogger<HowIsYourSatisfactionCommandAction> logger)
