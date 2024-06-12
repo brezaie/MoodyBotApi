@@ -70,7 +70,7 @@ public class NoCommandAction : IBotAction
 
         if (!CommandHandler.SpecialUserNames.Contains(message.Username) &&
             lastUserSatisfaction is not null &&
-            (message.Date - lastUserSatisfaction.RegistrationDate).Minutes <= 60)
+            (message.Date - lastUserSatisfaction.RegistrationDate).TotalMinutes <= 60)
         {
             _text =
                 $"از آخرین دفعه که میزان رضایت خود را ثبت کرده‌اید، کم‌تر از 1 ساعت گذشته است. پس از گذشت این زمان می‌توانید مجدد رضایت خود را ثبت کنید 🙂";
