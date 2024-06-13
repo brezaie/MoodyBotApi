@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Halood.Domain.Dtos;
 using Telegram.Bot;
 using Halood.Domain.Interfaces.BotAction;
+using Halood.Domain.Interfaces.UserEmotion;
 
 namespace Halood.Service.BotAction;
 
@@ -17,21 +18,25 @@ public class NoCommandAction : IBotAction
     private string _text = string.Empty;
     private readonly IUserRepository _userRepository;
     private readonly IUserSatisfactionRepository _userSatisfactionRepository;
+    private readonly IUserEmotionRepository _userEmotionRepository;
 
     delegate Task DoAction(BotActionMessage message, CancellationToken cancellationToken);
 
     private Dictionary<CommandType, DoAction> replyActions = new ();
 
     public NoCommandAction(ITelegramBotClient botClient, ILogger<NoCommandAction> logger,
-        IUserRepository userRepository, IUserSatisfactionRepository userSatisfactionRepository)
+        IUserRepository userRepository, IUserSatisfactionRepository userSatisfactionRepository,
+        IUserEmotionRepository userEmotionRepository)
     {
         _botClient = botClient;
         _logger = logger;
         _userRepository = userRepository;
         _userSatisfactionRepository = userSatisfactionRepository;
+        _userEmotionRepository = userEmotionRepository;
 
         replyActions.Add(CommandType.Unknown, ExecuteUnknownCommand);
         replyActions.Add(CommandType.Satisfaction, ExecuteSatisfactionCommandReply);
+        replyActions.Add(CommandType.Emotion, ExecuteEmotionCommandReply);
         replyActions.Add(CommandType.ToggleReminder, ExecuteToggleReminderCommandReply);
     }
 
@@ -135,6 +140,58 @@ public class NoCommandAction : IBotAction
         CommandHandler.RemoveCommand(message.Username);
 
         _text = $"{(user.IsGlobalSatisfactionReminderActive ? "فعال‌سازی" : "غیرفعال‌سازی")} با موفقت انجام شد.👍";
+        await _botClient.SendTextMessageAsync(
+            chatId: message.ChatId,
+            text: _text,
+            cancellationToken: cancellationToken);
+    }
+
+    private async Task ExecuteEmotionCommandReply(BotActionMessage message, CancellationToken cancellationToken)
+    {
+        // اگر متن وارد شده، هیچ یک از احساس های پیشنهادی نبود
+        if (((Emotion[])Enum.GetValues(typeof(Emotion))).All(x =>
+                x.GetDescription() != message.Text))
+        {
+            _text = $"احساس انتخاب شده نادرست می‌باشد. لطفاً یکی از احساس‌های پیشنهادی را انتخاب کنید.";
+            await _botClient.SendTextMessageAsync(
+                chatId: message.ChatId,
+                text: _text,
+                replyMarkup: CommandHandler.EmotionReplyKeyboardMarkup,
+                cancellationToken: cancellationToken);
+            return;
+        }
+
+        var userId = (await _userRepository.GetByAsync(message.Username)).Id;
+        var lastUserEmotion = await _userEmotionRepository.GetLastUserEmotionAsync(userId);
+
+        if (!CommandHandler.SpecialUserNames.Contains(message.Username) &&
+            lastUserEmotion is not null &&
+            (message.Date - lastUserEmotion.RegistrationDate).TotalMinutes <= 60)
+        {
+            _text =
+                $"از آخرین دفعه که احساس خود را ثبت کرده‌اید، کم‌تر از 1 ساعت گذشته است. پس از گذشت این زمان می‌توانید مجدد احساس خود را ثبت کنید 🙂";
+            await _botClient.SendTextMessageAsync(
+                chatId: message.ChatId,
+                text: _text,
+                cancellationToken: cancellationToken);
+            return;
+        }
+
+        await _userEmotionRepository.SaveAsync(new UserEmotion
+        {
+            UserId = userId,
+            RegistrationDate = message.Date,
+            EmotionText = ((Emotion[])Enum.GetValues(typeof(Emotion)))
+                .FirstOrDefault(x =>
+                    x.GetDescription() == message.Text).ToString()
+
+        });
+
+        await _userEmotionRepository.CommitAsync();
+
+        CommandHandler.RemoveCommand(message.Username);
+
+        _text = "احساس این لحظه‌تان را با موفقیت ثبت کردید  👍";
         await _botClient.SendTextMessageAsync(
             chatId: message.ChatId,
             text: _text,

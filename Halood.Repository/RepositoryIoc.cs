@@ -1,4 +1,5 @@
 using Halood.Domain.Interfaces.User;
+using Halood.Domain.Interfaces.UserEmotion;
 using Halood.Domain.Interfaces.UserSatisfaction;
 using Halood.Repository.EntityFramework;
 using Microsoft.AspNetCore.Hosting;
@@ -19,6 +20,7 @@ public static class RepositoryIoc
 
         services.AddTransient<IUserRepository, UserRepository>();
         services.AddTransient<IUserSatisfactionRepository, UserSatisfactionRepository>();
+        services.AddTransient<IUserEmotionRepository, UserEmotionRepository>();
 
         //services.Initialize();
 

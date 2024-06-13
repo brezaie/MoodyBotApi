@@ -29,6 +29,99 @@ namespace Halood.Common
             ResizeKeyboard = true
         };
 
+        public static ReplyKeyboardMarkup EmotionReplyKeyboardMarkup = new(
+            new[]
+            {
+                new KeyboardButton[]
+                {
+                    Emotion.Serenity.GetDescription(),
+                    Emotion.Joy.GetDescription(),
+                    Emotion.Ecstacy.GetDescription()
+                },
+                new KeyboardButton[]
+                {
+                    Emotion.Love.GetDescription()
+                },
+                new KeyboardButton[]
+                {
+                    Emotion.Acceptance.GetDescription(),
+                    Emotion.Trust.GetDescription(),
+                    Emotion.Admiration.GetDescription()
+                },
+                new KeyboardButton[]
+                {
+                    Emotion.Submission.GetDescription()
+                },
+                new KeyboardButton[]
+                {
+                    Emotion.Apprehension.GetDescription(),
+                    Emotion.Fear.GetDescription(),
+                    Emotion.Terror.GetDescription()
+                },
+                new KeyboardButton[]
+                {
+                    Emotion.Awe.GetDescription()
+                },
+
+                new KeyboardButton[]
+                {
+                    Emotion.Distraction.GetDescription(),
+                    Emotion.Surprise.GetDescription(),
+                    Emotion.Amazement.GetDescription()
+                },
+                new KeyboardButton[]
+                {
+                    Emotion.Disapproval.GetDescription()
+                },
+
+                new KeyboardButton[]
+                {
+                    Emotion.Pensiveness.GetDescription(),
+                    Emotion.Sadness.GetDescription(),
+                    Emotion.Grief.GetDescription()
+                },
+                new KeyboardButton[]
+                {
+                    Emotion.Remorse.GetDescription()
+                },
+                new KeyboardButton[]
+                {
+                    Emotion.Boredom.GetDescription(),
+                    Emotion.Disgust.GetDescription(),
+                    Emotion.Loathing.GetDescription()
+                },
+                new KeyboardButton[]
+                {
+                    Emotion.Contempt.GetDescription()
+                },
+
+
+                new KeyboardButton[]
+                {
+                    Emotion.Annoyance.GetDescription(),
+                    Emotion.Anger.GetDescription(),
+                    Emotion.Rage.GetDescription()
+                },
+                new KeyboardButton[]
+                {
+                    Emotion.Aggressiveness.GetDescription()
+                },
+
+                new KeyboardButton[]
+                {
+                    Emotion.Interest.GetDescription(),
+                    Emotion.Anticipation.GetDescription(),
+                    Emotion.Vigilance.GetDescription()
+                },
+                new KeyboardButton[]
+                {
+                    Emotion.Optimism.GetDescription()
+                },
+            }
+        )
+        {
+            ResizeKeyboard = true
+        };
 
         public static InlineKeyboardMarkup MenuInlineKeyboardMarkup = new InlineKeyboardMarkup(
             new List<InlineKeyboardButton>
@@ -36,7 +129,7 @@ namespace Halood.Common
                 InlineKeyboardButton.WithCallbackData("شروع", CommandType.Start.GetDescription()),
                 InlineKeyboardButton.WithCallbackData("ثبت رضایت",
                     CommandType.Satisfaction.GetDescription()),
-                InlineKeyboardButton.WithCallbackData("ثبت احساس", CommandType.Feeling.GetDescription()),
+                InlineKeyboardButton.WithCallbackData("ثبت احساس", CommandType.Emotion.GetDescription()),
                 InlineKeyboardButton.WithCallbackData("تنظیم یادآور", CommandType.ToggleReminder.GetDescription()),
             });
 
