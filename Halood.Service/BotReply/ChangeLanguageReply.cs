@@ -35,7 +35,7 @@ public class ChangeLanguageReply : IBotReply
         }
 
         _text = message.Text == Language.Persian.GetDescription()
-            ? $"زبان فارسی با موفقت اعمال شد."
+            ? $"زبان فارسی با موفقیت اعمال شد."
             : $"در حال حاضر فقط از زبان فارسی پشتیبانی می‌شود. زبان انگلیسی به زودی اضافه خواهد شد.";
 
         await _botClient.SendTextMessageAsync(
