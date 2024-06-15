@@ -34,12 +34,15 @@ public class ChangeLanguageReply : IBotReply
             return;
         }
 
-        CommandHandler.RemoveCommand(message.Username);
+        _text = message.Text == Language.Persian.GetDescription()
+            ? $"زبان فارسی با موفقت اعمال شد."
+            : $"در حال حاضر فقط از زبان فارسی پشتیبانی می‌شود. زبان انگلیسی به زودی اضافه خواهد شد.";
 
-        _text = $"در حال حاضر فقط از زبان فارسی پشتیبانی می‌شود. زبان انگلیسی به زودی اضافه خواهد شد.";
         await _botClient.SendTextMessageAsync(
             chatId: message.ChatId,
             text: _text,
             cancellationToken: cancellationToken);
+
+        CommandHandler.RemoveCommand(message.Username);
     }
 }

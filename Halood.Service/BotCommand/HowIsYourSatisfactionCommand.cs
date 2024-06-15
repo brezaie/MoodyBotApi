@@ -23,14 +23,12 @@ public class HowIsYourSatisfactionCommand : IBotCommand
 
     public async Task Execute(BotCommandMessage message, CancellationToken cancellationToken)
     {
-        CommandHandler.AddCommand(message.Username, CommandType.Language);
-
-        _text = $"زبان مورد علاقه شما برای تعامل با بات کدام است؟";
+        CommandHandler.AddCommand(message.Username, CommandType.Satisfaction);
 
         await _botClient.SendTextMessageAsync(
             chatId: message.ChatId,
             text: _text,
-            replyMarkup: CommandHandler.ReminderToggleInlineKeyboardMarkup,
+            replyMarkup: CommandHandler.SatisfactionLevelReplyKeyboardMarkup,
             cancellationToken: cancellationToken);
     }
 }
