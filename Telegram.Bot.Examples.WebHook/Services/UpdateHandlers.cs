@@ -1,12 +1,12 @@
 using Halood.Domain.Interfaces.User;
 using Halood.Domain.Dtos;
-using Halood.Service.BotAction;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InlineQueryResults;
 using Telegram.Bot.Types.ReplyMarkups;
 using Halood.Domain.Interfaces.BotAction;
+using Halood.Service.BotCommand;
 
 namespace Telegram.Bot.Services;
 
@@ -15,25 +15,30 @@ public class UpdateHandlers
     private readonly ITelegramBotClient _botClient;
     private readonly ILogger<UpdateHandlers> _logger;
     private readonly IUserRepository _userRepository;
-    private readonly IBotAction _howDoYouFeelCommandAction;
-    private readonly IBotAction _howIsYourSatisfactionCommandAction;
-    private readonly IBotAction _noCommandAction;
-    private readonly IBotAction _startCommandAction;
-    private readonly IBotAction _toggleReminderCommandAction;
+    private readonly IBotCommand _howDoYouFeelCommand;
+    private readonly IBotCommand _howIsYourSatisfactionCommand;
+    private readonly IBotCommand _noCommand;
+    private readonly IBotCommand _startCommand;
+    private readonly IBotCommand _toggleReminderCommand;
+    private readonly IBotCommand _changeSettingsCommand;
+    private readonly IBotCommand _changeLangugeCommand;
 
     public UpdateHandlers(ITelegramBotClient botClient, ILogger<UpdateHandlers> logger, IUserRepository userRepository,
-        IEnumerable<IBotAction> botActions)
+        IEnumerable<IBotCommand> botActions)
     {
         _botClient = botClient;
         _logger = logger;
         _userRepository = userRepository;
-        _howDoYouFeelCommandAction = botActions.FirstOrDefault(x => x.GetType() == typeof(HowDoYouFeelCommandAction));
-        _howIsYourSatisfactionCommandAction =
-            botActions.FirstOrDefault(x => x.GetType() == typeof(HowIsYourSatisfactionCommandAction));
-        _noCommandAction = botActions.FirstOrDefault(x => x.GetType() == typeof(NoCommandAction));
-        _startCommandAction = botActions.FirstOrDefault(x => x.GetType() == typeof(StartCommandAction));
-        _toggleReminderCommandAction =
-            botActions.FirstOrDefault(x => x.GetType() == typeof(ToggleReminderCommandAction));
+        _howDoYouFeelCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(HowDoYouFeelCommand));
+        _howIsYourSatisfactionCommand =
+            botActions.FirstOrDefault(x => x.GetType() == typeof(HowIsYourSatisfactionCommand));
+        _noCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(NoCommand));
+        _startCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(StartCommand));
+        _toggleReminderCommand =
+            botActions.FirstOrDefault(x => x.GetType() == typeof(ToggleReminderCommand));
+        _changeSettingsCommand =
+            botActions.FirstOrDefault(x => x.GetType() == typeof(ChangeSettingsCommand));
+        _changeLangugeCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(ChangeLanguageCommand));
     }
 
     public Task HandleErrorAsync(Exception exception, CancellationToken cancellationToken)
@@ -128,18 +133,20 @@ public class UpdateHandlers
         await RunCommand(callbackQuery.Data, botActionMessage, cancellationToken);
     }
 
-    private async Task RunCommand(string messageText, BotActionMessage botActionMessage,
+    private async Task RunCommand(string messageText, BotCommandMessage botCommandMessage,
         CancellationToken cancellationToken)
     {
         var command = messageText.Split(' ')[0];
         var action = command switch
         {
-            "/start" => _startCommandAction.Execute(botActionMessage, cancellationToken),
-            "/how_is_your_satisfaction" => _howIsYourSatisfactionCommandAction.Execute(botActionMessage,
+            "/start" => _startCommand.Execute(botCommandMessage, cancellationToken),
+            "/how_is_your_satisfaction" => _howIsYourSatisfactionCommand.Execute(botCommandMessage,
                 cancellationToken),
-            "/how_do_you_feel" => _howDoYouFeelCommandAction.Execute(botActionMessage, cancellationToken),
-            "/toggle_reminder" => _toggleReminderCommandAction.Execute(botActionMessage, cancellationToken),
-            _ => _noCommandAction.Execute(botActionMessage, cancellationToken)
+            "/how_do_you_feel" => _howDoYouFeelCommand.Execute(botCommandMessage, cancellationToken),
+            "/change_settings" => _changeSettingsCommand.Execute(botCommandMessage, cancellationToken),
+            "/toggle_reminder" => _toggleReminderCommand.Execute(botCommandMessage, cancellationToken),
+            "/change_language" => _changeLangugeCommand.Execute(botCommandMessage, cancellationToken),
+            _ => _noCommand.Execute(botCommandMessage, cancellationToken)
         };
 
         await action;
@@ -177,9 +184,9 @@ public class UpdateHandlers
 
 
 
-    private BotActionMessage ConvertToBotActionMessage(Message message)
+    private BotCommandMessage ConvertToBotActionMessage(Message message)
     {
-        return new BotActionMessage
+        return new BotCommandMessage
         {
             Text = message.Text,
             ChatId = message.Chat.Id,
@@ -188,9 +195,9 @@ public class UpdateHandlers
         };
     }
 
-    private BotActionMessage ConvertToBotActionMessage(CallbackQuery callbackQuery)
+    private BotCommandMessage ConvertToBotActionMessage(CallbackQuery callbackQuery)
     {
-        return new BotActionMessage
+        return new BotCommandMessage
         {
             Text = callbackQuery.Data,
             ChatId = callbackQuery.Message.Chat.Id,

@@ -130,14 +130,28 @@ namespace Halood.Common
                 InlineKeyboardButton.WithCallbackData("ثبت رضایت",
                     CommandType.Satisfaction.GetDescription()),
                 InlineKeyboardButton.WithCallbackData("ثبت احساس", CommandType.Emotion.GetDescription()),
-                InlineKeyboardButton.WithCallbackData("تنظیم یادآور", CommandType.ToggleReminder.GetDescription()),
+                InlineKeyboardButton.WithCallbackData("تنظیمات", CommandType.Settings.GetDescription()),
             });
 
         public static InlineKeyboardMarkup ReminderToggleInlineKeyboardMarkup = new InlineKeyboardMarkup(
             new List<InlineKeyboardButton>
             {
-                InlineKeyboardButton.WithCallbackData("بله", YesNoResponse.Yes.GetDescription()),
-                InlineKeyboardButton.WithCallbackData("خیر", YesNoResponse.No.GetDescription()),
+                InlineKeyboardButton.WithCallbackData("بله 👍", YesNoResponse.Yes.GetDescription()),
+                InlineKeyboardButton.WithCallbackData("خیر 👎", YesNoResponse.No.GetDescription()),
+            });
+
+        public static InlineKeyboardMarkup LanguageInlineKeyboardMarkup = new InlineKeyboardMarkup(
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData("فارسی 🇮🇷", Language.Persian.GetDescription()),
+                InlineKeyboardButton.WithCallbackData("English 🇬🇧", Language.English.GetDescription()), 
+            });
+
+        public static InlineKeyboardMarkup SettingsInlineKeyboardMarkup = new InlineKeyboardMarkup(
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData("یادآور ⏰", CommandType.Reminder.GetDescription()),
+                InlineKeyboardButton.WithCallbackData("زبان 🌎", CommandType.Language.GetDescription())
             });
 
         public static void AddCommand(string username, CommandType commandType)

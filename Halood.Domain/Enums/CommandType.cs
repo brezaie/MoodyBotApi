@@ -15,6 +15,12 @@ public enum CommandType
     [Description("/how_do_you_feel")]
     Emotion = 3,
 
+    [Description("/change_settings")]
+    Settings = 4,
+
     [Description("/toggle_reminder")]
-    ToggleReminder = 4
+    Reminder = 5,
+
+    [Description("/change_language")]
+    Language = 6
 }

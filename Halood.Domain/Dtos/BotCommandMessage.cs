@@ -1,6 +1,6 @@
 namespace Halood.Domain.Dtos;
 
-public class BotActionMessage
+public class BotCommandMessage
 {
     public long ChatId { get; set; }
     public string? Username { get; set; }
