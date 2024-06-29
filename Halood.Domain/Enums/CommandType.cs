@@ -22,5 +22,8 @@ public enum CommandType
     Reminder = 5,
 
     [Description("/change_language")]
-    Language = 6
+    Language = 6,
+
+    [Description("/generate_report")]
+    Report = 7
 }

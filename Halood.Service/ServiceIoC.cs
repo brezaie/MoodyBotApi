@@ -16,6 +16,7 @@ public static class ServiceIoC
         services.AddTransient<IBotCommand, ToggleReminderCommand>();
         services.AddTransient<IBotCommand, ChangeSettingsCommand>();
         services.AddTransient<IBotCommand, ChangeLanguageCommand>();
+        services.AddTransient<IBotCommand, GenerateReportCommand>();
 
 
         services.AddTransient<IBotReply, UnknownReply>();

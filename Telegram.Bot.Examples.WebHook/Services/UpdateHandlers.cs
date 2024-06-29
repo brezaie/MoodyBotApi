@@ -7,6 +7,10 @@ using Telegram.Bot.Types.InlineQueryResults;
 using Telegram.Bot.Types.ReplyMarkups;
 using Halood.Domain.Interfaces.BotAction;
 using Halood.Service.BotCommand;
+using MigraDoc.DocumentObjectModel;
+using MigraDoc.DocumentObjectModel.Shapes.Charts;
+using Document = MigraDoc.DocumentObjectModel.Document;
+using MigraDoc.Rendering;
 
 namespace Telegram.Bot.Services;
 
@@ -21,7 +25,8 @@ public class UpdateHandlers
     private readonly IBotCommand _startCommand;
     private readonly IBotCommand _toggleReminderCommand;
     private readonly IBotCommand _changeSettingsCommand;
-    private readonly IBotCommand _changeLangugeCommand;
+    private readonly IBotCommand _changeLanguageCommand;
+    private readonly IBotCommand _generateReportCommand;
 
     public UpdateHandlers(ITelegramBotClient botClient, ILogger<UpdateHandlers> logger, IUserRepository userRepository,
         IEnumerable<IBotCommand> botActions)
@@ -38,7 +43,8 @@ public class UpdateHandlers
             botActions.FirstOrDefault(x => x.GetType() == typeof(ToggleReminderCommand));
         _changeSettingsCommand =
             botActions.FirstOrDefault(x => x.GetType() == typeof(ChangeSettingsCommand));
-        _changeLangugeCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(ChangeLanguageCommand));
+        _changeLanguageCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(ChangeLanguageCommand));
+        _generateReportCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(GenerateReportCommand));
     }
 
     public Task HandleErrorAsync(Exception exception, CancellationToken cancellationToken)
@@ -145,14 +151,13 @@ public class UpdateHandlers
             "/how_do_you_feel" => _howDoYouFeelCommand.Execute(botCommandMessage, cancellationToken),
             "/change_settings" => _changeSettingsCommand.Execute(botCommandMessage, cancellationToken),
             "/toggle_reminder" => _toggleReminderCommand.Execute(botCommandMessage, cancellationToken),
-            "/change_language" => _changeLangugeCommand.Execute(botCommandMessage, cancellationToken),
+            "/change_language" => _changeLanguageCommand.Execute(botCommandMessage, cancellationToken),
+            "/generate_report" => _generateReportCommand.Execute(botCommandMessage, cancellationToken),
             _ => _noCommand.Execute(botCommandMessage, cancellationToken)
         };
 
         await action;
     }
-
-
 
     static async Task<Message> RequestContactAndLocation(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
     {
