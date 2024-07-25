@@ -9,11 +9,13 @@ namespace Telegram.Bot.Examples.WebHook.Controllers
     [ApiController]
     public class JobController : ControllerBase
     {
-        private readonly IJob _job;
+        private readonly IJob _satisfactionReminderJob;
+        private readonly IJob _reportJob;
 
-        public JobController(IJob job)
+        public JobController(IEnumerable<IJob> jobs)
         {
-            _job = job;
+            _satisfactionReminderJob = jobs.FirstOrDefault(x => x.GetType() == typeof(SatisfactionReminderJob));
+            _reportJob = jobs.FirstOrDefault(x => x.GetType() == typeof(ReportJob));
         }
 
         [HttpGet]
@@ -27,7 +29,30 @@ namespace Telegram.Bot.Examples.WebHook.Controllers
                     TimeZone = TimeZoneInfo.Utc
                 };
 
-                RecurringJob.AddOrUpdate("SatisfactionReminderJob", () => _job.Run(),
+                RecurringJob.AddOrUpdate("SatisfactionReminderJob", () => _satisfactionReminderJob.Run(),
+                    cronExp, jobOptions);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("CreateReportJob")]
+        public ActionResult CreateReportJob(string cronExp)
+        {
+            try
+            {
+                RecurringJobOptions jobOptions = new()
+                {
+                    TimeZone = TimeZoneInfo.Utc
+                };
+
+                RecurringJob.AddOrUpdate("ReportJob", () => _reportJob.Run(),
                     cronExp, jobOptions);
 
                 return Ok();

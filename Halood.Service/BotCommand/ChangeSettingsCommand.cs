@@ -19,7 +19,7 @@ public class ChangeSettingsCommand : IBotCommand
         _botClient = botClient;
     }
 
-    public async Task Execute(BotCommandMessage message, CancellationToken cancellationToken)
+    public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
         _text = $"برای تغییر هر یک از تنظیمات، روی آن کلیک کنید";
 

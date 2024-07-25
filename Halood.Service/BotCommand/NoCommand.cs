@@ -40,7 +40,7 @@ public class NoCommand : IBotCommand
         replyActions.Add(CommandType.Language, _changeLanguageReply);
     }
 
-    public async Task Execute(BotCommandMessage message, CancellationToken cancellationToken)
+    public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
         var previousCommand = CommandHandler.GetCommand(message.Username);
         await replyActions[previousCommand].Execute(message, cancellationToken);

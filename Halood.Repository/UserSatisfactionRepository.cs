@@ -12,9 +12,20 @@ public class UserSatisfactionRepository : BaseRepository<UserSatisfaction>, IUse
     {
     }
 
-    public Task<UserSatisfaction?> GetLastUserSatisfactionAsync(long userId) =>
-        Context.UserSatisfactions
+    public async Task<UserSatisfaction?> GetLastUserSatisfactionAsync(long userId) =>
+        await Context.UserSatisfactions
             .Where(x => x.UserId == userId)
             .OrderByDescending(x => x.RegistrationDate)
             .FirstOrDefaultAsync();
+
+    public async Task<List<UserSatisfaction>> GetLastUserSatisfactionsByDaysAsync(long userId, int days)
+    {
+        return await Context.UserSatisfactions
+            .Where(x => x.UserId == userId
+                        && x.CreatedDate.Value.Date >= DateTime.Now.Date.AddDays(-days)
+                        && x.CreatedDate.Value.Date < DateTime.Now.Date)
+            .ToListAsync();
+
+
+    }
 }

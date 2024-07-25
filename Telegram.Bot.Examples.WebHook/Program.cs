@@ -46,7 +46,8 @@ builder.Services
 
 builder.Services.AddRepositoryDependencies(builder.Configuration);
 builder.Services.AddServiceDependencies();
-builder.Services.AddTransient<IJob, ReminderJob>();
+builder.Services.AddTransient<IJob, SatisfactionReminderJob>();
+builder.Services.AddTransient<IJob, ReportJob>();
 // Dummy business-logic service
 builder.Services.AddTransient<UpdateHandlers>();
 

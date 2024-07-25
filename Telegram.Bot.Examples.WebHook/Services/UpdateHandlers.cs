@@ -145,15 +145,15 @@ public class UpdateHandlers
         var command = messageText.Split(' ')[0];
         var action = command switch
         {
-            "/start" => _startCommand.Execute(botCommandMessage, cancellationToken),
-            "/how_is_your_satisfaction" => _howIsYourSatisfactionCommand.Execute(botCommandMessage,
+            "/start" => _startCommand.ExecuteAsync(botCommandMessage, cancellationToken),
+            "/how_is_your_satisfaction" => _howIsYourSatisfactionCommand.ExecuteAsync(botCommandMessage,
                 cancellationToken),
-            "/how_do_you_feel" => _howDoYouFeelCommand.Execute(botCommandMessage, cancellationToken),
-            "/change_settings" => _changeSettingsCommand.Execute(botCommandMessage, cancellationToken),
-            "/toggle_reminder" => _toggleReminderCommand.Execute(botCommandMessage, cancellationToken),
-            "/change_language" => _changeLanguageCommand.Execute(botCommandMessage, cancellationToken),
-            "/generate_report" => _generateReportCommand.Execute(botCommandMessage, cancellationToken),
-            _ => _noCommand.Execute(botCommandMessage, cancellationToken)
+            "/how_do_you_feel" => _howDoYouFeelCommand.ExecuteAsync(botCommandMessage, cancellationToken),
+            "/change_settings" => _changeSettingsCommand.ExecuteAsync(botCommandMessage, cancellationToken),
+            "/toggle_reminder" => _toggleReminderCommand.ExecuteAsync(botCommandMessage, cancellationToken),
+            "/change_language" => _changeLanguageCommand.ExecuteAsync(botCommandMessage, cancellationToken),
+            "/generate_report" => _generateReportCommand.ExecuteAsync(botCommandMessage, cancellationToken),
+            _ => _noCommand.ExecuteAsync(botCommandMessage, cancellationToken)
         };
 
         await action;

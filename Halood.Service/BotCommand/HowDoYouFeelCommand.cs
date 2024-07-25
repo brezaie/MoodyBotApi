@@ -21,7 +21,7 @@ public class HowDoYouFeelCommand : IBotCommand
         _logger = logger;
     }
 
-    public async Task Execute(BotCommandMessage message, CancellationToken cancellationToken)
+    public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
         CommandHandler.AddCommand(message.Username, CommandType.Emotion);
 

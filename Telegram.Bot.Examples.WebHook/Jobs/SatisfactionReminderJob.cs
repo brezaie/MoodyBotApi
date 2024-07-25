@@ -4,12 +4,12 @@ using Halood.Domain.Enums;
 
 namespace Telegram.Bot.Examples.WebHook.Jobs;
 
-public class ReminderJob : IJob
+public class SatisfactionReminderJob : IJob
 {
     private readonly IUserRepository _userRepository;
     private readonly ITelegramBotClient _botClient;
 
-    public ReminderJob(IUserRepository userRepository, ITelegramBotClient botClient)
+    public SatisfactionReminderJob(IUserRepository userRepository, ITelegramBotClient botClient)
     {
         _userRepository = userRepository;
         _botClient = botClient;

@@ -23,7 +23,7 @@ public class StartCommand : IBotCommand
         _logger = logger;
     }
     
-    public async Task Execute(BotCommandMessage message, CancellationToken cancellationToken)
+    public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
         CommandHandler.RemoveCommand(message.Username);
 

@@ -19,7 +19,7 @@ public class ChangeLanguageCommand : IBotCommand
         _botClient = botClient;
     }
 
-    public async Task Execute(BotCommandMessage message, CancellationToken cancellationToken)
+    public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
         CommandHandler.AddCommand(message.Username, CommandType.Language);
 
