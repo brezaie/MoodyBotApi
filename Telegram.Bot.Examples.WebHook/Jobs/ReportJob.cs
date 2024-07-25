@@ -23,7 +23,7 @@ public class ReportJob : IJob
     public async Task Run()
     {
         var users = await _userRepository.GetAllAsync();
-        foreach (var user in users.Where(x => x.Id <= 2))
+        foreach (var user in users)
         {
             await _generateReportCommand.ExecuteAsync(new BotCommandMessage
             {
