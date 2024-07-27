@@ -1,9 +1,11 @@
 using Halood.Repository;
 using Hangfire;
 using Halood.Service;
+using Hangfire.Dashboard;
 using Telegram.Bot;
 using Telegram.Bot.Controllers;
 using Telegram.Bot.Examples.WebHook.Jobs;
+using Telegram.Bot.Filters;
 using Telegram.Bot.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -67,7 +69,10 @@ var app = builder.Build();
 // Construct webhook route from the Route configuration parameter
 // It is expected that BotController has single method accepting Update
 app.MapBotWebhookRoute<BotController>(route: botConfiguration.Route);
-app.UseHangfireDashboard();
+app.UseHangfireDashboard("/hangfire", new DashboardOptions()
+{
+    Authorization = new[] { new HangfireDashboardAuthorizationFilter() }
+});
 app.MapControllers();
 app.Run();
 
