@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Hangfire" Version="1.8.12" />
+    <PackageReference Include="Hangfire.Core" Version="1.8.14" />
+    <PackageReference Include="Hangfire.Dashboard.Authorization" Version="3.1.0" />
     <PackageReference Include="PDFsharp" Version="6.1.0" />
     <PackageReference Include="PDFsharp-MigraDoc" Version="6.1.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
