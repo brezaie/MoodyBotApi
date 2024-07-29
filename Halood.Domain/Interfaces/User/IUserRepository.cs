@@ -4,7 +4,7 @@ namespace Halood.Domain.Interfaces.User;
 
 public interface IUserRepository : IBaseRepository<Entities.User>
 {
-    Task<Entities.User?> GetByAsync(string username);
+    Task<Entities.User?> GetByAsync(string username, bool asNoTracking = true);
     Task UpdateAsync(Entities.User user);
-    Task<List<Entities.User>> GetRemindersAsync();
+    Task<List<Entities.User>> GetSatisfactionRemindersAsync();
 }

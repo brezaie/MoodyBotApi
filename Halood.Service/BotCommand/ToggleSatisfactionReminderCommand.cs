@@ -8,14 +8,14 @@ using Telegram.Bot;
 
 namespace Halood.Service.BotCommand;
 
-public class ToggleReminderCommand : IBotCommand
+public class ToggleSatisfactionReminderCommand : IBotCommand
 {
     private readonly ITelegramBotClient _botClient;
-    private readonly ILogger<HowDoYouFeelCommand> _logger;
+    private readonly ILogger<ToggleSatisfactionReminderCommand> _logger;
     private readonly IUserRepository _userRepository;
     private string _text = string.Empty;
 
-    public ToggleReminderCommand(ITelegramBotClient botClient, ILogger<HowDoYouFeelCommand> logger,
+    public ToggleSatisfactionReminderCommand(ITelegramBotClient botClient, ILogger<ToggleSatisfactionReminderCommand> logger,
         IUserRepository userRepository)
     {
         _botClient = botClient;
@@ -25,7 +25,7 @@ public class ToggleReminderCommand : IBotCommand
 
     public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
-        CommandHandler.AddCommand(message.Username, CommandType.Reminder);
+        CommandHandler.AddCommand(message.Username, CommandType.SatisfactionReminder);
 
         var user = await _userRepository.GetByAsync(message.Username);
         _text = $"آیا مایل به {(user.IsGlobalSatisfactionReminderActive ? "غیرفعال‌سازی" : "فعال‌سازی")} یادآور هستید؟";
@@ -33,7 +33,7 @@ public class ToggleReminderCommand : IBotCommand
         await _botClient.SendTextMessageAsync(
             chatId: message.ChatId,
             text: _text,
-            replyMarkup: CommandHandler.ReminderToggleInlineKeyboardMarkup,
+            replyMarkup: CommandHandler.SatisfactionReminderToggleInlineKeyboardMarkup,
             cancellationToken: cancellationToken);
     }
 }

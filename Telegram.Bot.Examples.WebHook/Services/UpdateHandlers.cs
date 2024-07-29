@@ -1,16 +1,16 @@
+using Halood.Common;
 using Halood.Domain.Interfaces.User;
 using Halood.Domain.Dtos;
+using Halood.Domain.Entities;
+using Halood.Domain.Enums;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InlineQueryResults;
 using Telegram.Bot.Types.ReplyMarkups;
 using Halood.Domain.Interfaces.BotAction;
+using Halood.Domain.Interfaces.UserEmotionReminder;
 using Halood.Service.BotCommand;
-using MigraDoc.DocumentObjectModel;
-using MigraDoc.DocumentObjectModel.Shapes.Charts;
-using Document = MigraDoc.DocumentObjectModel.Document;
-using MigraDoc.Rendering;
 
 namespace Telegram.Bot.Services;
 
@@ -19,32 +19,36 @@ public class UpdateHandlers
     private readonly ITelegramBotClient _botClient;
     private readonly ILogger<UpdateHandlers> _logger;
     private readonly IUserRepository _userRepository;
+    private readonly IUserEmotionReminderRepository _userEmotionReminderRepository;
     private readonly IBotCommand _howDoYouFeelCommand;
     private readonly IBotCommand _howIsYourSatisfactionCommand;
     private readonly IBotCommand _noCommand;
     private readonly IBotCommand _startCommand;
-    private readonly IBotCommand _toggleReminderCommand;
+    private readonly IBotCommand _toggleSatisfactionReminderCommand;
     private readonly IBotCommand _changeSettingsCommand;
     private readonly IBotCommand _changeLanguageCommand;
     private readonly IBotCommand _generateReportCommand;
+    private readonly IBotCommand _changeEmotionReminder;
 
     public UpdateHandlers(ITelegramBotClient botClient, ILogger<UpdateHandlers> logger, IUserRepository userRepository,
-        IEnumerable<IBotCommand> botActions)
+        IEnumerable<IBotCommand> botActions, IUserEmotionReminderRepository userEmotionReminderRepository)
     {
         _botClient = botClient;
         _logger = logger;
         _userRepository = userRepository;
+        _userEmotionReminderRepository = userEmotionReminderRepository;
         _howDoYouFeelCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(HowDoYouFeelCommand));
         _howIsYourSatisfactionCommand =
             botActions.FirstOrDefault(x => x.GetType() == typeof(HowIsYourSatisfactionCommand));
         _noCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(NoCommand));
         _startCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(StartCommand));
-        _toggleReminderCommand =
-            botActions.FirstOrDefault(x => x.GetType() == typeof(ToggleReminderCommand));
+        _toggleSatisfactionReminderCommand =
+            botActions.FirstOrDefault(x => x.GetType() == typeof(ToggleSatisfactionReminderCommand));
         _changeSettingsCommand =
             botActions.FirstOrDefault(x => x.GetType() == typeof(ChangeSettingsCommand));
         _changeLanguageCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(ChangeLanguageCommand));
         _generateReportCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(GenerateReportCommand));
+        _changeEmotionReminder = botActions.FirstOrDefault(x => x.GetType() == typeof(ChangeEmotionReminderCommand));
     }
 
     public Task HandleErrorAsync(Exception exception, CancellationToken cancellationToken)
@@ -117,7 +121,7 @@ public class UpdateHandlers
         var user = await _userRepository.GetByAsync(message.From.Username);
         if (user is null)
         {
-            await _userRepository.SaveAsync(new Halood.Domain.Entities.User
+            var savedUser = await _userRepository.SaveAsync(new Halood.Domain.Entities.User
             {
                 Username = message.From.Username,
                 FirstName = message.From.FirstName,
@@ -128,6 +132,21 @@ public class UpdateHandlers
                 IsPremium = message.From.IsPremium
             });
             await _userRepository.CommitAsync();
+
+            await _userEmotionReminderRepository.SaveRangeAsync(new List<UserEmotionReminder>
+            {
+                new UserEmotionReminder
+                {
+                    Hour = 11,
+                    UserId = savedUser.Id
+                },
+                new UserEmotionReminder
+                {
+                    Hour = 19,
+                    UserId = savedUser.Id
+                }
+            });
+            await _userEmotionReminderRepository.CommitAsync();
         }
     }
 
@@ -142,17 +161,19 @@ public class UpdateHandlers
     private async Task RunCommand(string messageText, BotCommandMessage botCommandMessage,
         CancellationToken cancellationToken)
     {
-        var command = messageText.Split(' ')[0];
+        var commandText = messageText.Split(' ')[0];
+        var command = ConvertCommandTextToAction(commandText);
         var action = command switch
         {
-            "/start" => _startCommand.ExecuteAsync(botCommandMessage, cancellationToken),
-            "/how_is_your_satisfaction" => _howIsYourSatisfactionCommand.ExecuteAsync(botCommandMessage,
+            CommandType.Start => _startCommand.ExecuteAsync(botCommandMessage, cancellationToken),
+            CommandType.Satisfaction => _howIsYourSatisfactionCommand.ExecuteAsync(botCommandMessage,
                 cancellationToken),
-            "/how_do_you_feel" => _howDoYouFeelCommand.ExecuteAsync(botCommandMessage, cancellationToken),
-            "/change_settings" => _changeSettingsCommand.ExecuteAsync(botCommandMessage, cancellationToken),
-            "/toggle_reminder" => _toggleReminderCommand.ExecuteAsync(botCommandMessage, cancellationToken),
-            "/change_language" => _changeLanguageCommand.ExecuteAsync(botCommandMessage, cancellationToken),
-            "/generate_report" => _generateReportCommand.ExecuteAsync(botCommandMessage, cancellationToken),
+            CommandType.Emotion => _howDoYouFeelCommand.ExecuteAsync(botCommandMessage, cancellationToken),
+            CommandType.Settings => _changeSettingsCommand.ExecuteAsync(botCommandMessage, cancellationToken),
+            CommandType.SatisfactionReminder => _toggleSatisfactionReminderCommand.ExecuteAsync(botCommandMessage, cancellationToken),
+            CommandType.Language => _changeLanguageCommand.ExecuteAsync(botCommandMessage, cancellationToken),
+            CommandType.Report => _generateReportCommand.ExecuteAsync(botCommandMessage, cancellationToken),
+            CommandType.EmotionReminder => _changeEmotionReminder.ExecuteAsync(botCommandMessage, cancellationToken),
             _ => _noCommand.ExecuteAsync(botCommandMessage, cancellationToken)
         };
 
@@ -187,7 +208,10 @@ public class UpdateHandlers
             cancellationToken: cancellationToken);
     }
 
-
+    private CommandType ConvertCommandTextToAction(string actionText)
+    {
+        return Enum.GetValues<CommandType>().FirstOrDefault(command => command.GetDescription() == actionText);
+    }
 
     private BotCommandMessage ConvertToBotActionMessage(Message message)
     {

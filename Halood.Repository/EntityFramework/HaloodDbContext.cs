@@ -13,6 +13,7 @@ public class HaloodDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<UserSatisfaction> UserSatisfactions { get; set; }
     public DbSet<UserEmotion> UserEmotions { get; set; }
+    public DbSet<UserEmotionReminder> UserEmotionReminders { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

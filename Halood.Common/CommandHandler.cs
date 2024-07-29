@@ -7,6 +7,7 @@ namespace Halood.Common
     public class CommandHandler
     {
         private static Dictionary<string, CommandType> _commands;
+        private static List<(string Username, int Hour)> _emotionReminders;
 
         public static List<string> SpecialUserNames = new()
         {
@@ -133,26 +134,60 @@ namespace Halood.Common
                 InlineKeyboardButton.WithCallbackData("تنظیمات", CommandType.Settings.GetDescription()),
             });
 
-        public static InlineKeyboardMarkup ReminderToggleInlineKeyboardMarkup = new InlineKeyboardMarkup(
+        public static InlineKeyboardMarkup SatisfactionReminderToggleInlineKeyboardMarkup = new InlineKeyboardMarkup(
             new List<InlineKeyboardButton>
             {
                 InlineKeyboardButton.WithCallbackData("بله 👍", YesNoResponse.Yes.GetDescription()),
                 InlineKeyboardButton.WithCallbackData("خیر 👎", YesNoResponse.No.GetDescription()),
             });
 
-        public static InlineKeyboardMarkup LanguageInlineKeyboardMarkup = new InlineKeyboardMarkup(
+        public static InlineKeyboardMarkup EmotionReminderInlineKeyboardMarkup =
+            new(new List<IEnumerable<InlineKeyboardButton>>
+            {
+                new List<InlineKeyboardButton>
+                {
+                    InlineKeyboardButton.WithCallbackData("7:00 🕖", EmotionReminder.Seven.GetDescription()),
+                    InlineKeyboardButton.WithCallbackData("9:00 🕘", EmotionReminder.Nine.GetDescription()),
+                    InlineKeyboardButton.WithCallbackData("11:00 🕚", EmotionReminder.Eleven.GetDescription()),
+                },
+                new List<InlineKeyboardButton>
+                {
+                    InlineKeyboardButton.WithCallbackData("13:00 🕐", EmotionReminder.Thirteen.GetDescription()),
+                    InlineKeyboardButton.WithCallbackData("15:00 🕒", EmotionReminder.Fifteen.GetDescription()),
+                    InlineKeyboardButton.WithCallbackData("17:00 🕔", EmotionReminder.Seventeen.GetDescription()),
+                },
+                new List<InlineKeyboardButton>
+                {
+                    InlineKeyboardButton.WithCallbackData("19:00 🕖", EmotionReminder.Nineteen.GetDescription()),
+                    InlineKeyboardButton.WithCallbackData("21:00 🕘", EmotionReminder.TwentyOne.GetDescription()),
+                    InlineKeyboardButton.WithCallbackData("23:00 🕚", EmotionReminder.TwentyThree.GetDescription()),
+                },
+                new List<InlineKeyboardButton>
+                {
+                    InlineKeyboardButton.WithCallbackData("ثبت 👍", EmotionReminder.Submit.GetDescription()),
+
+                }
+            });
+
+    public static InlineKeyboardMarkup LanguageInlineKeyboardMarkup = new InlineKeyboardMarkup(
             new List<InlineKeyboardButton>
             {
                 InlineKeyboardButton.WithCallbackData("فارسی 🇮🇷", Language.Persian.GetDescription()),
                 InlineKeyboardButton.WithCallbackData("English 🇬🇧", Language.English.GetDescription()), 
             });
-
-        public static InlineKeyboardMarkup SettingsInlineKeyboardMarkup = new InlineKeyboardMarkup(
+        
+        public static InlineKeyboardMarkup SettingsInlineKeyboardMarkup = new(new List<IEnumerable<InlineKeyboardButton>>
+        {
             new List<InlineKeyboardButton>
             {
-                InlineKeyboardButton.WithCallbackData("یادآور ⏰", CommandType.Reminder.GetDescription()),
-                InlineKeyboardButton.WithCallbackData("زبان 🌎", CommandType.Language.GetDescription())
-            });
+                InlineKeyboardButton.WithCallbackData("یادآور رضایت از زندگی 🕙", CommandType.SatisfactionReminder.GetDescription()),
+                InlineKeyboardButton.WithCallbackData("یادآور احساس‌ها ⏰", CommandType.EmotionReminder.GetDescription())
+            },
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData("زبان 🌎", CommandType.Language.GetDescription()),
+            }
+        });
 
         public static void AddCommand(string username, CommandType commandType)
         {
@@ -179,6 +214,33 @@ namespace Halood.Common
 
             var command = _commands.FirstOrDefault(x => x.Key == username);
             return command.Value;
+        }
+
+
+        public static void ChangeEmotionReminder(string username, int hour)
+        {
+            if (_emotionReminders == null)
+                _emotionReminders = new List<(string Username, int Hour)>();
+
+            var doesEmotionReminderExist = _emotionReminders.FirstOrDefault(x => x.Username == username && x.Hour == hour);
+            if (!string.IsNullOrEmpty(doesEmotionReminderExist.Username))
+                _emotionReminders.Remove(doesEmotionReminderExist);
+            else
+                _emotionReminders.Add((username, hour));
+        }
+
+        public static void RemoveEmotionReminders(string username)
+        {
+            if (_emotionReminders != null)
+                _emotionReminders.RemoveAll(x => x.Username == username);
+        }
+
+        public static List<(string, int)> GetEmotionReminders(string username)
+        {
+            if (_emotionReminders == null)
+                return new List<(string, int)>();
+
+            return _emotionReminders.Where(x => x.Username == username).ToList();
         }
 
     }

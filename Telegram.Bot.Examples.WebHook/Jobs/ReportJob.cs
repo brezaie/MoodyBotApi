@@ -1,6 +1,4 @@
-using Halood.Common;
 using Halood.Domain.Dtos;
-using Halood.Domain.Enums;
 using Halood.Domain.Interfaces.BotAction;
 using Halood.Domain.Interfaces.User;
 using Halood.Service.BotCommand;

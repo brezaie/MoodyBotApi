@@ -11,9 +11,13 @@ public class UserRepository : BaseRepository<User>, IUserRepository
     {
     }
 
-    public async Task<User?> GetByAsync(string username)
+    public async Task<User?> GetByAsync(string username, bool asNoTracking = true)
     {
-        return await Context.Users.FirstOrDefaultAsync(x => x.Username == username);
+        var query = Context.Users;
+        if(asNoTracking)
+            query.AsNoTracking();
+
+        return await query.FirstOrDefaultAsync(x => x.Username == username);
     }
 
     public async Task UpdateAsync(User user)
@@ -27,7 +31,7 @@ public class UserRepository : BaseRepository<User>, IUserRepository
         entity.IsGlobalSatisfactionReminderActive = user.IsGlobalSatisfactionReminderActive;
     }
 
-    public async Task<List<User>> GetRemindersAsync()
+    public async Task<List<User>> GetSatisfactionRemindersAsync()
     {
         return await Context.Users.AsNoTracking().Where(x => x.IsGlobalSatisfactionReminderActive && x.ChatId > 0)
             .ToListAsync();

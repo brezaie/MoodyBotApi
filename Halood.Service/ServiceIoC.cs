@@ -13,10 +13,11 @@ public static class ServiceIoC
         services.AddTransient<IBotCommand, HowIsYourSatisfactionCommand>();
         services.AddTransient<IBotCommand, HowDoYouFeelCommand>();
         services.AddTransient<IBotCommand, NoCommand>();
-        services.AddTransient<IBotCommand, ToggleReminderCommand>();
+        services.AddTransient<IBotCommand, ToggleSatisfactionReminderCommand>();
         services.AddTransient<IBotCommand, ChangeSettingsCommand>();
         services.AddTransient<IBotCommand, ChangeLanguageCommand>();
         services.AddTransient<IBotCommand, GenerateReportCommand>();
+        services.AddTransient<IBotCommand, ChangeEmotionReminderCommand>();
 
 
         services.AddTransient<IBotReply, UnknownReply>();
@@ -24,6 +25,7 @@ public static class ServiceIoC
         services.AddTransient<IBotReply, HowDoYouFeelReply>();
         services.AddTransient<IBotReply, ToggleReminderReply>();
         services.AddTransient<IBotReply, ChangeLanguageReply>();
+        services.AddTransient<IBotReply, ChangeEmotionReminderReply>();
 
         return services;
     }

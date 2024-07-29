@@ -18,9 +18,11 @@ public class SatisfactionReminderJob : IJob
     public async Task Run()
     {
         var text = "این پیام از طریق یادآورِ بات برای شما ارسال شده است.\n" +
-                   "کدام یک از ایموجی‌های زیر، میزان رضایت شما از لحظه‌ای که در آن هستید را می‌تواند به بهترین شکل نشان دهد؟\n";
+                   "کدام یک از ایموجی‌های زیر، میزان رضایت شما از لحظه‌ای که در آن هستید را می‌تواند به بهترین شکل نشان دهد؟\n" +
+                   $"برای لغو یادآور، به بخش \"تغییر تنظیمات -> یادآور رضایت از زندگی\" مراجعه کنید.";
+        ;
 
-        var users = await _userRepository.GetRemindersAsync();
+        var users = await _userRepository.GetSatisfactionRemindersAsync();
         foreach (var user in users)
         {
             CommandHandler.AddCommand(user.Username, CommandType.Satisfaction);

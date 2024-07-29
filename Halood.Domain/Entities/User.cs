@@ -13,5 +13,6 @@ namespace Halood.Domain.Entities
 
         public List<UserSatisfaction> UserSatisfactions { get; set; }
         public List<UserEmotion> UserEmotions { get; set; }
+        public List<UserEmotionReminder> UserEmotionReminders { get; set; }
     }
 }

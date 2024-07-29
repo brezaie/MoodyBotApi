@@ -91,8 +91,8 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity, new()
 
     public virtual async Task<T> SaveAsync(T entity)
     {
-        await Context.Set<T>().AddAsync(entity);
-        return entity;
+        var savedEntity = await Context.Set<T>().AddAsync(entity);
+        return savedEntity.Entity;
     }
 
     public virtual List<T> SaveRange(List<T> entities)

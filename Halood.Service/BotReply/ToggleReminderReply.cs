@@ -34,7 +34,7 @@ public class ToggleReminderReply : IBotReply
             await _botClient.SendTextMessageAsync(
                 chatId: message.ChatId,
                 text: _text,
-                replyMarkup: CommandHandler.ReminderToggleInlineKeyboardMarkup,
+                replyMarkup: CommandHandler.SatisfactionReminderToggleInlineKeyboardMarkup,
                 cancellationToken: cancellationToken);
             return;
         }

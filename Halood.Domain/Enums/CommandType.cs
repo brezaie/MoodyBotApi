@@ -18,12 +18,15 @@ public enum CommandType
     [Description("/change_settings")]
     Settings = 4,
 
-    [Description("/toggle_reminder")]
-    Reminder = 5,
+    [Description("/toggle_satisfaction_reminder")]
+    SatisfactionReminder = 5,
 
     [Description("/change_language")]
     Language = 6,
 
     [Description("/generate_report")]
-    Report = 7
+    Report = 7,
+
+    [Description("/change_emotion_reminder")]
+    EmotionReminder = 8,
 }
