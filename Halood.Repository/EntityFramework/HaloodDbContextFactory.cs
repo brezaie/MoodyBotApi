@@ -8,7 +8,7 @@ public class HaloodDbContextFactory : IDesignTimeDbContextFactory<HaloodDbContex
     public HaloodDbContext CreateDbContext(string[] args)
     {
         var connectionString =
-        //@"Server=148.251.235.23\MSSQLSERVER2019;Database=haloodli_tracker;User Id=haloodli_admin;Password=k(kD7}iOwW_i0)0i;Integrated Security=False;Trusted_Connection=False;MultipleActiveResultSets=true";
+        //@"Server=148.251.235.23;Database=haloodli_tracker;User Id=haloodli_admin;Password=k(kD7}iOwW_i0)0i;Integrated Security=False;Trusted_Connection=False;MultipleActiveResultSets=true";
         "Server=.;Database=Halood;Trusted_Connection=True;MultipleActiveResultSets=true";
         var optionsBuilder = new DbContextOptionsBuilder<HaloodDbContext>();
         optionsBuilder.UseSqlServer(connectionString);
