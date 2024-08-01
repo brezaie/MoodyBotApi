@@ -2,6 +2,7 @@ using Halood.Common;
 using Halood.Domain.Enums;
 using Halood.Domain.Interfaces.User;
 using Halood.Domain.Interfaces.UserEmotionReminder;
+using Telegram.Bot.Types;
 
 namespace Telegram.Bot.Examples.WebHook.Jobs;
 

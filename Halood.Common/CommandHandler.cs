@@ -194,11 +194,8 @@ namespace Halood.Common
             if(_commands == null)
                 _commands = new Dictionary<string, CommandType>();
 
-            var doesCommandExist = _commands.FirstOrDefault(x => x.Key == username);
-            if (doesCommandExist.Value != commandType)
-            {
-                _commands.Add(username, commandType);
-            }
+            RemoveCommand(username);
+            _commands.Add(username, commandType);
         }
 
         public static void RemoveCommand(string username)
