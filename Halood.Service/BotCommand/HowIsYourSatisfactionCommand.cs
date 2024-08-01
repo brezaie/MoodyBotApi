@@ -4,7 +4,6 @@ using Halood.Domain.Enums;
 using Halood.Domain.Interfaces.BotAction;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot;
-using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Halood.Service.BotCommand;
 
@@ -13,7 +12,7 @@ public class HowIsYourSatisfactionCommand : IBotCommand
     private readonly ITelegramBotClient _botClient;
     private readonly ILogger<HowIsYourSatisfactionCommand> _logger;
     private string _text =
-        $"کدام یک از ایموجی‌های زیر، میزان رضایت شما از امروز‌تان را می‌تواند به بهترین شکل نشان دهد؟";
+        $"کدام یک از گزینه‌های زیر، میزان رضایت شما از امروز‌تان را می‌تواند به بهترین شکل نشان دهد؟";
 
     public HowIsYourSatisfactionCommand(ITelegramBotClient botClient,
         ILogger<HowIsYourSatisfactionCommand> logger)
@@ -29,7 +28,7 @@ public class HowIsYourSatisfactionCommand : IBotCommand
         await _botClient.SendTextMessageAsync(
             chatId: message.ChatId,
             text: _text,
-            replyMarkup: CommandHandler.SatisfactionLevelReplyKeyboardMarkup,
+            replyMarkup: CommandHandler.SatisfactionLevelInlineKeyboardMarkup,
             cancellationToken: cancellationToken);
     }
 }

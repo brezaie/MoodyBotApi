@@ -30,6 +30,32 @@ namespace Halood.Common
             ResizeKeyboard = true
         };
 
+
+        public static InlineKeyboardMarkup SatisfactionLevelInlineKeyboardMarkup =
+        new(new List<IEnumerable<InlineKeyboardButton>>
+        {
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData("خیلی زیاد 😍", SatisfactionLevel.Perfect.GetDescription()),
+            },
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData("زیاد 😊", SatisfactionLevel.Good.GetDescription()),
+            },
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData("متوسط 😏", SatisfactionLevel.SoSo.GetDescription()),
+            },
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData("کم 😞", SatisfactionLevel.Bad.GetDescription()),
+            },
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData("خیلی کم 😥", SatisfactionLevel.Awful.GetDescription()),
+            }
+        });
+
         public static ReplyKeyboardMarkup EmotionReplyKeyboardMarkup = new(
             new[]
             {

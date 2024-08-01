@@ -4,18 +4,18 @@ namespace Halood.Domain.Enums;
 
 public enum SatisfactionLevel
 {
-    [Description("😥")]
+    [Description("Awful")]
     Awful = 1,
-
-    [Description("😞")]
+    
+    [Description("Bad")]
     Bad = 2,
 
-    [Description("😏")]
+    [Description("SoSo")]
     SoSo = 3,
 
-    [Description("😊")]
+    [Description("Good")]
     Good = 4,
 
-    [Description("😍")]
+    [Description("Percect")]
     Perfect = 5,
 }

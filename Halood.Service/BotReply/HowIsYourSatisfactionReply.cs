@@ -34,7 +34,7 @@ public class HowIsYourSatisfactionReply : IBotReply
         if (((SatisfactionLevel[])Enum.GetValues(typeof(SatisfactionLevel))).All(x =>
                 x.GetDescription() != message.Text))
         {
-            _text = $"ایموجی انتخاب شده نادرست می‌باشد. لطفاً یکی از ایموجی‌های پیشنهادی را انتخاب کنید.";
+            _text = $"گزینه انتخاب شده نادرست می‌باشد. لطفاً یکی از گزینه‌های پیشنهادی را انتخاب کنید.";
             await _botClient.SendTextMessageAsync(
                 chatId: message.ChatId,
                 text: _text,
