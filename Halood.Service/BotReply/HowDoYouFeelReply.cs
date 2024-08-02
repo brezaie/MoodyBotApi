@@ -31,13 +31,13 @@ public class HowDoYouFeelReply : IBotReply
     {
         // اگر متن وارد شده، هیچ یک از احساس های پیشنهادی نبود
         if (((Emotion[])Enum.GetValues(typeof(Emotion))).All(x =>
-                x.GetDescription() != message.Text))
+                x.ToString() != message.Text))
         {
             _text = $"احساس انتخاب شده نادرست می‌باشد. لطفاً یکی از احساس‌های پیشنهادی را انتخاب کنید.";
             await _botClient.SendTextMessageAsync(
                 chatId: message.ChatId,
                 text: _text,
-                replyMarkup: CommandHandler.EmotionReplyKeyboardMarkup,
+                replyMarkup: CommandHandler.EmotionInlineKeyboardMarkup,
                 cancellationToken: cancellationToken);
             return;
         }
@@ -58,13 +58,15 @@ public class HowDoYouFeelReply : IBotReply
             return;
         }
 
+        var emotion = ((Emotion[]) Enum.GetValues(typeof(Emotion)))
+            .FirstOrDefault(x =>
+                x.ToString() == message.Text);
+
         await _userEmotionRepository.SaveAsync(new UserEmotion
         {
             UserId = userId,
             RegistrationDate = message.Date,
-            EmotionText = ((Emotion[])Enum.GetValues(typeof(Emotion)))
-                .FirstOrDefault(x =>
-                    x.GetDescription() == message.Text).ToString()
+            EmotionText = emotion.ToString()
 
         });
 
@@ -72,7 +74,7 @@ public class HowDoYouFeelReply : IBotReply
 
         CommandHandler.RemoveCommand(message.Username);
 
-        _text = "احساس این لحظه‌تان را با موفقیت ثبت کردید  👍";
+        _text = $"احساس \"{emotion.GetDescription()}\" برای این لحظه‌تان با موفقبت ثبت شد.  👍";
         await _botClient.SendTextMessageAsync(
             chatId: message.ChatId,
             text: _text,

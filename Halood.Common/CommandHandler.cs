@@ -13,142 +13,116 @@ namespace Halood.Common
         {
             "brezaie"
         };
-
-        public static ReplyKeyboardMarkup SatisfactionLevelReplyKeyboardMarkup = new(
-            new[]
-            {
-                new KeyboardButton[]
-                {
-                    SatisfactionLevel.Awful.GetDescription(),
-                    SatisfactionLevel.Bad.GetDescription(),
-                    SatisfactionLevel.SoSo.GetDescription(),
-                    SatisfactionLevel.Good.GetDescription(),
-                    SatisfactionLevel.Perfect.GetDescription()
-                }
-            })
-        {
-            ResizeKeyboard = true
-        };
-
-
+        
         public static InlineKeyboardMarkup SatisfactionLevelInlineKeyboardMarkup =
         new(new List<IEnumerable<InlineKeyboardButton>>
         {
             new List<InlineKeyboardButton>
             {
-                InlineKeyboardButton.WithCallbackData("خیلی زیاد 😍", SatisfactionLevel.Perfect.GetDescription()),
+                InlineKeyboardButton.WithCallbackData(SatisfactionLevel.Perfect.GetDescription(), SatisfactionLevel.Perfect.ToString()),
             },
             new List<InlineKeyboardButton>
             {
-                InlineKeyboardButton.WithCallbackData("زیاد 😊", SatisfactionLevel.Good.GetDescription()),
+                InlineKeyboardButton.WithCallbackData(SatisfactionLevel.Good.GetDescription(), SatisfactionLevel.Good.ToString()),
             },
             new List<InlineKeyboardButton>
             {
-                InlineKeyboardButton.WithCallbackData("متوسط 😏", SatisfactionLevel.SoSo.GetDescription()),
+                InlineKeyboardButton.WithCallbackData(SatisfactionLevel.SoSo.GetDescription(), SatisfactionLevel.SoSo.ToString()),
             },
             new List<InlineKeyboardButton>
             {
-                InlineKeyboardButton.WithCallbackData("کم 😞", SatisfactionLevel.Bad.GetDescription()),
+                InlineKeyboardButton.WithCallbackData(SatisfactionLevel.Bad.GetDescription(), SatisfactionLevel.Bad.ToString()),
             },
             new List<InlineKeyboardButton>
             {
-                InlineKeyboardButton.WithCallbackData("خیلی کم 😥", SatisfactionLevel.Awful.GetDescription()),
+                InlineKeyboardButton.WithCallbackData(SatisfactionLevel.Awful.GetDescription(), SatisfactionLevel.Awful.ToString()),
             }
         });
 
-        public static ReplyKeyboardMarkup EmotionReplyKeyboardMarkup = new(
-            new[]
-            {
-                new KeyboardButton[]
-                {
-                    Emotion.Serenity.GetDescription(),
-                    Emotion.Joy.GetDescription(),
-                    Emotion.Ecstacy.GetDescription()
-                },
-                new KeyboardButton[]
-                {
-                    Emotion.Love.GetDescription()
-                },
-                new KeyboardButton[]
-                {
-                    Emotion.Acceptance.GetDescription(),
-                    Emotion.Trust.GetDescription(),
-                    Emotion.Admiration.GetDescription()
-                },
-                new KeyboardButton[]
-                {
-                    Emotion.Submission.GetDescription()
-                },
-                new KeyboardButton[]
-                {
-                    Emotion.Apprehension.GetDescription(),
-                    Emotion.Fear.GetDescription(),
-                    Emotion.Terror.GetDescription()
-                },
-                new KeyboardButton[]
-                {
-                    Emotion.Awe.GetDescription()
-                },
-
-                new KeyboardButton[]
-                {
-                    Emotion.Distraction.GetDescription(),
-                    Emotion.Surprise.GetDescription(),
-                    Emotion.Amazement.GetDescription()
-                },
-                new KeyboardButton[]
-                {
-                    Emotion.Disapproval.GetDescription()
-                },
-
-                new KeyboardButton[]
-                {
-                    Emotion.Pensiveness.GetDescription(),
-                    Emotion.Sadness.GetDescription(),
-                    Emotion.Grief.GetDescription()
-                },
-                new KeyboardButton[]
-                {
-                    Emotion.Remorse.GetDescription()
-                },
-                new KeyboardButton[]
-                {
-                    Emotion.Boredom.GetDescription(),
-                    Emotion.Disgust.GetDescription(),
-                    Emotion.Loathing.GetDescription()
-                },
-                new KeyboardButton[]
-                {
-                    Emotion.Contempt.GetDescription()
-                },
-
-
-                new KeyboardButton[]
-                {
-                    Emotion.Annoyance.GetDescription(),
-                    Emotion.Anger.GetDescription(),
-                    Emotion.Rage.GetDescription()
-                },
-                new KeyboardButton[]
-                {
-                    Emotion.Aggressiveness.GetDescription()
-                },
-
-                new KeyboardButton[]
-                {
-                    Emotion.Interest.GetDescription(),
-                    Emotion.Anticipation.GetDescription(),
-                    Emotion.Vigilance.GetDescription()
-                },
-                new KeyboardButton[]
-                {
-                    Emotion.Optimism.GetDescription()
-                },
-            }
-        )
+        public static InlineKeyboardMarkup EmotionInlineKeyboardMarkup =
+        new(new List<IEnumerable<InlineKeyboardButton>>
         {
-            ResizeKeyboard = true
-        };
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData(Emotion.Serenity.GetDescription(), Emotion.Serenity.ToString()),
+                InlineKeyboardButton.WithCallbackData(Emotion.Joy.GetDescription(), Emotion.Joy.ToString()),
+                InlineKeyboardButton.WithCallbackData(Emotion.Ecstacy.GetDescription(), Emotion.Ecstacy.ToString()),
+            },
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData(Emotion.Love.GetDescription(), Emotion.Love.ToString())
+            },
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData(Emotion.Acceptance.GetDescription(), Emotion.Acceptance.ToString()),
+                InlineKeyboardButton.WithCallbackData(Emotion.Trust.GetDescription(), Emotion.Trust.ToString()),
+                InlineKeyboardButton.WithCallbackData(Emotion.Admiration.GetDescription(), Emotion.Admiration.ToString()),
+            },
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData(Emotion.Submission.GetDescription(), Emotion.Submission.ToString()),
+            },
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData(Emotion.Apprehension.GetDescription(), Emotion.Apprehension.ToString()),
+                InlineKeyboardButton.WithCallbackData(Emotion.Fear.GetDescription(), Emotion.Fear.ToString()),
+                InlineKeyboardButton.WithCallbackData(Emotion.Terror.GetDescription(), Emotion.Terror.ToString()),
+            },
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData(Emotion.Awe.GetDescription(), Emotion.Awe.ToString()),
+            },
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData(Emotion.Distraction.GetDescription(), Emotion.Distraction.ToString()),
+                InlineKeyboardButton.WithCallbackData(Emotion.Surprise.GetDescription(), Emotion.Surprise.ToString()),
+                InlineKeyboardButton.WithCallbackData(Emotion.Amazement.GetDescription(), Emotion.Amazement.ToString()),
+            },
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData(Emotion.Disapproval.GetDescription(), Emotion.Disapproval.ToString()),
+            },
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData(Emotion.Pensiveness.GetDescription(), Emotion.Pensiveness.ToString()),
+                InlineKeyboardButton.WithCallbackData(Emotion.Sadness.GetDescription(), Emotion.Sadness.ToString()),
+                InlineKeyboardButton.WithCallbackData(Emotion.Grief.GetDescription(), Emotion.Grief.ToString()),
+            },
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData(Emotion.Remorse.GetDescription(), Emotion.Remorse.ToString()),
+            },
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData(Emotion.Boredom.GetDescription(), Emotion.Boredom.ToString()),
+                InlineKeyboardButton.WithCallbackData(Emotion.Disgust.GetDescription(), Emotion.Disgust.ToString()),
+                InlineKeyboardButton.WithCallbackData(Emotion.Loathing.GetDescription(), Emotion.Loathing.ToString()),
+            },
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData(Emotion.Contempt.GetDescription(), Emotion.Contempt.ToString()),
+            },
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData(Emotion.Annoyance.GetDescription(), Emotion.Annoyance.ToString()),
+                InlineKeyboardButton.WithCallbackData(Emotion.Anger.GetDescription(), Emotion.Anger.ToString()),
+                InlineKeyboardButton.WithCallbackData(Emotion.Rage.GetDescription(), Emotion.Rage.ToString()),
+            },
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData(Emotion.Aggressiveness.GetDescription(), Emotion.Aggressiveness.ToString()),
+            },
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData(Emotion.Interest.GetDescription(), Emotion.Interest.ToString()),
+                InlineKeyboardButton.WithCallbackData(Emotion.Anticipation.GetDescription(), Emotion.Anticipation.ToString()),
+                InlineKeyboardButton.WithCallbackData(Emotion.Vigilance.GetDescription(), Emotion.Vigilance.ToString()),
+            },
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData(Emotion.Optimism.GetDescription(), Emotion.Optimism.ToString()),
+            }
+        });
 
         public static InlineKeyboardMarkup MenuInlineKeyboardMarkup = new InlineKeyboardMarkup(
             new List<InlineKeyboardButton>

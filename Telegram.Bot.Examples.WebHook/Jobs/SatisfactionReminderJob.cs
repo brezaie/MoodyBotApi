@@ -17,8 +17,8 @@ public class SatisfactionReminderJob : IJob
     
     public async Task Run()
     {
-        var text = "این پیام از طریق یادآورِ بات برای شما ارسال شده است.\n" +
-                   "کدام یک از ایموجی‌های زیر، میزان رضایت شما از لحظه‌ای که در آن هستید را می‌تواند به بهترین شکل نشان دهد؟\n" +
+        var text = "این پیام از طریق یادآورِ بات برای شما ارسال شده است.\n\n" +
+                   "کدام یک از گزینه‌های زیر، میزان رضایت شما از لحظه‌ای که در آن هستید را می‌تواند به بهترین شکل نشان دهد؟\n\n" +
                    $"برای لغو یادآور، به بخش \"تغییر تنظیمات -> یادآور رضایت از زندگی\" مراجعه کنید.";
         ;
 
@@ -30,7 +30,7 @@ public class SatisfactionReminderJob : IJob
             await _botClient.SendTextMessageAsync(
                 chatId: user.ChatId,
                 text: text,
-                replyMarkup: CommandHandler.SatisfactionLevelReplyKeyboardMarkup);
+                replyMarkup: CommandHandler.SatisfactionLevelInlineKeyboardMarkup);
         }
     }
 }

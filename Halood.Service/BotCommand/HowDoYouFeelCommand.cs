@@ -28,7 +28,7 @@ public class HowDoYouFeelCommand : IBotCommand
         await _botClient.SendTextMessageAsync(
             chatId: message.ChatId,
             text: _text,
-            replyMarkup: CommandHandler.EmotionReplyKeyboardMarkup,
+            replyMarkup: CommandHandler.EmotionInlineKeyboardMarkup,
             cancellationToken: cancellationToken);
     }
 }

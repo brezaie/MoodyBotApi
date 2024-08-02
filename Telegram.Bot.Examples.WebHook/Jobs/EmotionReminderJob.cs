@@ -21,9 +21,8 @@ public class EmotionReminderJob : IJob
 
     public async Task Run()
     {
-        var text = "این پیام از طریق یادآورِ بات برای شما ارسال شده است.\n" +
+        var text = "این پیام از طریق یادآورِ بات برای شما ارسال شده است.\n\n" +
                    $"کدام‌یک از احساس‌های زیر به احساسی که در این لحظه تجربه می‌کنید، نزدیک‌تر است؟\n\n" +
-                   $"برای دیدن لیست کامل احساس‌ها، اسکرول کنید.\n" +
                    $"برای تغییر زمان‌های یادآور و یا لغو آن، به بخش \"تغییر تنظیمات -> یادآور احساس‌ها\" مراجعه کنید.";
 
         var iranTime = DateTimeOffset.UtcNow.AddHours(3).AddMinutes(30);
@@ -40,7 +39,7 @@ public class EmotionReminderJob : IJob
             await _botClient.SendTextMessageAsync(
                 chatId: user.ChatId,
                 text: text,
-                replyMarkup: CommandHandler.EmotionReplyKeyboardMarkup);
+                replyMarkup: CommandHandler.EmotionReminderInlineKeyboardMarkup);
         }
     }
 }
