@@ -129,7 +129,8 @@ public class UpdateHandlers
                 LanguageCode = message.From?.LanguageCode,
                 ChatId = message.Chat.Id,
                 IsBot = message.From.IsBot,
-                IsPremium = message.From.IsPremium
+                IsPremium = message.From.IsPremium,
+                IsGlobalSatisfactionReminderActive = true
             });
             await _userRepository.CommitAsync();
 
