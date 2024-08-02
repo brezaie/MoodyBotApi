@@ -10,8 +10,8 @@ public static class ServiceIoC
     public static IServiceCollection AddServiceDependencies(this IServiceCollection services)
     {
         services.AddTransient<IBotCommand, StartCommand>();
-        services.AddTransient<IBotCommand, HowIsYourSatisfactionCommand>();
-        services.AddTransient<IBotCommand, HowDoYouFeelCommand>();
+        services.AddTransient<IBotCommand, RecordSatisfactionCommand>();
+        services.AddTransient<IBotCommand, RecordEmotionCommand>();
         services.AddTransient<IBotCommand, NoCommand>();
         services.AddTransient<IBotCommand, ToggleSatisfactionReminderCommand>();
         services.AddTransient<IBotCommand, ChangeSettingsCommand>();
@@ -21,8 +21,8 @@ public static class ServiceIoC
 
 
         services.AddTransient<IBotReply, UnknownReply>();
-        services.AddTransient<IBotReply, HowIsYourSatisfactionReply>();
-        services.AddTransient<IBotReply, HowDoYouFeelReply>();
+        services.AddTransient<IBotReply, RecordSatisfactionReply>();
+        services.AddTransient<IBotReply, RecordEmotionReply>();
         services.AddTransient<IBotReply, ToggleReminderReply>();
         services.AddTransient<IBotReply, ChangeLanguageReply>();
         services.AddTransient<IBotReply, ChangeEmotionReminderReply>();

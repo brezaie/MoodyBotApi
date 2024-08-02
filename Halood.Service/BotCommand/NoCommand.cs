@@ -29,8 +29,8 @@ public class NoCommand : IBotCommand
     public NoCommand(IEnumerable<IBotReply> botReplies)
     {
         _unkownReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(UnknownReply));
-        _howIsYourSatisfactionReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(HowIsYourSatisfactionReply));
-        _howDoYouFeelReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(HowDoYouFeelReply));
+        _howIsYourSatisfactionReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(RecordSatisfactionReply));
+        _howDoYouFeelReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(RecordEmotionReply));
         _toggleSatisfactionReminderReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(ToggleReminderReply));
         _changeLanguageReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(ChangeLanguageReply));
         _changeEmotionReminder = botReplies.FirstOrDefault(x => x.GetType() == typeof(ChangeEmotionReminderReply));

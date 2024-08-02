@@ -37,9 +37,9 @@ public class UpdateHandlers
         _logger = logger;
         _userRepository = userRepository;
         _userEmotionReminderRepository = userEmotionReminderRepository;
-        _howDoYouFeelCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(HowDoYouFeelCommand));
+        _howDoYouFeelCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(RecordEmotionCommand));
         _howIsYourSatisfactionCommand =
-            botActions.FirstOrDefault(x => x.GetType() == typeof(HowIsYourSatisfactionCommand));
+            botActions.FirstOrDefault(x => x.GetType() == typeof(RecordSatisfactionCommand));
         _noCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(NoCommand));
         _startCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(StartCommand));
         _toggleSatisfactionReminderCommand =

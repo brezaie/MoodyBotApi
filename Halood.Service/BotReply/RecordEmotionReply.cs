@@ -5,14 +5,13 @@ using Halood.Domain.Enums;
 using Halood.Domain.Interfaces.BotAction;
 using Halood.Domain.Interfaces.User;
 using Halood.Domain.Interfaces.UserEmotion;
-using Halood.Domain.Interfaces.UserSatisfaction;
 using Halood.Service.BotCommand;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot;
 
 namespace Halood.Service.BotReply;
 
-public class HowDoYouFeelReply : IBotReply
+public class RecordEmotionReply : IBotReply
 {
     private readonly ITelegramBotClient _botClient;
     private readonly ILogger<NoCommand> _logger;
@@ -20,7 +19,7 @@ public class HowDoYouFeelReply : IBotReply
     private readonly IUserRepository _userRepository;
     private readonly IUserEmotionRepository _userEmotionRepository;
 
-    public HowDoYouFeelReply(ITelegramBotClient botClient, IUserRepository userRepository, IUserEmotionRepository userEmotionRepository)
+    public RecordEmotionReply(ITelegramBotClient botClient, IUserRepository userRepository, IUserEmotionRepository userEmotionRepository)
     {
         _botClient = botClient;
         _userRepository = userRepository;

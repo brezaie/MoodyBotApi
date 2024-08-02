@@ -9,10 +9,10 @@ public enum CommandType
     [Description("/start")]
     Start = 1,
 
-    [Description("/how_is_your_satisfaction")]
+    [Description("/record_satisfaction")]
     Satisfaction = 2,
 
-    [Description("/how_do_you_feel")]
+    [Description("/record_emotion")]
     Emotion = 3,
 
     [Description("/change_settings")]

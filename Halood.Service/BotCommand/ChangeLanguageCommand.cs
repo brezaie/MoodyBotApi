@@ -10,7 +10,7 @@ namespace Halood.Service.BotCommand;
 public class ChangeLanguageCommand : IBotCommand
 {
     private readonly ITelegramBotClient _botClient;
-    private readonly ILogger<HowIsYourSatisfactionCommand> _logger;
+    private readonly ILogger<RecordSatisfactionCommand> _logger;
     private string _text =
         $"کدام یک از ایموجی‌های زیر، میزان رضایت شما از امروز‌تان را می‌تواند به بهترین شکل نشان دهد؟";
 

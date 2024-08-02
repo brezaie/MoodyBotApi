@@ -11,7 +11,7 @@ using Telegram.Bot;
 
 namespace Halood.Service.BotReply;
 
-public class HowIsYourSatisfactionReply : IBotReply
+public class RecordSatisfactionReply : IBotReply
 {
     private readonly ITelegramBotClient _botClient;
     private readonly ILogger<NoCommand> _logger;
@@ -19,7 +19,7 @@ public class HowIsYourSatisfactionReply : IBotReply
     private readonly IUserRepository _userRepository;
     private readonly IUserSatisfactionRepository _userSatisfactionRepository;
 
-    public HowIsYourSatisfactionReply(ITelegramBotClient botClient, ILogger<NoCommand> logger,
+    public RecordSatisfactionReply(ITelegramBotClient botClient, ILogger<NoCommand> logger,
         IUserRepository userRepository, IUserSatisfactionRepository userSatisfactionRepository)
     {
         _botClient = botClient;

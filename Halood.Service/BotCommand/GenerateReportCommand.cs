@@ -25,12 +25,12 @@ namespace Halood.Service.BotCommand;
 public class GenerateReportCommand : IBotCommand
 {
     private readonly ITelegramBotClient _botClient;
-    private readonly ILogger<HowDoYouFeelCommand> _logger;
+    private readonly ILogger<RecordEmotionCommand> _logger;
     private string _text = string.Empty;
     private readonly IUserSatisfactionRepository _userSatisfactionRepository;
     private readonly IUserRepository _userRepository;
 
-    public GenerateReportCommand(ITelegramBotClient botClient, ILogger<HowDoYouFeelCommand> logger, IUserSatisfactionRepository userSatisfactionRepository, IUserRepository userRepository)
+    public GenerateReportCommand(ITelegramBotClient botClient, ILogger<RecordEmotionCommand> logger, IUserSatisfactionRepository userSatisfactionRepository, IUserRepository userRepository)
     {
         _botClient = botClient;
         _logger = logger;

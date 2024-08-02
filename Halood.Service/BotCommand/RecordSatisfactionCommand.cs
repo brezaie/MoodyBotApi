@@ -7,15 +7,15 @@ using Telegram.Bot;
 
 namespace Halood.Service.BotCommand;
 
-public class HowIsYourSatisfactionCommand : IBotCommand
+public class RecordSatisfactionCommand : IBotCommand
 {
     private readonly ITelegramBotClient _botClient;
-    private readonly ILogger<HowIsYourSatisfactionCommand> _logger;
+    private readonly ILogger<RecordSatisfactionCommand> _logger;
     private string _text =
         $"کدام یک از گزینه‌های زیر، میزان رضایت شما از امروز‌تان را می‌تواند به بهترین شکل نشان دهد؟";
 
-    public HowIsYourSatisfactionCommand(ITelegramBotClient botClient,
-        ILogger<HowIsYourSatisfactionCommand> logger)
+    public RecordSatisfactionCommand(ITelegramBotClient botClient,
+        ILogger<RecordSatisfactionCommand> logger)
     {
         _botClient = botClient;
         _logger = logger;
