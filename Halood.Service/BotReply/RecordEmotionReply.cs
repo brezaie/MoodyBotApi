@@ -26,11 +26,12 @@ public class RecordEmotionReply : IBotReply
         _userEmotionRepository = userEmotionRepository;
     }
 
-    public async Task Execute(BotCommandMessage message, CancellationToken cancellationToken)
+    public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
+        var givenEmotion = message.Text.Split(" ")[1];
         // اگر متن وارد شده، هیچ یک از احساس های پیشنهادی نبود
         if (((Emotion[])Enum.GetValues(typeof(Emotion))).All(x =>
-                x.ToString() != message.Text))
+                x.ToString() != givenEmotion))
         {
             _text = $"احساس انتخاب شده نادرست می‌باشد. لطفاً یکی از احساس‌های پیشنهادی را انتخاب کنید.";
             await _botClient.SendTextMessageAsync(
@@ -59,7 +60,7 @@ public class RecordEmotionReply : IBotReply
 
         var emotion = ((Emotion[]) Enum.GetValues(typeof(Emotion)))
             .FirstOrDefault(x =>
-                x.ToString() == message.Text);
+                x.ToString() == givenEmotion);
 
         await _userEmotionRepository.SaveAsync(new UserEmotion
         {
@@ -70,8 +71,6 @@ public class RecordEmotionReply : IBotReply
         });
 
         await _userEmotionRepository.CommitAsync();
-
-        CommandHandler.RemoveCommand(message.Username);
 
         _text = $"احساس \"{emotion.GetDescription()}\" برای این لحظه‌تان با موفقبت ثبت شد.  👍";
         await _botClient.SendTextMessageAsync(

@@ -23,8 +23,6 @@ public class RecordSatisfactionCommand : IBotCommand
 
     public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
-        CommandHandler.AddCommand(message.Username, CommandType.Satisfaction);
-
         await _botClient.SendTextMessageAsync(
             chatId: message.ChatId,
             text: _text,

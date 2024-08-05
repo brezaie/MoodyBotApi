@@ -28,7 +28,7 @@ public class ChangeEmotionReminderReply : IBotReply
         _userEmotionReminderRepository = userEmotionReminderRepository;
     }
 
-    public async Task Execute(BotCommandMessage message, CancellationToken cancellationToken)
+    public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
         try
         {

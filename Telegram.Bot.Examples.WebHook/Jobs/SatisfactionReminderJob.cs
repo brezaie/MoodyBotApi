@@ -25,8 +25,6 @@ public class SatisfactionReminderJob : IJob
         var users = await _userRepository.GetSatisfactionRemindersAsync();
         foreach (var user in users)
         {
-            CommandHandler.AddCommand(user.Username, CommandType.Satisfaction);
-
             await _botClient.SendTextMessageAsync(
                 chatId: user.ChatId,
                 text: text,

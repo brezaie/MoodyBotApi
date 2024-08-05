@@ -46,6 +46,6 @@ public class NoCommand : IBotCommand
     public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
         var previousCommand = CommandHandler.GetCommand(message.Username);
-        await replyActions[previousCommand].Execute(message, cancellationToken);
+        await replyActions[previousCommand].ExecuteAsync(message, cancellationToken);
     }
 }

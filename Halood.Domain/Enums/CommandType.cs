@@ -29,4 +29,10 @@ public enum CommandType
 
     [Description("/change_emotion_reminder")]
     EmotionReminder = 8,
+
+    [Description("/record_satisfaction_reply")]
+    SatisfactionReply = 9,
+
+    [Description("/record_emotion_reply")]
+    EmotionReply = 10
 }

@@ -28,11 +28,12 @@ public class RecordSatisfactionReply : IBotReply
         _userSatisfactionRepository = userSatisfactionRepository;
     }
 
-    public async Task Execute(BotCommandMessage message, CancellationToken cancellationToken)
+    public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
+        var givenSatisfaction = message.Text.Split(" ")[1];
         // اگر متن وارد شده، هیچ یک از ایموجی های پیشنهادی نبود
         if (((SatisfactionLevel[])Enum.GetValues(typeof(SatisfactionLevel))).All(x =>
-                x.ToString() != message.Text))
+                x.ToString() != givenSatisfaction))
         {
             _text = $"گزینه انتخاب شده نادرست می‌باشد. لطفاً یکی از گزینه‌های پیشنهادی را انتخاب کنید.";
             await _botClient.SendTextMessageAsync(
@@ -60,7 +61,7 @@ public class RecordSatisfactionReply : IBotReply
         }
 
         var satisfactionLevel = ((SatisfactionLevel[]) Enum.GetValues(typeof(SatisfactionLevel)))
-            .FirstOrDefault(x => x.ToString() == message.Text);
+            .FirstOrDefault(x => x.ToString() == givenSatisfaction);
 
         await _userSatisfactionRepository.SaveAsync(new UserSatisfaction
         {
@@ -69,8 +70,6 @@ public class RecordSatisfactionReply : IBotReply
             UserId = userId
         });
         await _userSatisfactionRepository.CommitAsync();
-
-        CommandHandler.RemoveCommand(message.Username);
 
         _text = $"گزینه \"{satisfactionLevel.GetDescription()}\" بعنوان میزان رضایت از زندگی امروزتان با موفقیت ثبت شد. 👍";
         await _botClient.SendTextMessageAsync(

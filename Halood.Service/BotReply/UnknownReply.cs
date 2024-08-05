@@ -18,7 +18,7 @@ public class UnknownReply : IBotReply
         _botClient = botClient;
     }
 
-    public async Task Execute(BotCommandMessage message, CancellationToken cancellationToken)
+    public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
         await _botClient.SendTextMessageAsync(
             chatId: message.ChatId,

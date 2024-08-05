@@ -11,6 +11,7 @@ using Telegram.Bot.Types.ReplyMarkups;
 using Halood.Domain.Interfaces.BotAction;
 using Halood.Domain.Interfaces.UserEmotionReminder;
 using Halood.Service.BotCommand;
+using Halood.Service.BotReply;
 
 namespace Telegram.Bot.Services;
 
@@ -29,9 +30,11 @@ public class UpdateHandlers
     private readonly IBotCommand _changeLanguageCommand;
     private readonly IBotCommand _generateReportCommand;
     private readonly IBotCommand _changeEmotionReminder;
+    private readonly IBotReply _record_satisfaction_reply;
+    private readonly IBotReply _record_emotion_reply;
 
     public UpdateHandlers(ITelegramBotClient botClient, ILogger<UpdateHandlers> logger, IUserRepository userRepository,
-        IEnumerable<IBotCommand> botActions, IUserEmotionReminderRepository userEmotionReminderRepository)
+        IEnumerable<IBotCommand> botActions, IEnumerable<IBotReply> botReplies, IUserEmotionReminderRepository userEmotionReminderRepository)
     {
         _botClient = botClient;
         _logger = logger;
@@ -49,6 +52,10 @@ public class UpdateHandlers
         _changeLanguageCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(ChangeLanguageCommand));
         _generateReportCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(GenerateReportCommand));
         _changeEmotionReminder = botActions.FirstOrDefault(x => x.GetType() == typeof(ChangeEmotionReminderCommand));
+
+
+        _record_satisfaction_reply = botReplies.FirstOrDefault(x => x.GetType() == typeof(RecordSatisfactionReply));
+        _record_emotion_reply = botReplies.FirstOrDefault(x => x.GetType() == typeof(RecordEmotionReply));
     }
 
     public Task HandleErrorAsync(Exception exception, CancellationToken cancellationToken)
@@ -175,6 +182,8 @@ public class UpdateHandlers
             CommandType.Language => _changeLanguageCommand.ExecuteAsync(botCommandMessage, cancellationToken),
             CommandType.Report => _generateReportCommand.ExecuteAsync(botCommandMessage, cancellationToken),
             CommandType.EmotionReminder => _changeEmotionReminder.ExecuteAsync(botCommandMessage, cancellationToken),
+            CommandType.SatisfactionReply => _record_satisfaction_reply.ExecuteAsync(botCommandMessage, cancellationToken),
+            CommandType.EmotionReply => _record_emotion_reply.ExecuteAsync(botCommandMessage, cancellationToken),
             _ => _noCommand.ExecuteAsync(botCommandMessage, cancellationToken)
         };
 

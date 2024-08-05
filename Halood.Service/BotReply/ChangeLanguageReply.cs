@@ -19,7 +19,7 @@ public class ChangeLanguageReply : IBotReply
         _botClient = botClient;
     }
 
-    public async Task Execute(BotCommandMessage message, CancellationToken cancellationToken)
+    public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
         // اگر متن وارد شده، هیچ یک از گزینه های پیشنهادی نبود
         if (((Language[])Enum.GetValues(typeof(Language))).All(x =>

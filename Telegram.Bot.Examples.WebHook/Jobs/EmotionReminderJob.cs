@@ -34,7 +34,6 @@ public class EmotionReminderJob : IJob
         foreach (var reminder in reminders.Where(x => x.Hour == iranTime.Hour))
         {
             var user = await _userRepository.GetAsync(reminder.UserId);
-            CommandHandler.AddCommand(user.Username, CommandType.Emotion);
 
             await _botClient.SendTextMessageAsync(
                 chatId: user.ChatId,
