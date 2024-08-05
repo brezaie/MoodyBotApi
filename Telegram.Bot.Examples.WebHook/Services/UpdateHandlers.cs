@@ -32,6 +32,9 @@ public class UpdateHandlers
     private readonly IBotCommand _changeEmotionReminder;
     private readonly IBotReply _record_satisfaction_reply;
     private readonly IBotReply _record_emotion_reply;
+    private readonly IBotReply _change_language_reply;
+    private readonly IBotReply _change_emotion_reminder_reply;
+    private readonly IBotReply _toggleSatisfactionReminderReply;
 
     public UpdateHandlers(ITelegramBotClient botClient, ILogger<UpdateHandlers> logger, IUserRepository userRepository,
         IEnumerable<IBotCommand> botActions, IEnumerable<IBotReply> botReplies, IUserEmotionReminderRepository userEmotionReminderRepository)
@@ -56,6 +59,10 @@ public class UpdateHandlers
 
         _record_satisfaction_reply = botReplies.FirstOrDefault(x => x.GetType() == typeof(RecordSatisfactionReply));
         _record_emotion_reply = botReplies.FirstOrDefault(x => x.GetType() == typeof(RecordEmotionReply));
+        _change_language_reply = botReplies.FirstOrDefault(x => x.GetType() == typeof(ChangeLanguageReply));
+        _change_emotion_reminder_reply = botReplies.FirstOrDefault(x => x.GetType() == typeof(ChangeEmotionReminderReply));
+        _toggleSatisfactionReminderReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(ToggleSatisfactionReminderReply));
+
     }
 
     public Task HandleErrorAsync(Exception exception, CancellationToken cancellationToken)
@@ -184,6 +191,9 @@ public class UpdateHandlers
             CommandType.EmotionReminder => _changeEmotionReminder.ExecuteAsync(botCommandMessage, cancellationToken),
             CommandType.SatisfactionReply => _record_satisfaction_reply.ExecuteAsync(botCommandMessage, cancellationToken),
             CommandType.EmotionReply => _record_emotion_reply.ExecuteAsync(botCommandMessage, cancellationToken),
+            CommandType.LanguageReply => _change_language_reply.ExecuteAsync(botCommandMessage, cancellationToken),
+            CommandType.EmotionReminderReply => _change_emotion_reminder_reply.ExecuteAsync(botCommandMessage, cancellationToken),
+            CommandType.SatisfactionReminderReply => _toggleSatisfactionReminderReply.ExecuteAsync(botCommandMessage, cancellationToken),
             _ => _noCommand.ExecuteAsync(botCommandMessage, cancellationToken)
         };
 
@@ -220,7 +230,7 @@ public class UpdateHandlers
 
     private CommandType ConvertCommandTextToAction(string actionText)
     {
-        return Enum.GetValues<CommandType>().FirstOrDefault(command => command.GetDescription() == actionText);
+        return Enum.GetValues<CommandType>().FirstOrDefault(command => command.GetRoute() == actionText);
     }
 
     private BotCommandMessage ConvertToBotActionMessage(Message message)

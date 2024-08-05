@@ -5,9 +5,7 @@ using Halood.Domain.Enums;
 using Halood.Domain.Interfaces.BotAction;
 using Halood.Domain.Interfaces.User;
 using Halood.Domain.Interfaces.UserEmotionReminder;
-using Halood.Service.BotCommand;
 using Microsoft.Extensions.Logging;
-using PdfSharp.Snippets;
 using Telegram.Bot;
 using Telegram.Bot.Types.ReplyMarkups;
 
@@ -32,9 +30,10 @@ public class ChangeEmotionReminderReply : IBotReply
     {
         try
         {
-            if (message.Text != EmotionReminder.Submit.ToString())
+            var givenText = message.Text.Split(" ")[1];
+            if (givenText != EmotionReminder.Submit.ToString())
             {
-                CommandHandler.ChangeEmotionReminder(message.Username, (int) ConvertTextToEmotionReminder(message.Text));
+                CommandHandler.ChangeEmotionReminder(message.Username, (int) ConvertTextToEmotionReminder(givenText));
                 var selectedReminders = CommandHandler.GetEmotionReminders(message.Username);
                 var inlineKeyboard = InitializeInlineKeyboard();
 
@@ -45,7 +44,7 @@ public class ChangeEmotionReminderReply : IBotReply
                     {
                         foreach (var item in row)
                         {
-                            if(item.CallbackData == reminderEnum.GetDescription())
+                            if(item.CallbackData == reminderEnum.GetRoute())
                             {
                                 item.Text = $"{(int) reminderEnum}:00 ✅";
                                 break;
@@ -87,7 +86,6 @@ public class ChangeEmotionReminderReply : IBotReply
                     cancellationToken: cancellationToken);
 
                 CommandHandler.RemoveEmotionReminders(message.Username);
-                CommandHandler.RemoveCommand(message.Username);
             }
         }
         catch (Exception ex)
@@ -122,26 +120,25 @@ public class ChangeEmotionReminderReply : IBotReply
         {
             new List<InlineKeyboardButton>
             {
-                InlineKeyboardButton.WithCallbackData("7:00 🕖", EmotionReminder.Seven.GetDescription()),
-                InlineKeyboardButton.WithCallbackData("9:00 🕘", EmotionReminder.Nine.GetDescription()),
-                InlineKeyboardButton.WithCallbackData("11:00 🕚", EmotionReminder.Eleven.GetDescription()),
+                InlineKeyboardButton.WithCallbackData("7:00 🕖", EmotionReminder.Seven.GetRoute()),
+                InlineKeyboardButton.WithCallbackData("9:00 🕘", EmotionReminder.Nine.GetRoute()),
+                InlineKeyboardButton.WithCallbackData("11:00 🕚", EmotionReminder.Eleven.GetRoute()),
             },
             new List<InlineKeyboardButton>
             {
-                InlineKeyboardButton.WithCallbackData("13:00 🕐", EmotionReminder.Thirteen.GetDescription()),
-                InlineKeyboardButton.WithCallbackData("15:00 🕒", EmotionReminder.Fifteen.GetDescription()),
-                InlineKeyboardButton.WithCallbackData("17:00 🕔", EmotionReminder.Seventeen.GetDescription()),
+                InlineKeyboardButton.WithCallbackData("13:00 🕐", EmotionReminder.Thirteen.GetRoute()),
+                InlineKeyboardButton.WithCallbackData("15:00 🕒", EmotionReminder.Fifteen.GetRoute()),
+                InlineKeyboardButton.WithCallbackData("17:00 🕔", EmotionReminder.Seventeen.GetRoute()),
             },
             new List<InlineKeyboardButton>
             {
-                InlineKeyboardButton.WithCallbackData("19:00 🕖", EmotionReminder.Nineteen.GetDescription()),
-                InlineKeyboardButton.WithCallbackData("21:00 🕘", EmotionReminder.TwentyOne.GetDescription()),
-                InlineKeyboardButton.WithCallbackData("23:00 🕚", EmotionReminder.TwentyThree.GetDescription()),
+                InlineKeyboardButton.WithCallbackData("19:00 🕖", EmotionReminder.Nineteen.GetRoute()),
+                InlineKeyboardButton.WithCallbackData("21:00 🕘", EmotionReminder.TwentyOne.GetRoute()),
+                InlineKeyboardButton.WithCallbackData("23:00 🕚", EmotionReminder.TwentyThree.GetRoute()),
             },
             new List<InlineKeyboardButton>
             {
-                InlineKeyboardButton.WithCallbackData("ثبت 👍", EmotionReminder.Submit.GetDescription()),
-
+                InlineKeyboardButton.WithCallbackData("ثبت 👍", EmotionReminder.Submit.GetRoute()),
             }
         });
     }

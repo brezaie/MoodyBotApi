@@ -25,8 +25,6 @@ public class ToggleSatisfactionReminderCommand : IBotCommand
 
     public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
-        CommandHandler.AddCommand(message.Username, CommandType.SatisfactionReminder);
-
         var user = await _userRepository.GetByAsync(message.Username);
         _text = $"آیا مایل به {(user.IsGlobalSatisfactionReminderActive ? "غیرفعال‌سازی" : "فعال‌سازی")} یادآور هستید؟";
 

@@ -21,8 +21,6 @@ public class ChangeLanguageCommand : IBotCommand
 
     public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
-        CommandHandler.AddCommand(message.Username, CommandType.Language);
-
         await _botClient.SendTextMessageAsync(
             chatId: message.ChatId,
             text: _text,

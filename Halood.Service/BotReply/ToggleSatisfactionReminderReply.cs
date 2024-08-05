@@ -9,7 +9,7 @@ using Telegram.Bot;
 
 namespace Halood.Service.BotReply;
 
-public class ToggleReminderReply : IBotReply
+public class ToggleSatisfactionReminderReply : IBotReply
 {
     private readonly ITelegramBotClient _botClient;
     private readonly ILogger<NoCommand> _logger;
@@ -18,7 +18,7 @@ public class ToggleReminderReply : IBotReply
     private readonly IUserRepository _userRepository;
 
 
-    public ToggleReminderReply(ITelegramBotClient botClient, IUserRepository userRepository)
+    public ToggleSatisfactionReminderReply(ITelegramBotClient botClient, IUserRepository userRepository)
     {
         _botClient = botClient;
         _userRepository = userRepository;
@@ -26,9 +26,10 @@ public class ToggleReminderReply : IBotReply
 
     public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
+        var givenToggleResponse = message.Text.Split(" ")[1];
         // اگر متن وارد شده، هیچ یک از گزینه های پیشنهادی نبود
         if (((YesNoResponse[])Enum.GetValues(typeof(YesNoResponse))).All(x =>
-                x.GetDescription() != message.Text))
+                x.GetDescription() != givenToggleResponse))
         {
             _text = $"گزینه انتخاب شده نادرست می‌باشد. لطفاً یکی از گزینه‌های پیشنهادی را انتخاب کنید.";
             await _botClient.SendTextMessageAsync(
@@ -39,15 +40,13 @@ public class ToggleReminderReply : IBotReply
             return;
         }
 
-        if (message.Text == YesNoResponse.No.GetDescription())
+        if (givenToggleResponse == YesNoResponse.No.GetDescription())
         {
             _text = $"دستور مورد نظر لغو گردید.";
             await _botClient.SendTextMessageAsync(
                 chatId: message.ChatId,
                 text: _text,
                 cancellationToken: cancellationToken);
-
-            CommandHandler.RemoveCommand(message.Username);
 
             return;
         }
@@ -56,8 +55,6 @@ public class ToggleReminderReply : IBotReply
         user.IsGlobalSatisfactionReminderActive = !user.IsGlobalSatisfactionReminderActive;
         await _userRepository.UpdateAsync(user);
         await _userRepository.CommitAsync();
-
-        CommandHandler.RemoveCommand(message.Username);
 
         _text = $"{(user.IsGlobalSatisfactionReminderActive ? "فعال‌سازی" : "غیرفعال‌سازی")} با موفقت انجام شد.👍";
         await _botClient.SendTextMessageAsync(

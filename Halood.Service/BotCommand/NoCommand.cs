@@ -31,7 +31,7 @@ public class NoCommand : IBotCommand
         _unkownReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(UnknownReply));
         _howIsYourSatisfactionReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(RecordSatisfactionReply));
         _howDoYouFeelReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(RecordEmotionReply));
-        _toggleSatisfactionReminderReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(ToggleReminderReply));
+        _toggleSatisfactionReminderReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(ToggleSatisfactionReminderReply));
         _changeLanguageReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(ChangeLanguageReply));
         _changeEmotionReminder = botReplies.FirstOrDefault(x => x.GetType() == typeof(ChangeEmotionReminderReply));
 
@@ -45,7 +45,7 @@ public class NoCommand : IBotCommand
 
     public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
-        var previousCommand = CommandHandler.GetCommand(message.Username);
-        await replyActions[previousCommand].ExecuteAsync(message, cancellationToken);
+        //var previousCommand = CommandHandler.GetCommand(message.Username);
+        //await replyActions[previousCommand].ExecuteAsync(message, cancellationToken);
     }
 }

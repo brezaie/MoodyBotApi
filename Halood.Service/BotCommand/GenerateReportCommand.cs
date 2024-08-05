@@ -40,8 +40,6 @@ public class GenerateReportCommand : IBotCommand
 
     public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
-        CommandHandler.AddCommand(message.Username, CommandType.Report);
-
         await _botClient.SendChatActionAsync(
             chatId: message.ChatId,
             chatAction: ChatAction.UploadDocument,

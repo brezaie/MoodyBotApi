@@ -23,7 +23,7 @@ public static class ServiceIoC
         services.AddTransient<IBotReply, UnknownReply>();
         services.AddTransient<IBotReply, RecordSatisfactionReply>();
         services.AddTransient<IBotReply, RecordEmotionReply>();
-        services.AddTransient<IBotReply, ToggleReminderReply>();
+        services.AddTransient<IBotReply, ToggleSatisfactionReminderReply>();
         services.AddTransient<IBotReply, ChangeLanguageReply>();
         services.AddTransient<IBotReply, ChangeEmotionReminderReply>();
 

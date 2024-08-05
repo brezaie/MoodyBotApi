@@ -137,8 +137,8 @@ namespace Halood.Common
         public static InlineKeyboardMarkup SatisfactionReminderToggleInlineKeyboardMarkup = new InlineKeyboardMarkup(
             new List<InlineKeyboardButton>
             {
-                InlineKeyboardButton.WithCallbackData("بله 👍", YesNoResponse.Yes.GetDescription()),
-                InlineKeyboardButton.WithCallbackData("خیر 👎", YesNoResponse.No.GetDescription()),
+                InlineKeyboardButton.WithCallbackData("بله 👍", YesNoResponse.Yes.GetRoute()),
+                InlineKeyboardButton.WithCallbackData("خیر 👎", YesNoResponse.No.GetRoute()),
             });
 
         public static InlineKeyboardMarkup EmotionReminderInlineKeyboardMarkup =
@@ -146,25 +146,25 @@ namespace Halood.Common
             {
                 new List<InlineKeyboardButton>
                 {
-                    InlineKeyboardButton.WithCallbackData("7:00 🕖", EmotionReminder.Seven.GetDescription()),
-                    InlineKeyboardButton.WithCallbackData("9:00 🕘", EmotionReminder.Nine.GetDescription()),
-                    InlineKeyboardButton.WithCallbackData("11:00 🕚", EmotionReminder.Eleven.GetDescription()),
+                    InlineKeyboardButton.WithCallbackData("7:00 🕖", EmotionReminder.Seven.GetRoute()),
+                    InlineKeyboardButton.WithCallbackData("9:00 🕘", EmotionReminder.Nine.GetRoute()),
+                    InlineKeyboardButton.WithCallbackData("11:00 🕚", EmotionReminder.Eleven.GetRoute()),
                 },
                 new List<InlineKeyboardButton>
                 {
-                    InlineKeyboardButton.WithCallbackData("13:00 🕐", EmotionReminder.Thirteen.GetDescription()),
-                    InlineKeyboardButton.WithCallbackData("15:00 🕒", EmotionReminder.Fifteen.GetDescription()),
-                    InlineKeyboardButton.WithCallbackData("17:00 🕔", EmotionReminder.Seventeen.GetDescription()),
+                    InlineKeyboardButton.WithCallbackData("13:00 🕐", EmotionReminder.Thirteen.GetRoute()),
+                    InlineKeyboardButton.WithCallbackData("15:00 🕒", EmotionReminder.Fifteen.GetRoute()),
+                    InlineKeyboardButton.WithCallbackData("17:00 🕔", EmotionReminder.Seventeen.GetRoute()),
                 },
                 new List<InlineKeyboardButton>
                 {
-                    InlineKeyboardButton.WithCallbackData("19:00 🕖", EmotionReminder.Nineteen.GetDescription()),
-                    InlineKeyboardButton.WithCallbackData("21:00 🕘", EmotionReminder.TwentyOne.GetDescription()),
-                    InlineKeyboardButton.WithCallbackData("23:00 🕚", EmotionReminder.TwentyThree.GetDescription()),
+                    InlineKeyboardButton.WithCallbackData("19:00 🕖", EmotionReminder.Nineteen.GetRoute()),
+                    InlineKeyboardButton.WithCallbackData("21:00 🕘", EmotionReminder.TwentyOne.GetRoute()),
+                    InlineKeyboardButton.WithCallbackData("23:00 🕚", EmotionReminder.TwentyThree.GetRoute()),
                 },
                 new List<InlineKeyboardButton>
                 {
-                    InlineKeyboardButton.WithCallbackData("ثبت 👍", EmotionReminder.Submit.GetDescription()),
+                    InlineKeyboardButton.WithCallbackData("ثبت 👍", EmotionReminder.Submit.GetRoute()),
 
                 }
             });
@@ -172,48 +172,23 @@ namespace Halood.Common
     public static InlineKeyboardMarkup LanguageInlineKeyboardMarkup = new InlineKeyboardMarkup(
             new List<InlineKeyboardButton>
             {
-                InlineKeyboardButton.WithCallbackData("فارسی 🇮🇷", Language.Persian.GetDescription()),
-                InlineKeyboardButton.WithCallbackData("English 🇬🇧", Language.English.GetDescription()), 
+                InlineKeyboardButton.WithCallbackData("فارسی 🇮🇷", Language.Persian.GetRoute()),
+                InlineKeyboardButton.WithCallbackData("English 🇬🇧", Language.English.GetRoute())
             });
         
         public static InlineKeyboardMarkup SettingsInlineKeyboardMarkup = new(new List<IEnumerable<InlineKeyboardButton>>
         {
             new List<InlineKeyboardButton>
             {
-                InlineKeyboardButton.WithCallbackData("یادآور رضایت از زندگی 🕙", CommandType.SatisfactionReminder.GetDescription()),
-                InlineKeyboardButton.WithCallbackData("یادآور احساس‌ها ⏰", CommandType.EmotionReminder.GetDescription())
+                InlineKeyboardButton.WithCallbackData("یادآور رضایت از زندگی 🕙", CommandType.SatisfactionReminder.GetRoute()),
+                InlineKeyboardButton.WithCallbackData("یادآور احساس‌ها ⏰", CommandType.EmotionReminder.GetRoute())
             },
             new List<InlineKeyboardButton>
             {
-                InlineKeyboardButton.WithCallbackData("زبان 🌎", CommandType.Language.GetDescription()),
+                InlineKeyboardButton.WithCallbackData("زبان 🌎", CommandType.Language.GetRoute()),
             }
         });
-
-        public static void AddCommand(string username, CommandType commandType)
-        {
-            if(_commands == null)
-                _commands = new Dictionary<string, CommandType>();
-
-            RemoveCommand(username);
-            _commands.Add(username, commandType);
-        }
-
-        public static void RemoveCommand(string username)
-        {
-            if(_commands != null)
-                _commands.Remove(username);
-        }
-
-        public static CommandType GetCommand(string username)
-        {
-            if (_commands == null)
-                return CommandType.Unknown;
-
-            var command = _commands.FirstOrDefault(x => x.Key == username);
-            return command.Value;
-        }
-
-
+        
         public static void ChangeEmotionReminder(string username, int hour)
         {
             if (_emotionReminders == null)

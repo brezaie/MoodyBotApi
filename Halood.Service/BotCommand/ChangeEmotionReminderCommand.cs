@@ -21,8 +21,6 @@ public class ChangeEmotionReminderCommand : IBotCommand
 
     public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
-        CommandHandler.AddCommand(message.Username, CommandType.EmotionReminder);
-
         _text =
             $"چند گزینه بعنوان ساعت‌هایی که یادآور ثبت احساس برای شما ارسال شود را ثبت کنید و سپس دکمه \"ثبت\" را بزنید.\n" +
             $"در صورتی که تمایل به ارسال یادآور ندارید، بدون انتخاب هیچ گزینه‌ای، دکمه \"ثبت\" را بزنید.\n";

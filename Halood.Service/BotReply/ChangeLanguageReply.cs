@@ -21,9 +21,10 @@ public class ChangeLanguageReply : IBotReply
 
     public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
+        var givenLanguage = message.Text.Split(" ")[1];
         // اگر متن وارد شده، هیچ یک از گزینه های پیشنهادی نبود
         if (((Language[])Enum.GetValues(typeof(Language))).All(x =>
-                x.GetDescription() != message.Text))
+                x.GetDescription() != givenLanguage))
         {
             _text = $"زبان انتخاب شده نادرست می‌باشد. لطفاً یکی از زبان‌های پیشنهادی را انتخاب کنید.";
             await _botClient.SendTextMessageAsync(
@@ -34,7 +35,7 @@ public class ChangeLanguageReply : IBotReply
             return;
         }
 
-        _text = message.Text == Language.Persian.GetDescription()
+        _text = givenLanguage == Language.Persian.GetDescription()
             ? $"زبان فارسی با موفقیت اعمال شد."
             : $"در حال حاضر فقط از زبان فارسی پشتیبانی می‌شود. زبان انگلیسی به زودی اضافه خواهد شد.";
 
@@ -42,7 +43,5 @@ public class ChangeLanguageReply : IBotReply
             chatId: message.ChatId,
             text: _text,
             cancellationToken: cancellationToken);
-
-        CommandHandler.RemoveCommand(message.Username);
     }
 }

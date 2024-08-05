@@ -26,8 +26,6 @@ public class StartCommand : IBotCommand
     
     public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
-        CommandHandler.RemoveCommand(message.Username);
-
         await _botClient.SendChatActionAsync(
             chatId: message.ChatId,
             chatAction: ChatAction.Typing,
