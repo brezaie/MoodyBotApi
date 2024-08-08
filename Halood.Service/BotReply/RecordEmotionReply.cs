@@ -30,39 +30,12 @@ public class RecordEmotionReply : IBotReply
     {
         var emotionsList = CommandHandler.GetEmotionInlineKeyboardMarkup();
         var givenEmotion = message.Text.Split(" ")[1];
-        // اگر متن وارد شده، هیچ یک از احساس های پیشنهادی نبود
-        if (((Emotion[])Enum.GetValues(typeof(Emotion))).All(x =>
-                x.ToString() != givenEmotion))
-        {
-            _text = $"احساس انتخاب شده نادرست می‌باشد. لطفاً یکی از احساس‌های پیشنهادی را انتخاب کنید.";
-            await _botClient.SendTextMessageAsync(
-                chatId: message.ChatId,
-                text: _text,
-                replyMarkup: emotionsList,
-                cancellationToken: cancellationToken);
-            return;
-        }
-
-        var userId = (await _userRepository.GetByAsync(message.Username)).Id;
-        var lastUserEmotion = await _userEmotionRepository.GetLastUserEmotionAsync(userId);
-
-        if (!CommandHandler.SpecialUserNames.Contains(message.Username) &&
-            lastUserEmotion is not null &&
-            (message.Date - lastUserEmotion.RegistrationDate).TotalMinutes <= 60)
-        {
-            _text =
-                $"از آخرین دفعه که احساس خود را ثبت کرده‌اید، کم‌تر از 1 ساعت گذشته است. پس از گذشت این زمان می‌توانید مجدد احساس خود را ثبت کنید 🙂";
-            await _botClient.SendTextMessageAsync(
-                chatId: message.ChatId,
-                text: _text,
-                cancellationToken: cancellationToken);
-            return;
-        }
-
+        
         var emotion = ((Emotion[]) Enum.GetValues(typeof(Emotion)))
             .FirstOrDefault(x =>
                 x.ToString() == givenEmotion);
 
+        var userId = (await _userRepository.GetByAsync(message.Username)).Id;
         await _userEmotionRepository.SaveAsync(new UserEmotion
         {
             UserId = userId,

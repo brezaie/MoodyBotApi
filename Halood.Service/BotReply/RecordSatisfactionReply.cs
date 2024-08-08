@@ -33,38 +33,10 @@ public class RecordSatisfactionReply : IBotReply
         var satisfactions = CommandHandler.GetSatisfactionLevelInlineKeyboardMarkup();
 
         var givenSatisfaction = message.Text.Split(" ")[1];
-        // اگر متن وارد شده، هیچ یک از ایموجی های پیشنهادی نبود
-        if (((SatisfactionLevel[])Enum.GetValues(typeof(SatisfactionLevel))).All(x =>
-                x.ToString() != givenSatisfaction))
-        {
-            _text = $"گزینه انتخاب شده نادرست می‌باشد. لطفاً یکی از گزینه‌های پیشنهادی را انتخاب کنید.";
-            await _botClient.SendTextMessageAsync(
-                chatId: message.ChatId,
-                text: _text,
-                replyMarkup: satisfactions,
-                cancellationToken: cancellationToken);
-            return;
-        }
-
-        var userId = (await _userRepository.GetByAsync(message.Username)).Id;
-        var lastUserSatisfaction = await _userSatisfactionRepository.GetLastUserSatisfactionAsync(userId);
-
-        if (!CommandHandler.SpecialUserNames.Contains(message.Username) &&
-            lastUserSatisfaction is not null &&
-            (message.Date - lastUserSatisfaction.RegistrationDate).TotalMinutes <= 60)
-        {
-            _text =
-                $"از آخرین دفعه که میزان رضایت خود را ثبت کرده‌اید، کم‌تر از 1 ساعت گذشته است. پس از گذشت این زمان می‌توانید مجدد رضایت خود را ثبت کنید 🙂";
-            await _botClient.SendTextMessageAsync(
-                chatId: message.ChatId,
-                text: _text,
-                cancellationToken: cancellationToken);
-            return;
-        }
-
         var satisfactionLevel = ((SatisfactionLevel[]) Enum.GetValues(typeof(SatisfactionLevel)))
             .FirstOrDefault(x => x.ToString() == givenSatisfaction);
 
+        var userId = (await _userRepository.GetByAsync(message.Username)).Id;
         await _userSatisfactionRepository.SaveAsync(new UserSatisfaction
         {
             RegistrationDate = message.Date,
