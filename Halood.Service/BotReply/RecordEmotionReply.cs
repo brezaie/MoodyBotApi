@@ -28,6 +28,7 @@ public class RecordEmotionReply : IBotReply
 
     public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
+        var emotionsList = CommandHandler.GetEmotionInlineKeyboardMarkup();
         var givenEmotion = message.Text.Split(" ")[1];
         // اگر متن وارد شده، هیچ یک از احساس های پیشنهادی نبود
         if (((Emotion[])Enum.GetValues(typeof(Emotion))).All(x =>
@@ -37,7 +38,7 @@ public class RecordEmotionReply : IBotReply
             await _botClient.SendTextMessageAsync(
                 chatId: message.ChatId,
                 text: _text,
-                replyMarkup: CommandHandler.EmotionInlineKeyboardMarkup,
+                replyMarkup: emotionsList,
                 cancellationToken: cancellationToken);
             return;
         }
@@ -72,10 +73,22 @@ public class RecordEmotionReply : IBotReply
 
         await _userEmotionRepository.CommitAsync();
 
+        foreach (var satLevel in emotionsList.InlineKeyboard)
+        {
+            foreach (var row in satLevel)
+            {
+                if (row.Text != emotion.GetDescription()) continue;
+
+                row.Text = $"{row.Text} ✅";
+                break;
+            }
+        }
+
         _text = $"احساس \"{emotion.GetDescription()}\" برای این لحظه‌تان با موفقبت ثبت شد.  👍";
         await _botClient.SendTextMessageAsync(
             chatId: message.ChatId,
             text: _text,
+            replyMarkup:emotionsList,
             cancellationToken: cancellationToken);
     }
 }

@@ -14,32 +14,33 @@ namespace Halood.Common
             "brezaie"
         };
         
-        public static InlineKeyboardMarkup SatisfactionLevelInlineKeyboardMarkup =
-        new(new List<IEnumerable<InlineKeyboardButton>>
-        {
-            new List<InlineKeyboardButton>
+        public static InlineKeyboardMarkup GetSatisfactionLevelInlineKeyboardMarkup() => 
+            new(new List<IEnumerable<InlineKeyboardButton>>
             {
-                InlineKeyboardButton.WithCallbackData(SatisfactionLevel.Perfect.GetDescription(), SatisfactionLevel.Perfect.GetRoute()),
-            },
-            new List<InlineKeyboardButton>
-            {
-                InlineKeyboardButton.WithCallbackData(SatisfactionLevel.Good.GetDescription(), SatisfactionLevel.Good.GetRoute()),
-            },
-            new List<InlineKeyboardButton>
-            {
-                InlineKeyboardButton.WithCallbackData(SatisfactionLevel.SoSo.GetDescription(), SatisfactionLevel.SoSo.GetRoute()),
-            },
-            new List<InlineKeyboardButton>
-            {
-                InlineKeyboardButton.WithCallbackData(SatisfactionLevel.Bad.GetDescription(), SatisfactionLevel.Bad.GetRoute()),
-            },
-            new List<InlineKeyboardButton>
-            {
-                InlineKeyboardButton.WithCallbackData(SatisfactionLevel.Awful.GetDescription(), SatisfactionLevel.Awful.GetRoute()),
-            }
-        });
+                new List<InlineKeyboardButton>
+                {
+                    InlineKeyboardButton.WithCallbackData(SatisfactionLevel.Perfect.GetDescription(), SatisfactionLevel.Perfect.GetRoute()),
+                },
+                new List<InlineKeyboardButton>
+                {
+                    InlineKeyboardButton.WithCallbackData(SatisfactionLevel.Good.GetDescription(), SatisfactionLevel.Good.GetRoute()),
+                },
+                new List<InlineKeyboardButton>
+                {
+                    InlineKeyboardButton.WithCallbackData(SatisfactionLevel.SoSo.GetDescription(), SatisfactionLevel.SoSo.GetRoute()),
+                },
+                new List<InlineKeyboardButton>
+                {
+                    InlineKeyboardButton.WithCallbackData(SatisfactionLevel.Bad.GetDescription(), SatisfactionLevel.Bad.GetRoute()),
+                },
+                new List<InlineKeyboardButton>
+                {
+                    InlineKeyboardButton.WithCallbackData(SatisfactionLevel.Awful.GetDescription(), SatisfactionLevel.Awful.GetRoute()),
+                }
+            });
 
-        public static InlineKeyboardMarkup EmotionInlineKeyboardMarkup =
+
+        public static InlineKeyboardMarkup GetEmotionInlineKeyboardMarkup() =>
         new(new List<IEnumerable<InlineKeyboardButton>>
         {
             new List<InlineKeyboardButton>

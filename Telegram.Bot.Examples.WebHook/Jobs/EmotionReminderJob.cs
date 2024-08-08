@@ -38,7 +38,7 @@ public class EmotionReminderJob : IJob
             await _botClient.SendTextMessageAsync(
                 chatId: user.ChatId,
                 text: text,
-                replyMarkup: CommandHandler.EmotionInlineKeyboardMarkup);
+                replyMarkup: CommandHandler.GetEmotionInlineKeyboardMarkup());
         }
     }
 }

@@ -26,7 +26,7 @@ public class RecordSatisfactionCommand : IBotCommand
         await _botClient.SendTextMessageAsync(
             chatId: message.ChatId,
             text: _text,
-            replyMarkup: CommandHandler.SatisfactionLevelInlineKeyboardMarkup,
+            replyMarkup: CommandHandler.GetSatisfactionLevelInlineKeyboardMarkup(),
             cancellationToken: cancellationToken);
     }
 }

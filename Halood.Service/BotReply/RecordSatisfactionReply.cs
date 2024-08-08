@@ -30,6 +30,8 @@ public class RecordSatisfactionReply : IBotReply
 
     public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
+        var satisfactions = CommandHandler.GetSatisfactionLevelInlineKeyboardMarkup();
+
         var givenSatisfaction = message.Text.Split(" ")[1];
         // اگر متن وارد شده، هیچ یک از ایموجی های پیشنهادی نبود
         if (((SatisfactionLevel[])Enum.GetValues(typeof(SatisfactionLevel))).All(x =>
@@ -39,7 +41,7 @@ public class RecordSatisfactionReply : IBotReply
             await _botClient.SendTextMessageAsync(
                 chatId: message.ChatId,
                 text: _text,
-                replyMarkup: CommandHandler.SatisfactionLevelInlineKeyboardMarkup,
+                replyMarkup: satisfactions,
                 cancellationToken: cancellationToken);
             return;
         }
@@ -72,9 +74,25 @@ public class RecordSatisfactionReply : IBotReply
         await _userSatisfactionRepository.CommitAsync();
 
         _text = $"گزینه \"{satisfactionLevel.GetDescription()}\" بعنوان میزان رضایت از زندگی امروزتان با موفقیت ثبت شد. 👍";
+
+        foreach (var satLevel in satisfactions.InlineKeyboard)
+        {
+            foreach (var row in satLevel)
+            {
+                if(row.Text == satisfactionLevel.GetDescription())
+                {
+                    if (row.Text != satisfactionLevel.GetDescription()) continue;
+
+                    row.Text = $"{row.Text} ✅";
+                    break;
+                }
+            }
+        }
+
         await _botClient.SendTextMessageAsync(
             chatId: message.ChatId,
             text: _text,
+            replyMarkup: satisfactions,
             cancellationToken: cancellationToken);
     }
 }

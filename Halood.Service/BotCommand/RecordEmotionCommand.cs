@@ -26,7 +26,7 @@ public class RecordEmotionCommand : IBotCommand
         await _botClient.SendTextMessageAsync(
             chatId: message.ChatId,
             text: _text,
-            replyMarkup: CommandHandler.EmotionInlineKeyboardMarkup,
+            replyMarkup: CommandHandler.GetEmotionInlineKeyboardMarkup(),
             cancellationToken: cancellationToken);
     }
 }

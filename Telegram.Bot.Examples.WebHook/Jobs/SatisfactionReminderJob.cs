@@ -28,7 +28,7 @@ public class SatisfactionReminderJob : IJob
             await _botClient.SendTextMessageAsync(
                 chatId: user.ChatId,
                 text: text,
-                replyMarkup: CommandHandler.SatisfactionLevelInlineKeyboardMarkup);
+                replyMarkup: CommandHandler.GetSatisfactionLevelInlineKeyboardMarkup());
         }
     }
 }
