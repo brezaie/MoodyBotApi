@@ -14,38 +14,20 @@ namespace Halood.Service.BotCommand;
 
 public class NoCommand : IBotCommand
 {
-    private readonly IBotReply _unkownReply;
-    private readonly IBotReply _howIsYourSatisfactionReply;
-    private readonly IBotReply _howDoYouFeelReply;
-    private readonly IBotReply _toggleSatisfactionReminderReply;
-    private readonly IBotReply _changeLanguageReply;
-    private readonly IBotReply _changeEmotionReminder;
-
-    delegate Task DoAction(BotCommandMessage message, CancellationToken cancellationToken);
-
-    //private Dictionary<CommandType, DoAction> replyActions = new ();
-    private Dictionary<CommandType, IBotReply> replyActions = new();
-
-    public NoCommand(IEnumerable<IBotReply> botReplies)
+    private readonly ITelegramBotClient _botClient;
+    private string _text = string.Empty;
+    public NoCommand(ITelegramBotClient botClient)
     {
-        _unkownReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(UnknownReply));
-        _howIsYourSatisfactionReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(RecordSatisfactionReply));
-        _howDoYouFeelReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(RecordEmotionReply));
-        _toggleSatisfactionReminderReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(ToggleSatisfactionReminderReply));
-        _changeLanguageReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(ChangeLanguageReply));
-        _changeEmotionReminder = botReplies.FirstOrDefault(x => x.GetType() == typeof(ChangeEmotionReminderReply));
-
-        replyActions.Add(CommandType.Unknown, _unkownReply);
-        replyActions.Add(CommandType.Satisfaction, _howIsYourSatisfactionReply);
-        replyActions.Add(CommandType.Emotion, _howDoYouFeelReply);
-        replyActions.Add(CommandType.SatisfactionReminder, _toggleSatisfactionReminderReply);
-        replyActions.Add(CommandType.Language, _changeLanguageReply);
-        replyActions.Add(CommandType.EmotionReminder, _changeEmotionReminder);
+        _botClient = botClient;
     }
 
     public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
-        //var previousCommand = CommandHandler.GetCommand(message.Username);
-        //await replyActions[previousCommand].ExecuteAsync(message, cancellationToken);
+        _text = message.Text is not { } messageText ? $"متنی برای پردازش ارسال نشده است" : $"دستور ارسالی صحیح نمیباشد";
+
+        await _botClient.SendTextMessageAsync(
+            chatId: message.ChatId,
+            text: _text,
+            cancellationToken: cancellationToken);
     }
 }

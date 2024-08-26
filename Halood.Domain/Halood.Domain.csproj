@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\Base\" />
+    <Folder Include="Interfaces\UserThought\" />
     <Folder Include="Interfaces\UserEmotion\" />
     <Folder Include="Interfaces\UserSatisfaction\" />
     <Folder Include="Interfaces\User\" />

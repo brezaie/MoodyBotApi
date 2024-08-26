@@ -25,10 +25,17 @@ public class SatisfactionReminderJob : IJob
         var users = await _userRepository.GetSatisfactionRemindersAsync();
         foreach (var user in users)
         {
-            await _botClient.SendTextMessageAsync(
-                chatId: user.ChatId,
-                text: text,
-                replyMarkup: CommandHandler.GetSatisfactionLevelInlineKeyboardMarkup());
+            try
+            {
+                await _botClient.SendTextMessageAsync(
+                    chatId: user.ChatId,
+                    text: text,
+                    replyMarkup: CommandHandler.GetSatisfactionLevelInlineKeyboardMarkup());
+            }
+            catch (Exception ex)
+            {
+                //TODO: In case of having any error, ignore it
+            }
         }
     }
 }

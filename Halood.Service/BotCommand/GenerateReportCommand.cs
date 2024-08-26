@@ -56,7 +56,7 @@ public class GenerateReportCommand : IBotCommand
         };
 
         var user = await _userRepository.GetByAsync(message.Username);
-        var satisfactions = await _userSatisfactionRepository.GetLastUserSatisfactionsByDaysAsync(user.Id, 7);
+        var satisfactions = await _userSatisfactionRepository.GetLastUserSatisfactionsByDaysAsync(user.Id, 20);
 
         if (satisfactions.Count == 0) return;
 

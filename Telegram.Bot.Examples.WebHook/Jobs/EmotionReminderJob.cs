@@ -33,12 +33,19 @@ public class EmotionReminderJob : IJob
         var reminders = await _userEmotionReminderRepository.GetValidUserEmotionRemindersAsync();
         foreach (var reminder in reminders.Where(x => x.Hour == iranTime.Hour))
         {
-            var user = await _userRepository.GetAsync(reminder.UserId);
+            try
+            {
+                var user = await _userRepository.GetAsync(reminder.UserId);
 
-            await _botClient.SendTextMessageAsync(
-                chatId: user.ChatId,
-                text: text,
-                replyMarkup: CommandHandler.GetEmotionInlineKeyboardMarkup());
+                await _botClient.SendTextMessageAsync(
+                    chatId: user.ChatId,
+                    text: text,
+                    replyMarkup: CommandHandler.GetEmotionInlineKeyboardMarkup());
+            }
+            catch (Exception ex)
+            {
+                //TODO: In case of having any error, ignore it
+            }
         }
     }
 }

@@ -30,11 +30,14 @@ public class UpdateHandlers
     private readonly IBotCommand _changeLanguageCommand;
     private readonly IBotCommand _generateReportCommand;
     private readonly IBotCommand _changeEmotionReminder;
-    private readonly IBotReply _record_satisfaction_reply;
-    private readonly IBotReply _record_emotion_reply;
-    private readonly IBotReply _change_language_reply;
+    private readonly IBotCommand _recordThoughtCommand;
+
+    private readonly IBotReply _recordSatisfactionReply;
+    private readonly IBotReply _recordEmotionReply;
+    private readonly IBotReply _changeLanguageReply;
     private readonly IBotReply _change_emotion_reminder_reply;
     private readonly IBotReply _toggleSatisfactionReminderReply;
+    private readonly IBotReply _recordThoughtReply;
 
     public UpdateHandlers(ITelegramBotClient botClient, ILogger<UpdateHandlers> logger, IUserRepository userRepository,
         IEnumerable<IBotCommand> botActions, IEnumerable<IBotReply> botReplies, IUserEmotionReminderRepository userEmotionReminderRepository)
@@ -55,14 +58,15 @@ public class UpdateHandlers
         _changeLanguageCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(ChangeLanguageCommand));
         _generateReportCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(GenerateReportCommand));
         _changeEmotionReminder = botActions.FirstOrDefault(x => x.GetType() == typeof(ChangeEmotionReminderCommand));
+        _recordThoughtCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(RecordThoughtCommand));
 
 
-        _record_satisfaction_reply = botReplies.FirstOrDefault(x => x.GetType() == typeof(RecordSatisfactionReply));
-        _record_emotion_reply = botReplies.FirstOrDefault(x => x.GetType() == typeof(RecordEmotionReply));
-        _change_language_reply = botReplies.FirstOrDefault(x => x.GetType() == typeof(ChangeLanguageReply));
+        _recordSatisfactionReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(RecordSatisfactionReply));
+        _recordEmotionReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(RecordEmotionReply));
+        _changeLanguageReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(ChangeLanguageReply));
         _change_emotion_reminder_reply = botReplies.FirstOrDefault(x => x.GetType() == typeof(ChangeEmotionReminderReply));
         _toggleSatisfactionReminderReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(ToggleSatisfactionReminderReply));
-
+        _recordThoughtReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(RecordThoughtReply));
     }
 
     public Task HandleErrorAsync(Exception exception, CancellationToken cancellationToken)
@@ -104,9 +108,8 @@ public class UpdateHandlers
     {
         await SaveUser(message);
 
-        _logger.LogInformation("Receive message type: {MessageType}", message.Type);
         if (message.Text is not { } messageText)
-            return;
+            messageText = string.Empty;
 
         var botActionMessage = ConvertToBotActionMessage(message);
         await RunCommand(messageText, botActionMessage, cancellationToken);
@@ -150,12 +153,12 @@ public class UpdateHandlers
 
             await _userEmotionReminderRepository.SaveRangeAsync(new List<UserEmotionReminder>
             {
-                new UserEmotionReminder
+                new()
                 {
                     Hour = 11,
                     UserId = savedUser.Id
                 },
-                new UserEmotionReminder
+                new()
                 {
                     Hour = 19,
                     UserId = savedUser.Id
@@ -189,11 +192,13 @@ public class UpdateHandlers
             CommandType.Language => _changeLanguageCommand.ExecuteAsync(botCommandMessage, cancellationToken),
             CommandType.Report => _generateReportCommand.ExecuteAsync(botCommandMessage, cancellationToken),
             CommandType.EmotionReminder => _changeEmotionReminder.ExecuteAsync(botCommandMessage, cancellationToken),
-            CommandType.SatisfactionReply => _record_satisfaction_reply.ExecuteAsync(botCommandMessage, cancellationToken),
-            CommandType.EmotionReply => _record_emotion_reply.ExecuteAsync(botCommandMessage, cancellationToken),
-            CommandType.LanguageReply => _change_language_reply.ExecuteAsync(botCommandMessage, cancellationToken),
+            CommandType.SatisfactionReply => _recordSatisfactionReply.ExecuteAsync(botCommandMessage, cancellationToken),
+            CommandType.EmotionReply => _recordEmotionReply.ExecuteAsync(botCommandMessage, cancellationToken),
+            CommandType.LanguageReply => _changeLanguageReply.ExecuteAsync(botCommandMessage, cancellationToken),
             CommandType.EmotionReminderReply => _change_emotion_reminder_reply.ExecuteAsync(botCommandMessage, cancellationToken),
             CommandType.SatisfactionReminderReply => _toggleSatisfactionReminderReply.ExecuteAsync(botCommandMessage, cancellationToken),
+            CommandType.RecordThoughtCommand => _recordThoughtCommand.ExecuteAsync(botCommandMessage, cancellationToken),
+            CommandType.RecordThoughtReply => _recordThoughtReply.ExecuteAsync(botCommandMessage, cancellationToken),
             _ => _noCommand.ExecuteAsync(botCommandMessage, cancellationToken)
         };
 

@@ -23,12 +23,19 @@ public class ReportJob : IJob
         var users = await _userRepository.GetAllAsync();
         foreach (var user in users)
         {
-            await _generateReportCommand.ExecuteAsync(new BotCommandMessage
+            try
             {
-                ChatId = user.ChatId,
-                Date = DateTime.Now,
-                Username = user.Username
-            }, new CancellationToken());
+                await _generateReportCommand.ExecuteAsync(new BotCommandMessage
+                {
+                    ChatId = user.ChatId,
+                    Date = DateTime.Now,
+                    Username = user.Username
+                }, new CancellationToken());
+            }
+            catch (Exception ex)
+            {
+                //TODO: In case of having any error, ignore it
+            }
         }
     }
 }

@@ -54,5 +54,11 @@ public enum CommandType
     EmotionReminderReply = 12,
 
     [Route("/toggle_satisfaction_reminder_reply")]
-    SatisfactionReminderReply = 13
+    SatisfactionReminderReply = 13,
+
+    [Route("/record_thought")]
+    RecordThoughtCommand = 14,
+
+    [Route("/record_thought_reply")]
+    RecordThoughtReply = 15
 }

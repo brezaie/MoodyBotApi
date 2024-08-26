@@ -2,8 +2,8 @@ using Halood.Domain.Interfaces.User;
 using Halood.Domain.Interfaces.UserEmotion;
 using Halood.Domain.Interfaces.UserEmotionReminder;
 using Halood.Domain.Interfaces.UserSatisfaction;
+using Halood.Domain.Interfaces.UserThought;
 using Halood.Repository.EntityFramework;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +23,7 @@ public static class RepositoryIoc
         services.AddTransient<IUserSatisfactionRepository, UserSatisfactionRepository>();
         services.AddTransient<IUserEmotionRepository, UserEmotionRepository>();
         services.AddTransient<IUserEmotionReminderRepository, UserEmotionReminderRepository>();
+        services.AddTransient<IUserThoughtRepository, UserThoughtRepository>();
 
         //services.Initialize();
 

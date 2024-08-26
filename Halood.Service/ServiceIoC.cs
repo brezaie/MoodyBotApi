@@ -18,6 +18,7 @@ public static class ServiceIoC
         services.AddTransient<IBotCommand, ChangeLanguageCommand>();
         services.AddTransient<IBotCommand, GenerateReportCommand>();
         services.AddTransient<IBotCommand, ChangeEmotionReminderCommand>();
+        services.AddTransient<IBotCommand, RecordThoughtCommand>();
 
 
         services.AddTransient<IBotReply, UnknownReply>();
@@ -26,6 +27,7 @@ public static class ServiceIoC
         services.AddTransient<IBotReply, ToggleSatisfactionReminderReply>();
         services.AddTransient<IBotReply, ChangeLanguageReply>();
         services.AddTransient<IBotReply, ChangeEmotionReminderReply>();
+        services.AddTransient<IBotReply, RecordThoughtReply>();
 
         return services;
     }
