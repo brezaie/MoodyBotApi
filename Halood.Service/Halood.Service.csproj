@@ -8,10 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microcharts" Version="0.9.5.9" />
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="4.4.0" />
     <PackageReference Include="PDFsharp" Version="6.1.0" />
     <PackageReference Include="PDFsharp-MigraDoc" Version="6.1.0" />
     <PackageReference Include="PersianDateTime.Core" Version="2.0.5" />
     <PackageReference Include="QuestPDF" Version="2024.7.2" />
+    <PackageReference Include="System.CodeDom" Version="8.0.0" />
     <PackageReference Include="Telegram.Bot" Version="19.0.0" />
   </ItemGroup>
 
@@ -19,6 +21,69 @@
     <ProjectReference Include="..\Halood.Common\Halood.Common.csproj" />
     <ProjectReference Include="..\Halood.Domain\Halood.Domain.csproj" />
     <ProjectReference Include="..\Halood.Repository\Halood.Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Telegram.Bot.Examples.WebHook\Files\stimulsoft_dlls\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SixLabors.Fonts">
+      <HintPath>..\Telegram.Bot.Examples.WebHook\Files\stimulsoft_dlls\SixLabors.Fonts.dll</HintPath>
+    </Reference>
+    <Reference Include="SixLabors.ImageSharp">
+      <HintPath>..\Telegram.Bot.Examples.WebHook\Files\stimulsoft_dlls\SixLabors.ImageSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SixLabors.ImageSharp.Drawing">
+      <HintPath>..\Telegram.Bot.Examples.WebHook\Files\stimulsoft_dlls\SixLabors.ImageSharp.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Base">
+      <HintPath>..\Telegram.Bot.Examples.WebHook\Files\stimulsoft_dlls\Stimulsoft.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Blockly">
+      <HintPath>..\Telegram.Bot.Examples.WebHook\Files\stimulsoft_dlls\Stimulsoft.Blockly.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Data">
+      <HintPath>..\Telegram.Bot.Examples.WebHook\Files\stimulsoft_dlls\Stimulsoft.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Drawing">
+      <HintPath>..\Telegram.Bot.Examples.WebHook\Files\stimulsoft_dlls\Stimulsoft.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Map">
+      <HintPath>..\Telegram.Bot.Examples.WebHook\Files\stimulsoft_dlls\Stimulsoft.Map.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.MathFX">
+      <HintPath>..\Telegram.Bot.Examples.WebHook\Files\stimulsoft_dlls\Stimulsoft.MathFX.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report">
+      <HintPath>..\Telegram.Bot.Examples.WebHook\Files\stimulsoft_dlls\Stimulsoft.Report.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report.Check">
+      <HintPath>..\Telegram.Bot.Examples.WebHook\Files\stimulsoft_dlls\Stimulsoft.Report.Check.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report.Helper">
+      <HintPath>..\Telegram.Bot.Examples.WebHook\Files\stimulsoft_dlls\Stimulsoft.Report.Helper.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report.Mvc.NetCore">
+      <HintPath>..\Telegram.Bot.Examples.WebHook\Files\stimulsoft_dlls\Stimulsoft.Report.Mvc.NetCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report.Web">
+      <HintPath>..\Telegram.Bot.Examples.WebHook\Files\stimulsoft_dlls\Stimulsoft.Report.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report.WebDesign">
+      <HintPath>..\Telegram.Bot.Examples.WebHook\Files\stimulsoft_dlls\Stimulsoft.Report.WebDesign.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Svg">
+      <HintPath>..\Telegram.Bot.Examples.WebHook\Files\stimulsoft_dlls\Stimulsoft.Svg.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.System">
+      <HintPath>..\Telegram.Bot.Examples.WebHook\Files\stimulsoft_dlls\Stimulsoft.System.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.System.Web">
+      <HintPath>..\Telegram.Bot.Examples.WebHook\Files\stimulsoft_dlls\Stimulsoft.System.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing.Common">
+      <HintPath>..\Telegram.Bot.Examples.WebHook\Files\stimulsoft_dlls\System.Drawing.Common.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

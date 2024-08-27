@@ -24,7 +24,7 @@ public class BotController : ControllerBase
         catch (Exception ex)
         {
             await System.IO.File.WriteAllTextAsync("error.log", $"Message: {ex.Message}", cancellationToken);
-            return BadRequest(ex.Message);
+            return Ok(ex.Message);
         }
     }
 }
