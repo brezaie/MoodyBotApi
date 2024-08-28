@@ -25,7 +25,5 @@ public class UserSatisfactionRepository : BaseRepository<UserSatisfaction>, IUse
                         && x.CreatedDate.Value.Date >= DateTime.Now.Date.AddDays(-days)
                         && x.CreatedDate.Value.Date < DateTime.Now.Date)
             .ToListAsync();
-
-
     }
 }

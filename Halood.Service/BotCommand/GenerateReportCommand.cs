@@ -14,8 +14,11 @@ using Document = MigraDoc.DocumentObjectModel.Document;
 using PdfSharp.Fonts;
 using Telegram.Bot.Services;
 using Halood.Domain.Entities;
+using Halood.Domain.Interfaces.UserEmotion;
 using Stimulsoft.Base;
 using Stimulsoft.Report;
+using Stimulsoft.Report.Components;
+using Stimulsoft.Report.Dictionary;
 using Stimulsoft.Report.Export;
 using Chart = MigraDoc.DocumentObjectModel.Shapes.Charts.Chart;
 using ChartType = MigraDoc.DocumentObjectModel.Shapes.Charts.ChartType;
@@ -33,14 +36,18 @@ public class GenerateReportCommand : IBotCommand
     private readonly ILogger<RecordEmotionCommand> _logger;
     private string _text = string.Empty;
     private readonly IUserSatisfactionRepository _userSatisfactionRepository;
+    private readonly IUserEmotionRepository _userEmotionRepository;
     private readonly IUserRepository _userRepository;
 
-    public GenerateReportCommand(ITelegramBotClient botClient, ILogger<RecordEmotionCommand> logger, IUserSatisfactionRepository userSatisfactionRepository, IUserRepository userRepository)
+    public GenerateReportCommand(ITelegramBotClient botClient, ILogger<RecordEmotionCommand> logger,
+        IUserSatisfactionRepository userSatisfactionRepository, IUserRepository userRepository,
+        IUserEmotionRepository userEmotionRepository)
     {
         _botClient = botClient;
         _logger = logger;
         _userSatisfactionRepository = userSatisfactionRepository;
         _userRepository = userRepository;
+        _userEmotionRepository = userEmotionRepository;
     }
 
     public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
@@ -53,9 +60,10 @@ public class GenerateReportCommand : IBotCommand
         var previousDays = 7;
         var user = await _userRepository.GetByAsync(message.Username);
         var satisfactions = await _userSatisfactionRepository.GetLastUserSatisfactionsByDaysAsync(user.Id, previousDays);
+        var emotions = await _userEmotionRepository.GetLastUserEmotionsByDaysAsync(user.Id, previousDays);
 
-        if (satisfactions.Count == 0) return;
-        
+        if (satisfactions.Count == 0 && emotions.Count == 0) return;
+
         try
         {
             var report = new StiReport();
@@ -69,14 +77,53 @@ public class GenerateReportCommand : IBotCommand
                              "eIBILmKJGN0BwnnI5fu6JHMM/9QR2tMO1Z4pIwae4P92gKBrt0MqhvnU1Q6kIaPPuG2XBIvAWykVeH2a9EP6064e11" +
                              "PFCBX4gEpJ3XFD0peE5+ddZh+h495qUc1H2B";
 
+            StiFontCollection.AddFontFile(@"Files\IRANSansWebFaNum.ttf", "IRANSans", FontStyle.Regular);
+
             report.Dictionary.Variables.Add("Username", GetFullName(user));
             report.Dictionary.Variables.Add("FromDate", DateTime.Now.AddDays(-previousDays).ToPersianDigitalDateTimeString().Substring(0, 10));
             report.Dictionary.Variables.Add("ToDate", DateTime.Now.AddDays(-1).ToPersianDigitalDateTimeString().Substring(0, 10));
             report.Dictionary.Variables.Add("CurrentDate", DateTime.Now.ToPersianDigitalDateTimeString().Substring(0, 10));
 
+
+            #region Satisfaction Page
+            
+            report.Dictionary.Variables.Add("IsSatisfactionPageEnabled", satisfactions.Count != 0);
+
             report.RegBusinessObject("Satisfaction", "SatisfactionPieChart", ConvertToSatisfactionDistribution(satisfactions));
             report.RegBusinessObject("Satisfaction", "SatisfactionTrend", ConvertToSatisfactionTrend(satisfactions));
-            StiFontCollection.AddFontFile(@"Files\IRANSansWebFaNum.ttf", "IRANSans", FontStyle.Regular);
+
+            #endregion
+
+
+            #region Emotions Page
+
+            report.Dictionary.Variables.Add("EmotionsPageTitle", "احساس‌ها");
+            report.Dictionary.Variables.Add("IsEmotionPageEnabled", false);
+            
+
+            #endregion
+
+            #region Change Font to IRANSans
+
+            var fileContent = await File.ReadAllBytesAsync(@"Files\IRANSansWebFaNum.ttf", cancellationToken);
+            var resource = new StiResource("IRANSans", "IRANSans", false, StiResourceType.FontTtf, fileContent, false);
+            report.Dictionary.Resources.Add(resource);
+            StiFontCollection.AddResourceFont(resource.Name, resource.Content, "ttf", resource.Alias);
+
+            var pages = report.Pages;
+            foreach (StiPage page in pages)
+            {
+                foreach (StiComponent component in page.GetComponents())
+                {
+                    if (component is StiText textComponent)
+                    {
+                        textComponent.Font = StiFontCollection.CreateFont("IRANSans", textComponent.Font.Size, textComponent.Font.Style);
+                    }
+                }
+            }
+
+            #endregion
+
 
             await report.CompileAsync();
             await report.RenderAsync();

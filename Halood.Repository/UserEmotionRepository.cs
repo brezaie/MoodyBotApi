@@ -18,4 +18,13 @@ public class UserEmotionRepository : BaseRepository<UserEmotion>, IUserEmotionRe
             .OrderByDescending(x => x.RegistrationDate)
             .FirstOrDefaultAsync();
     }
+
+    public async Task<List<UserEmotion>> GetLastUserEmotionsByDaysAsync(long userId, int days)
+    {
+        return await Context.UserEmotions
+            .Where(x => x.UserId == userId
+                        && x.CreatedDate.Value.Date >= DateTime.Now.Date.AddDays(-days)
+                        && x.CreatedDate.Value.Date < DateTime.Now.Date)
+            .ToListAsync();
+    }
 }
