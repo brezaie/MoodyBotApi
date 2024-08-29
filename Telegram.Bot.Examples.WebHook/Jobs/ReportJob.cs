@@ -22,7 +22,7 @@ public class ReportJob : IJob
     public async Task Run()
     {
         var users = await _userRepository.GetAllAsync();
-        foreach (var user in users)
+        foreach (var user in users.Where(x => x.Username == "brezaie"))
         {
             try
             {
