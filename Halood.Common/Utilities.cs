@@ -45,4 +45,24 @@ public static class Utilities
         }
         return value.ToString();
     }
+
+    public static string GetColor(this Enum value)
+    {
+        Type type = value.GetType();
+        string name = Enum.GetName(type, value);
+        if (name != null)
+        {
+            FieldInfo field = type.GetField(name);
+            if (field != null)
+            {
+                ColorAttribute attr =
+                    Attribute.GetCustomAttribute(field, typeof(ColorAttribute)) as ColorAttribute;
+                if (attr != null)
+                {
+                    return attr.HexCode;
+                }
+            }
+        }
+        return value.ToString();
+    }
 }

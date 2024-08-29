@@ -97,9 +97,9 @@ public class GenerateReportCommand : IBotCommand
 
             #region Emotions Page
 
-            report.Dictionary.Variables.Add("EmotionsPageTitle", "احساس‌ها");
-            report.Dictionary.Variables.Add("IsEmotionPageEnabled", false);
-            
+            report.Dictionary.Variables.Add("IsEmotionPageEnabled", true);
+            report.RegBusinessObject("Emotion", "EmotionPieChart", ConvertToEmotionDistribution(emotions));
+
 
             #endregion
 
@@ -146,7 +146,7 @@ public class GenerateReportCommand : IBotCommand
                 await _botClient.SendDocumentAsync(
                     chatId: message.ChatId,
                     document: InputFile.FromStream(stream, filename),
-                    caption: $"گزارش رضایت از زندگی شما در هفته گذشته در فایل پیوست آمده است. می‌توانید آن را دانلود و مشاهده کنید.\r\nدر صورتی که محتویات فایل به‌درستی بارگذاری نشده، فایل را با یک اپلیکیشن دیگر باز کنید.\r\n",
+                    caption: $"گزارش عمل‌کرد شما در هفته گذشته در فایل پیوست آمده است. می‌توانید آن را دانلود و مشاهده کنید.\r\nدر صورتی که محتویات فایل به‌درستی بارگذاری نشده، فایل را با یک اپلیکیشن دیگر باز کنید.\r\n",
                     cancellationToken: cancellationToken);
         }
         catch (Exception ex)
@@ -183,11 +183,33 @@ public class GenerateReportCommand : IBotCommand
                     SatisfactionCount = x.Count(),
                     SatisfactionPercentage = (float) ((float) 100 * (float) x.Count() / (float) satisfactionsCount),
                     SatisfactionBinaryColor = ConvertSatisfactionToBinaryColor(satisfaction),
-                    SatisfactionColor = ConvertSatisfactionToColor(satisfaction)
+                    SatisfactionColor = satisfaction.GetColor()
                 };
             }).OrderByDescending(x => x.SatisfactionCount).ThenByDescending(x => x.SatisfactionNumber)
             .ToList();
     }
+
+    private List<EmotionDistribution> ConvertToEmotionDistribution(List<UserEmotion> userEmotions)
+    {
+        var emotionsCount = userEmotions.Count;
+        var res = userEmotions.GroupBy(x => x.EmotionText)
+            .Select(x =>
+            {
+                var emotion = (Emotion)Enum.Parse(typeof(Emotion), x.Key, true);
+                return new EmotionDistribution
+                {
+                    EmotionName = emotion.GetDescription(),
+                    EmotionCount = x.Count(),
+                    EmotionPercentage = (float)((float)100 * (float)x.Count() / (float)emotionsCount),
+                    EmotionBinaryColor = ConvertEmotionToBinaryColor(emotion),
+                    EmotionColor = emotion.GetColor()
+                };
+            }).OrderByDescending(x => x.EmotionCount).ThenByDescending(x => x.EmotionName)
+            .ToList();
+
+        return res;
+    }
+
 
     private byte[] ConvertSatisfactionToBinaryColor(SatisfactionLevel satisfactionLevel)
     {
@@ -195,19 +217,12 @@ public class GenerateReportCommand : IBotCommand
         return File.ReadAllBytes(filePath);
     }
 
-    private string ConvertSatisfactionToColor(SatisfactionLevel satisfactionLevel)
+    private byte[] ConvertEmotionToBinaryColor(Emotion emotion)
     {
-        return satisfactionLevel switch
-        {
-            SatisfactionLevel.Perfect => "#008001",
-            SatisfactionLevel.Good => "#A4C739",
-            SatisfactionLevel.SoSo => "#FFE135",
-            SatisfactionLevel.Bad => "#FF0038",
-            SatisfactionLevel.Awful => "#960019",
-            _ => "#FFFFFF"
-        };
+        var filePath = $"Files/{emotion.ToString().ToLower()}_color.jpg";
+        return File.ReadAllBytes(filePath);
     }
-
+    
     private string ConvertSatisfactionToName(SatisfactionLevel satisfactionLevel)
     {
         return satisfactionLevel switch

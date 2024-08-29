@@ -2,7 +2,7 @@
 <StiSerializer version="1.02" type="Net" application="StiReport">
   <CalculationMode>Interpretation</CalculationMode>
   <Dictionary Ref="1" type="Dictionary" isKey="true">
-    <BusinessObjects isList="true" count="12">
+    <BusinessObjects isList="true" count="13">
       <CumulativePerformanceComparison Ref="2" type="Stimulsoft.Report.Dictionary.StiBusinessObject" isKey="true">
         <Alias>CumulativePerformanceComparison</Alias>
         <BusinessObjects isList="true" count="0" />
@@ -190,6 +190,21 @@
         <Guid>88a33eb85536433291a0cdcc3e97437b</Guid>
         <Name>SatisfactionTrend</Name>
       </SatisfactionTrend>
+      <EmotionPieChart Ref="14" type="Stimulsoft.Report.Dictionary.StiBusinessObject" isKey="true">
+        <Alias>EmotionPieChart</Alias>
+        <BusinessObjects isList="true" count="0" />
+        <Category>Emotion</Category>
+        <Columns isList="true" count="5">
+          <value>EmotionName,System.String</value>
+          <value>EmotionCount,System.Int32</value>
+          <value>EmotionPercentage,System.Single</value>
+          <value>EmotionColor,System.String</value>
+          <value>EmotionBinaryColor,System.Byte[]</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Guid>ed9e06789b7b459192c9e85e3811e18f</Guid>
+        <Name>EmotionPieChart</Name>
+      </EmotionPieChart>
     </BusinessObjects>
     <Databases isList="true" count="0" />
     <DataSources isList="true" count="0" />
@@ -198,7 +213,7 @@
     <Resources isList="true" count="1">
       <value>Name=IRANSans, Alias=IRANSans</value>
     </Resources>
-    <Variables isList="true" count="47">
+    <Variables isList="true" count="46">
       <value>,PortfolioActivityFromDate,PortfolioActivityFromDate,,System.String,,False,False,False,True,,fc54410a37f7481c850f7cbb29653633</value>
       <value>,PortfolioActivityToDate,PortfolioActivityToDate,,System.String,,False,False,False,True,,_x0031_b7620b6237b49f78c6c5a75b2a42d1b</value>
       <value>,BeginDayNetValue,BeginDayNetValue,,System.Decimal,,False,False,False,True,,_x0033_13c09abea9f4c2d800aac370d50ac44</value>
@@ -244,7 +259,6 @@
       <value>,CurrentDate,CurrentDate,,System.String,,False,False,False,False,,c044839abaeb4b069bf2291aed293863</value>
       <value>,NAV,NAV,,System.Int32,,False,False,False,False</value>
       <value>,IsSatisfactionPageEnabled,IsSatisfactionPageEnabled,,System.Boolean,false,False,False,False,False,,a48080fcc12f4fd191bb051f67abea15</value>
-      <value>,EmotionsPageTitle,EmotionsPageTitle,,System.String,,False,False,False,False</value>
       <value>,IsEmotionPageEnabled,IsEmotionPageEnabled,,System.Boolean,false,False,False,False,False</value>
     </Variables>
   </Dictionary>
@@ -253,11 +267,11 @@
   <Key>1e5bce14ab0445f5a3e4266ac37c240e</Key>
   <MetaTags isList="true" count="0" />
   <Pages isList="true" count="3">
-    <Page0 Ref="14" type="Page" isKey="true">
+    <Page0 Ref="15" type="Page" isKey="true">
       <Border>None;Black;2;Solid;False;4;Black</Border>
       <Brush>[222:247:247]</Brush>
       <Components isList="true" count="15">
-        <Image3 Ref="15" type="Image" isKey="true">
+        <Image3 Ref="16" type="Image" isKey="true">
           <Border>Bottom;White;3;Solid;False;4;[120:192:212]</Border>
           <Brush>[222:247:247]</Brush>
           <ClientRectangle>-0.4,-0.4,11.7,11.7</ClientRectangle>
@@ -267,27 +281,27 @@
           <IconColor>222, 247, 247</IconColor>
           <Margins>0,0,0,0</Margins>
           <Name>Image3</Name>
-          <Page isRef="14" />
-          <Parent isRef="14" />
+          <Page isRef="15" />
+          <Parent isRef="15" />
         </Image3>
-        <Text123 Ref="16" type="Text" isKey="true">
+        <Text123 Ref="17" type="Text" isKey="true">
           <Border>Bottom;[23:54:93];3;None;False;4;[120:192:212]</Border>
           <Brush>EmptyBrush</Brush>
           <ClientRectangle>4.2,0.2,6.38,0.8</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Expressions isList="true" count="0" />
-          <Font>IRANSans,36</Font>
+          <Font>IRANSansWeb(FaNum),36</Font>
           <Guid>179201a4a9234be9a52d40de033de1a3</Guid>
           <HorAlignment>Right</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text123</Name>
-          <Page isRef="14" />
-          <Parent isRef="14" />
+          <Page isRef="15" />
+          <Parent isRef="15" />
           <Text>گزارش عملکرد هفتگی</Text>
           <TextBrush>[23:54:93]</TextBrush>
           <Type>Expression</Type>
         </Text123>
-        <Shape25 Ref="17" type="Shape" isKey="true">
+        <Shape25 Ref="18" type="Shape" isKey="true">
           <BackgroundColor>Transparent</BackgroundColor>
           <BorderColor>Transparent</BorderColor>
           <Brush>[0:66:88]</Brush>
@@ -300,55 +314,55 @@
           <Guid>bb39c79c73db46fc9813709ab369f1a9</Guid>
           <Margins>0,0,0,0</Margins>
           <Name>Shape25</Name>
-          <Page isRef="14" />
-          <Parent isRef="14" />
-          <ShapeType Ref="18" type="Stimulsoft.Report.Components.ShapeTypes.StiRectangleShapeType" isKey="true" />
+          <Page isRef="15" />
+          <Parent isRef="15" />
+          <ShapeType Ref="19" type="Stimulsoft.Report.Components.ShapeTypes.StiRectangleShapeType" isKey="true" />
           <Style>None</Style>
         </Shape25>
-        <Text34 Ref="19" type="Text" isKey="true">
+        <Text34 Ref="20" type="Text" isKey="true">
           <Brush>EmptyBrush</Brush>
           <ClientRectangle>9.4,2,1.1,0.6</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Expressions isList="true" count="0" />
-          <Font>IRANSans,14</Font>
+          <Font>IRANSansWeb(FaNum),14</Font>
           <HorAlignment>Right</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text34</Name>
-          <Page isRef="14" />
-          <Parent isRef="14" />
+          <Page isRef="15" />
+          <Parent isRef="15" />
           <Text>نام کاربر</Text>
           <TextBrush>[0:0:0]</TextBrush>
           <Type>Expression</Type>
         </Text34>
-        <Text46 Ref="20" type="Text" isKey="true">
+        <Text46 Ref="21" type="Text" isKey="true">
           <Brush>EmptyBrush</Brush>
           <ClientRectangle>4.2,2,5.2,0.4</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Expressions isList="true" count="0" />
-          <Font>IRANSans,14</Font>
+          <Font>IRANSansWeb(FaNum),14</Font>
           <Margins>0,0,0,0</Margins>
           <Name>Text46</Name>
-          <Page isRef="14" />
-          <Parent isRef="14" />
+          <Page isRef="15" />
+          <Parent isRef="15" />
           <Text>{Username}</Text>
           <TextBrush>[0:0:0]</TextBrush>
           <Type>Expression</Type>
         </Text46>
-        <Text89 Ref="21" type="Text" isKey="true">
+        <Text89 Ref="22" type="Text" isKey="true">
           <Brush>EmptyBrush</Brush>
           <ClientRectangle>4.2,3.3,4,0.5</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Expressions isList="true" count="0" />
-          <Font>IRANSans,14</Font>
+          <Font>IRANSansWeb(FaNum),14</Font>
           <Margins>0,0,0,0</Margins>
           <Name>Text89</Name>
-          <Page isRef="14" />
-          <Parent isRef="14" />
+          <Page isRef="15" />
+          <Parent isRef="15" />
           <Text>از {FromDate} الی {ToDate}</Text>
           <TextBrush>[0:0:0]</TextBrush>
           <Type>Expression</Type>
         </Text89>
-        <Image6 Ref="22" type="Image" isKey="true">
+        <Image6 Ref="23" type="Image" isKey="true">
           <Brush>Transparent</Brush>
           <ClientRectangle>-0.4,0.5,4.3,6</ClientRectangle>
           <Conditions isList="true" count="0" />
@@ -2150,11 +2164,11 @@ xTK0NclAnTssg4xyX/C+CuSqTXkG1Xe4ElNqR1fA8jeslb2cN15s5VqM9uDRhyPFnhkg6qSv1Kj1
 XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
           <Margins>0,0,0,0</Margins>
           <Name>Image6</Name>
-          <Page isRef="14" />
-          <Parent isRef="14" />
+          <Page isRef="15" />
+          <Parent isRef="15" />
           <Stretch>True</Stretch>
         </Image6>
-        <Shape6 Ref="23" type="Shape" isKey="true">
+        <Shape6 Ref="24" type="Shape" isKey="true">
           <BackgroundColor>Transparent</BackgroundColor>
           <BorderColor>0, 66, 88</BorderColor>
           <Brush>GlassBrush,[0:66:88],False,0</Brush>
@@ -2166,44 +2180,44 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
           <HorAlignment>Right</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Shape6</Name>
-          <Page isRef="14" />
-          <Parent isRef="14" />
-          <ShapeType Ref="24" type="Stimulsoft.Report.Components.ShapeTypes.StiFlowchartManualInputShapeType" isKey="true" />
+          <Page isRef="15" />
+          <Parent isRef="15" />
+          <ShapeType Ref="25" type="Stimulsoft.Report.Components.ShapeTypes.StiFlowchartManualInputShapeType" isKey="true" />
           <Size>3</Size>
           <VertAlignment>Top</VertAlignment>
         </Shape6>
-        <Text93 Ref="25" type="Text" isKey="true">
+        <Text93 Ref="26" type="Text" isKey="true">
           <Border>Bottom;[23:54:93];3;None;False;4;[120:192:212]</Border>
           <Brush>EmptyBrush</Brush>
           <ClientRectangle>3.8,7.4,3.5,0.4</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Expressions isList="true" count="0" />
-          <Font>IRANSans,10</Font>
+          <Font>IRANSansWeb(FaNum),10</Font>
           <HorAlignment>Center</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text93</Name>
-          <Page isRef="14" />
-          <Parent isRef="14" />
+          <Page isRef="15" />
+          <Parent isRef="15" />
           <Text>Powered by HALOOD | تهیه شده توسط حالود</Text>
           <TextBrush>[255:255:255]</TextBrush>
           <Type>Expression</Type>
         </Text93>
-        <Text102 Ref="26" type="Text" isKey="true">
+        <Text102 Ref="27" type="Text" isKey="true">
           <Border>Bottom;[23:54:93];3;None;False;4;[120:192:212]</Border>
           <Brush>EmptyBrush</Brush>
           <ClientRectangle>4.2,4.5,3.9,0.5</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Expressions isList="true" count="0" />
-          <Font>IRANSans,14</Font>
+          <Font>IRANSansWeb(FaNum),14</Font>
           <Margins>0,0,0,0</Margins>
           <Name>Text102</Name>
-          <Page isRef="14" />
-          <Parent isRef="14" />
+          <Page isRef="15" />
+          <Parent isRef="15" />
           <Text>{CurrentDate}</Text>
           <TextBrush>[0:0:0]</TextBrush>
           <Type>Expression</Type>
         </Text102>
-        <Shape7 Ref="27" type="Shape" isKey="true">
+        <Shape7 Ref="28" type="Shape" isKey="true">
           <BackgroundColor>White</BackgroundColor>
           <BorderColor>White</BorderColor>
           <Brush>[255:255:255]</Brush>
@@ -2215,74 +2229,74 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
           <HorAlignment>Right</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Shape7</Name>
-          <Page isRef="14" />
-          <Parent isRef="14" />
-          <ShapeType Ref="28" type="Stimulsoft.Report.Components.ShapeTypes.StiRoundedRectangleShapeType" isKey="true">
+          <Page isRef="15" />
+          <Parent isRef="15" />
+          <ShapeType Ref="29" type="Stimulsoft.Report.Components.ShapeTypes.StiRoundedRectangleShapeType" isKey="true">
             <Round>0.2</Round>
           </ShapeType>
           <Size>3</Size>
           <VertAlignment>Top</VertAlignment>
         </Shape7>
-        <Text110 Ref="29" type="Text" isKey="true">
+        <Text110 Ref="30" type="Text" isKey="true">
           <Brush>EmptyBrush</Brush>
           <ClientRectangle>8.9,3.3,1.8,0.5</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Expressions isList="true" count="0" />
-          <Font>IRANSans,14</Font>
+          <Font>IRANSansWeb(FaNum),14</Font>
           <HorAlignment>Right</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text110</Name>
-          <Page isRef="14" />
-          <Parent isRef="14" />
+          <Page isRef="15" />
+          <Parent isRef="15" />
           <Text>بازه زمانی گزارش</Text>
           <TextBrush>[0:0:0]</TextBrush>
           <Type>Expression</Type>
         </Text110>
-        <Text118 Ref="30" type="Text" isKey="true">
+        <Text118 Ref="31" type="Text" isKey="true">
           <Brush>EmptyBrush</Brush>
           <ClientRectangle>9.1,4.5,1.6,0.5</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Expressions isList="true" count="0" />
-          <Font>IRANSans,14</Font>
+          <Font>IRANSansWeb(FaNum),14</Font>
           <HorAlignment>Right</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text118</Name>
-          <Page isRef="14" />
-          <Parent isRef="14" />
+          <Page isRef="15" />
+          <Parent isRef="15" />
           <Text>تاریخ تهیه گزارش</Text>
           <TextBrush>[0:0:0]</TextBrush>
           <Type>Expression</Type>
         </Text118>
-        <HorizontalLinePrimitive4 Ref="31" type="HorizontalLinePrimitive" isKey="true">
+        <HorizontalLinePrimitive4 Ref="32" type="HorizontalLinePrimitive" isKey="true">
           <ClientRectangle>10.6,1.1,0.6,0.01</ClientRectangle>
           <Color>23, 54, 93</Color>
           <Conditions isList="true" count="0" />
-          <EndCap Ref="32" type="Cap" isKey="true">
+          <EndCap Ref="33" type="Cap" isKey="true">
             <Color>Black</Color>
           </EndCap>
           <Expressions isList="true" count="0" />
           <Name>HorizontalLinePrimitive4</Name>
-          <Page isRef="14" />
-          <Parent isRef="14" />
+          <Page isRef="15" />
+          <Parent isRef="15" />
           <Size>3</Size>
-          <StartCap Ref="33" type="Cap" isKey="true">
+          <StartCap Ref="34" type="Cap" isKey="true">
             <Color>Black</Color>
           </StartCap>
           <Style>None</Style>
         </HorizontalLinePrimitive4>
-        <HorizontalLinePrimitive12 Ref="34" type="HorizontalLinePrimitive" isKey="true">
+        <HorizontalLinePrimitive12 Ref="35" type="HorizontalLinePrimitive" isKey="true">
           <ClientRectangle>4.3,1.1,6.2,0.01</ClientRectangle>
           <Color>23, 54, 93</Color>
           <Conditions isList="true" count="0" />
-          <EndCap Ref="35" type="Cap" isKey="true">
+          <EndCap Ref="36" type="Cap" isKey="true">
             <Color>Black</Color>
           </EndCap>
           <Expressions isList="true" count="0" />
           <Name>HorizontalLinePrimitive12</Name>
-          <Page isRef="14" />
-          <Parent isRef="14" />
+          <Page isRef="15" />
+          <Parent isRef="15" />
           <Size>2</Size>
-          <StartCap Ref="36" type="Cap" isKey="true">
+          <StartCap Ref="37" type="Cap" isKey="true">
             <Color>Black</Color>
           </StartCap>
         </HorizontalLinePrimitive12>
@@ -2298,33 +2312,33 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
       <PaperSize>A4</PaperSize>
       <Report isRef="0" />
     </Page0>
-    <Page1 Ref="37" type="Page" isKey="true">
+    <Page1 Ref="38" type="Page" isKey="true">
       <Border>None;Black;2;Solid;False;4;Black</Border>
       <Brush>[222:247:247]</Brush>
       <Components isList="true" count="12">
-        <PageHeaderBand1 Ref="38" type="PageHeaderBand" isKey="true">
+        <PageHeaderBand1 Ref="39" type="PageHeaderBand" isKey="true">
           <Brush>Transparent</Brush>
           <ClientRectangle>0,0.2,10.91,1.2</ClientRectangle>
           <Components isList="true" count="5">
-            <Text2 Ref="39" type="Text" isKey="true">
+            <Text2 Ref="40" type="Text" isKey="true">
               <Border>Bottom;Black;1;Solid;False;4;Black</Border>
               <Brush>[183:221:232]</Brush>
               <ClientRectangle>0,0.7,10.9,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>IRANSans,14,Bold</Font>
+              <Font>IRANSansWeb(FaNum),14,Bold</Font>
               <Guid>b8a1f8223d854c4e940e70272663092e</Guid>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text2</Name>
-              <Page isRef="37" />
-              <Parent isRef="38" />
+              <Page isRef="38" />
+              <Parent isRef="39" />
               <Text>رضایت از زندگی</Text>
               <TextBrush>[23:54:93]</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Bottom</VertAlignment>
             </Text2>
-            <Text3 Ref="40" type="Text" isKey="true">
+            <Text3 Ref="41" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>8.3,0.1,2.6,0.2</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -2334,14 +2348,14 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text3</Name>
-              <Page isRef="37" />
-              <Parent isRef="38" />
+              <Page isRef="38" />
+              <Parent isRef="39" />
               <Text>{Username} گزارش کاربر </Text>
               <TextBrush>[219:238:243]</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text3>
-            <Text4 Ref="41" type="Text" isKey="true">
+            <Text4 Ref="42" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>8.3,0.3,2.6,0.2</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -2351,14 +2365,14 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text4</Name>
-              <Page isRef="37" />
-              <Parent isRef="38" />
+              <Page isRef="38" />
+              <Parent isRef="39" />
               <Text>از تاریخ  {FromDate} تا {ToDate}</Text>
               <TextBrush>[219:238:243]</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text4>
-            <Text5 Ref="42" type="Text" isKey="true">
+            <Text5 Ref="43" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>8.3,-0.2,2.6,0.2</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -2368,26 +2382,26 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text5</Name>
-              <Page isRef="37" />
-              <Parent isRef="38" />
+              <Page isRef="38" />
+              <Parent isRef="39" />
               <Text>صفحه {PageNumber} از {TotalPageCount}</Text>
               <TextBrush>[219:238:243]</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text5>
-            <HorizontalLinePrimitive1 Ref="43" type="HorizontalLinePrimitive" isKey="true">
+            <HorizontalLinePrimitive1 Ref="44" type="HorizontalLinePrimitive" isKey="true">
               <ClientRectangle>3,0.05,7.9,0.01</ClientRectangle>
               <Color>PaleTurquoise</Color>
               <Conditions isList="true" count="0" />
-              <EndCap Ref="44" type="Cap" isKey="true">
+              <EndCap Ref="45" type="Cap" isKey="true">
                 <Color>Black</Color>
               </EndCap>
               <Expressions isList="true" count="0" />
               <Guid>b1f40e4f7cb54a3381a1c55accb109a9</Guid>
               <Name>HorizontalLinePrimitive1</Name>
-              <Page isRef="37" />
-              <Parent isRef="38" />
-              <StartCap Ref="45" type="Cap" isKey="true">
+              <Page isRef="38" />
+              <Parent isRef="39" />
+              <StartCap Ref="46" type="Cap" isKey="true">
                 <Color>Black</Color>
               </StartCap>
             </HorizontalLinePrimitive1>
@@ -2395,10 +2409,10 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
           <Conditions isList="true" count="0" />
           <Expressions isList="true" count="0" />
           <Name>PageHeaderBand1</Name>
-          <Page isRef="37" />
-          <Parent isRef="37" />
+          <Page isRef="38" />
+          <Parent isRef="38" />
         </PageHeaderBand1>
-        <Shape1 Ref="46" type="Shape" isKey="true">
+        <Shape1 Ref="47" type="Shape" isKey="true">
           <BackgroundColor>Transparent</BackgroundColor>
           <BorderColor>Transparent</BorderColor>
           <Brush>[0:66:88]</Brush>
@@ -2411,11 +2425,11 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
           <Guid>c9c6bfefab24489c89910a712346c1ad</Guid>
           <Margins>0,0,0,0</Margins>
           <Name>Shape1</Name>
-          <Page isRef="37" />
-          <Parent isRef="37" />
-          <ShapeType Ref="47" type="Stimulsoft.Report.Components.ShapeTypes.StiRectangleShapeType" isKey="true" />
+          <Page isRef="38" />
+          <Parent isRef="38" />
+          <ShapeType Ref="48" type="Stimulsoft.Report.Components.ShapeTypes.StiRectangleShapeType" isKey="true" />
         </Shape1>
-        <Shape4 Ref="48" type="Shape" isKey="true">
+        <Shape4 Ref="49" type="Shape" isKey="true">
           <BackgroundColor>Transparent</BackgroundColor>
           <BorderColor>Transparent</BorderColor>
           <Brush>[0:66:88]</Brush>
@@ -2428,11 +2442,11 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
           <Guid>7d566cb4c1ed49a890e8a09804bdb25e</Guid>
           <Margins>0,0,0,0</Margins>
           <Name>Shape4</Name>
-          <Page isRef="37" />
-          <Parent isRef="37" />
-          <ShapeType Ref="49" type="Stimulsoft.Report.Components.ShapeTypes.StiRectangleShapeType" isKey="true" />
+          <Page isRef="38" />
+          <Parent isRef="38" />
+          <ShapeType Ref="50" type="Stimulsoft.Report.Components.ShapeTypes.StiRectangleShapeType" isKey="true" />
         </Shape4>
-        <Shape5 Ref="50" type="Shape" isKey="true">
+        <Shape5 Ref="51" type="Shape" isKey="true">
           <BackgroundColor>Transparent</BackgroundColor>
           <BorderColor>Transparent</BorderColor>
           <Brush>[92:198:208]</Brush>
@@ -2445,83 +2459,83 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
           <Guid>9aed8abd18784ac8845db90745d8a6cd</Guid>
           <Margins>0,0,0,0</Margins>
           <Name>Shape5</Name>
-          <Page isRef="37" />
-          <Parent isRef="37" />
-          <ShapeType Ref="51" type="Stimulsoft.Report.Components.ShapeTypes.StiRectangleShapeType" isKey="true" />
+          <Page isRef="38" />
+          <Parent isRef="38" />
+          <ShapeType Ref="52" type="Stimulsoft.Report.Components.ShapeTypes.StiRectangleShapeType" isKey="true" />
         </Shape5>
-        <Text6 Ref="52" type="Text" isKey="true">
+        <Text6 Ref="53" type="Text" isKey="true">
           <Border>None;Transparent;1;Solid;False;4;EmptyBrush</Border>
           <Brush>EmptyBrush</Brush>
           <ClientRectangle>7.4,7.2,3.5,0.2</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Expressions isList="true" count="0" />
-          <Font>IRANSans,6</Font>
+          <Font>IRANSansWeb(FaNum),6</Font>
           <HorAlignment>Right</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text6</Name>
-          <Page isRef="37" />
-          <Parent isRef="37" />
+          <Page isRef="38" />
+          <Parent isRef="38" />
           <Text>هر نقطه بیانگر میانگین رضایتمندی در آن روز است. اعداد بالاتر به معنای رضایتمندی بیشتر است*</Text>
           <TextBrush>[255:255:255]</TextBrush>
           <Type>Expression</Type>
           <VertAlignment>Center</VertAlignment>
         </Text6>
-        <Chart4 Ref="53" type="Stimulsoft.Report.Chart.StiChart" isKey="true">
+        <Chart4 Ref="54" type="Stimulsoft.Report.Chart.StiChart" isKey="true">
           <AllowApplyStyle>False</AllowApplyStyle>
-          <Area Ref="54" type="Stimulsoft.Report.Chart.StiClusteredColumnArea" isKey="true">
+          <Area Ref="55" type="Stimulsoft.Report.Chart.StiClusteredColumnArea" isKey="true">
             <AllowApplyStyle>False</AllowApplyStyle>
             <BorderColor>171, 172, 173</BorderColor>
             <BorderThickness>1</BorderThickness>
             <Brush>EmptyBrush</Brush>
-            <Chart isRef="53" />
-            <GridLinesHorRight Ref="55" type="Stimulsoft.Report.Chart.StiGridLinesHor" isKey="true">
-              <Area isRef="54" />
+            <Chart isRef="54" />
+            <GridLinesHorRight Ref="56" type="Stimulsoft.Report.Chart.StiGridLinesHor" isKey="true">
+              <Area isRef="55" />
               <Color>Silver</Color>
               <MinorColor>Gainsboro</MinorColor>
               <Visible>False</Visible>
             </GridLinesHorRight>
-            <XAxis Ref="56" type="Stimulsoft.Report.Chart.StiXBottomAxis" isKey="true">
+            <XAxis Ref="57" type="Stimulsoft.Report.Chart.StiXBottomAxis" isKey="true">
               <AllowApplyStyle>False</AllowApplyStyle>
-              <Area isRef="54" />
-              <Labels Ref="57" type="Stimulsoft.Report.Chart.StiAxisLabels" isKey="true">
+              <Area isRef="55" />
+              <Labels Ref="58" type="Stimulsoft.Report.Chart.StiAxisLabels" isKey="true">
                 <Color>140, 140, 140</Color>
                 <Font>IRANSans,6,Regular,Point,False,178</Font>
               </Labels>
               <LineColor>140, 140, 140</LineColor>
             </XAxis>
-            <YAxis Ref="58" type="Stimulsoft.Report.Chart.StiYLeftAxis" isKey="true">
-              <Area isRef="54" />
-              <Labels Ref="59" type="Stimulsoft.Report.Chart.StiAxisLabels" isKey="true">
+            <YAxis Ref="59" type="Stimulsoft.Report.Chart.StiYLeftAxis" isKey="true">
+              <Area isRef="55" />
+              <Labels Ref="60" type="Stimulsoft.Report.Chart.StiAxisLabels" isKey="true">
                 <Color>140, 140, 140</Color>
                 <Font>IRANSans,8.249999,Regular,Point,False,178</Font>
                 <Format>F2</Format>
               </Labels>
               <LineColor>140, 140, 140</LineColor>
-              <Range Ref="60" type="Stimulsoft.Report.Chart.StiAxisRange" isKey="true">
+              <Range Ref="61" type="Stimulsoft.Report.Chart.StiAxisRange" isKey="true">
                 <Auto>False</Auto>
                 <Maximum>6</Maximum>
               </Range>
               <StartFromZero>False</StartFromZero>
-              <Ticks Ref="61" type="Stimulsoft.Report.Chart.StiAxisTicks" isKey="true">
+              <Ticks Ref="62" type="Stimulsoft.Report.Chart.StiAxisTicks" isKey="true">
                 <MinorCount>3</MinorCount>
                 <Step>1</Step>
                 <Visible>False</Visible>
               </Ticks>
-              <Title Ref="62" type="Stimulsoft.Report.Chart.StiAxisTitle" isKey="true">
+              <Title Ref="63" type="Stimulsoft.Report.Chart.StiAxisTitle" isKey="true">
                 <Color>140, 140, 140</Color>
                 <Direction>BottomToTop</Direction>
                 <Font>Tahoma,12,Bold</Font>
               </Title>
             </YAxis>
-            <YRightAxis Ref="63" type="Stimulsoft.Report.Chart.StiYRightAxis" isKey="true">
-              <Area isRef="54" />
-              <Labels Ref="64" type="Stimulsoft.Report.Chart.StiAxisLabels" isKey="true">
+            <YRightAxis Ref="64" type="Stimulsoft.Report.Chart.StiYRightAxis" isKey="true">
+              <Area isRef="55" />
+              <Labels Ref="65" type="Stimulsoft.Report.Chart.StiAxisLabels" isKey="true">
                 <Color>140, 140, 140</Color>
                 <Font>Tahoma,8</Font>
                 <TextAlignment>Left</TextAlignment>
               </Labels>
               <LineColor>140, 140, 140</LineColor>
-              <Title Ref="65" type="Stimulsoft.Report.Chart.StiAxisTitle" isKey="true">
+              <Title Ref="66" type="Stimulsoft.Report.Chart.StiAxisTitle" isKey="true">
                 <Color>140, 140, 140</Color>
                 <Direction>TopToBottom</Direction>
                 <Font>Tahoma,12,Bold</Font>
@@ -2537,10 +2551,10 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
           <DataRelationName isNull="true" />
           <Expressions isList="true" count="0" />
           <Filters isList="true" count="0" />
-          <Legend Ref="66" type="Stimulsoft.Report.Chart.StiLegend" isKey="true">
+          <Legend Ref="67" type="Stimulsoft.Report.Chart.StiLegend" isKey="true">
             <BorderColor>81, 66, 100</BorderColor>
             <Brush>GradientBrush,[255:246:255],[201:186:220],90</Brush>
-            <Chart isRef="53" />
+            <Chart isRef="54" />
             <Font>Arial,8</Font>
             <LabelsColor>31, 16, 50</LabelsColor>
             <MarkerSize>10, 10</MarkerSize>
@@ -2550,25 +2564,25 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
             <Visible>False</Visible>
           </Legend>
           <Name>Chart4</Name>
-          <Page isRef="37" />
-          <Parent isRef="37" />
+          <Page isRef="38" />
+          <Parent isRef="38" />
           <Series isList="true" count="1">
-            <Item41 Ref="67" type="Stimulsoft.Report.Chart.StiSplineSeries" isKey="true">
+            <Item42 Ref="68" type="Stimulsoft.Report.Chart.StiSplineSeries" isKey="true">
               <AllowApplyColorNegative>True</AllowApplyColorNegative>
               <ArgumentDataColumn>SatisfactionTrend.Date</ArgumentDataColumn>
-              <Chart isRef="53" />
+              <Chart isRef="54" />
               <Conditions isList="true" count="0" />
               <Filters isList="true" count="0" />
               <Format>F2</Format>
               <LineColor>72, 57, 90</LineColor>
               <LineColorNegative>Black</LineColorNegative>
               <LineWidth>1</LineWidth>
-              <Marker Ref="68" type="Stimulsoft.Report.Chart.StiMarker" isKey="true">
+              <Marker Ref="69" type="Stimulsoft.Report.Chart.StiMarker" isKey="true">
                 <BorderColor>Black</BorderColor>
                 <Brush>[172:157:190]</Brush>
               </Marker>
-              <SeriesLabels Ref="69" type="Stimulsoft.Report.Chart.StiNoneLabels" isKey="true">
-                <Chart isRef="53" />
+              <SeriesLabels Ref="70" type="Stimulsoft.Report.Chart.StiNoneLabels" isKey="true">
+                <Chart isRef="54" />
                 <MarkerSize>8, 6</MarkerSize>
                 <ValueTypeSeparator>-</ValueTypeSeparator>
                 <Width>0</Width>
@@ -2577,18 +2591,18 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <ShowShadow>False</ShowShadow>
               <Title>Series 1</Title>
               <TrendLines isList="true" count="1">
-                <Item42 Ref="70" type="Stimulsoft.Report.Chart.StiTrendLineNone" isKey="true">
+                <Item43 Ref="71" type="Stimulsoft.Report.Chart.StiTrendLineNone" isKey="true">
                   <Font>Arial,7</Font>
                   <LineColor>31, 16, 50</LineColor>
                   <ShowShadow>False</ShowShadow>
-                </Item42>
+                </Item43>
               </TrendLines>
               <ValueDataColumn>SatisfactionTrend.SatisfactionLevel</ValueDataColumn>
-            </Item41>
+            </Item42>
           </Series>
-          <SeriesLabels Ref="71" type="Stimulsoft.Report.Chart.StiNoneLabels" isKey="true">
+          <SeriesLabels Ref="72" type="Stimulsoft.Report.Chart.StiNoneLabels" isKey="true">
             <AllowApplyStyle>False</AllowApplyStyle>
-            <Chart isRef="53" />
+            <Chart isRef="54" />
             <Format>F2</Format>
             <MarkerSize>8, 6</MarkerSize>
             <ValueTypeSeparator>-</ValueTypeSeparator>
@@ -2597,60 +2611,60 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
           <SeriesLabelsConditions isList="true" count="0" />
           <Sort isList="true" count="0" />
           <Strips isList="true" count="0" />
-          <Style Ref="72" type="Stimulsoft.Report.Chart.StiStyle04" isKey="true">
+          <Style Ref="73" type="Stimulsoft.Report.Chart.StiStyle04" isKey="true">
             <Conditions isList="true" count="0" />
             <Name />
           </Style>
-          <Table Ref="73" type="Stimulsoft.Report.Chart.StiChartTable" isKey="true">
-            <DataCells Ref="74" type="Stimulsoft.Report.Chart.StiChartTableDataCells" isKey="true">
+          <Table Ref="74" type="Stimulsoft.Report.Chart.StiChartTable" isKey="true">
+            <DataCells Ref="75" type="Stimulsoft.Report.Chart.StiChartTableDataCells" isKey="true">
               <Font>Tahoma,8</Font>
               <TextColor>31, 16, 50</TextColor>
             </DataCells>
             <GridLineColor>81, 66, 100</GridLineColor>
           </Table>
         </Chart4>
-        <Text7 Ref="75" type="Text" isKey="true">
+        <Text7 Ref="76" type="Text" isKey="true">
           <Border>Top, Bottom;Black;1;Solid;False;4;Black</Border>
           <Brush>[183:221:232]</Brush>
           <ClientRectangle>0,3.7,10.9,0.3</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Expressions isList="true" count="0" />
-          <Font>IRANSans,12,Bold</Font>
+          <Font>IRANSansWeb(FaNum),12,Bold</Font>
           <Guid>a8887d7d1590406da13bea101d108bf9</Guid>
           <HorAlignment>Right</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text7</Name>
-          <Page isRef="37" />
-          <Parent isRef="37" />
+          <Page isRef="38" />
+          <Parent isRef="38" />
           <Text>*روند رضایت از زندگی</Text>
           <TextBrush>Black</TextBrush>
           <Type>Expression</Type>
           <VertAlignment>Center</VertAlignment>
         </Text7>
-        <Text8 Ref="76" type="Text" isKey="true">
+        <Text8 Ref="77" type="Text" isKey="true">
           <Border>Bottom;[23:54:93];3;None;False;4;[120:192:212]</Border>
           <Brush>EmptyBrush</Brush>
           <ClientRectangle>3.9,7.5,3.5,0.4</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Expressions isList="true" count="0" />
-          <Font>IRANSans,10</Font>
+          <Font>IRANSansWeb(FaNum),10</Font>
           <HorAlignment>Center</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text8</Name>
-          <Page isRef="37" />
-          <Parent isRef="37" />
+          <Page isRef="38" />
+          <Parent isRef="38" />
           <Text>Powered by HALOOD | تهیه شده توسط حالود</Text>
           <TextBrush>[255:255:255]</TextBrush>
           <Type>Expression</Type>
         </Text8>
-        <Chart1 Ref="77" type="Stimulsoft.Report.Chart.StiChart" isKey="true">
+        <Chart1 Ref="78" type="Stimulsoft.Report.Chart.StiChart" isKey="true">
           <AllowApplyStyle>False</AllowApplyStyle>
-          <Area Ref="78" type="Stimulsoft.Report.Chart.StiPieArea" isKey="true">
+          <Area Ref="79" type="Stimulsoft.Report.Chart.StiPieArea" isKey="true">
             <AllowApplyStyle>False</AllowApplyStyle>
             <BorderColor>222, 247, 247</BorderColor>
             <BorderThickness>1</BorderThickness>
             <Brush>EmptyBrush</Brush>
-            <Chart isRef="77" />
+            <Chart isRef="78" />
           </Area>
           <Border>None;Transparent;0;Solid;False;1;White</Border>
           <Brush>EmptyBrush</Brush>
@@ -2662,38 +2676,38 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
           <Expressions isList="true" count="0" />
           <Filters isList="true" count="0" />
           <Guid>88abdc58af304d9db3460e519d588f71</Guid>
-          <Legend Ref="79" type="Stimulsoft.Report.Chart.StiLegend" isKey="true">
+          <Legend Ref="80" type="Stimulsoft.Report.Chart.StiLegend" isKey="true">
             <BorderColor>Transparent</BorderColor>
             <Brush>[255:255:255]</Brush>
-            <Chart isRef="77" />
+            <Chart isRef="78" />
             <Font>Arial,8</Font>
             <LabelsColor>140, 140, 140</LabelsColor>
             <MarkerSize>10, 10</MarkerSize>
             <ShowShadow>False</ShowShadow>
-            <TitleColor>DimGray</TitleColor>
+            <TitleColor>105, 105, 105</TitleColor>
             <TitleFont>Arial,14,Bold</TitleFont>
             <Visible>False</Visible>
           </Legend>
           <Name>Chart1</Name>
-          <Page isRef="37" />
-          <Parent isRef="37" />
+          <Page isRef="38" />
+          <Parent isRef="38" />
           <Series isList="true" count="1">
-            <Item46 Ref="80" type="Stimulsoft.Report.Chart.StiPieSeries" isKey="true">
+            <Item47 Ref="81" type="Stimulsoft.Report.Chart.StiPieSeries" isKey="true">
               <ArgumentDataColumn>SatisfactionPieChart.SatisfactionName</ArgumentDataColumn>
               <AutoSeriesColorDataColumn>SatisfactionPieChart.SatisfactionColor</AutoSeriesColorDataColumn>
               <AutoSeriesKeyDataColumn>SatisfactionPieChart.SatisfactionName</AutoSeriesKeyDataColumn>
               <AutoSeriesTitleDataColumn>SatisfactionPieChart.SatisfactionName</AutoSeriesTitleDataColumn>
-              <BorderColor>White</BorderColor>
+              <BorderColor>255, 255, 255</BorderColor>
               <BorderThickness>1</BorderThickness>
               <Brush>[112:173:71]</Brush>
-              <Chart isRef="77" />
+              <Chart isRef="78" />
               <Conditions isList="true" count="0" />
               <Filters isList="true" count="0" />
               <Lighting>False</Lighting>
-              <SeriesLabels Ref="81" type="Stimulsoft.Report.Chart.StiCenterAxisLabels" isKey="true">
+              <SeriesLabels Ref="82" type="Stimulsoft.Report.Chart.StiCenterAxisLabels" isKey="true">
                 <BorderColor>Transparent</BorderColor>
                 <Brush>[119:255:255:255]</Brush>
-                <Chart isRef="77" />
+                <Chart isRef="78" />
                 <Font>Arial,10</Font>
                 <LabelColor>51, 71, 91</LabelColor>
                 <MarkerSize>8, 6</MarkerSize>
@@ -2703,12 +2717,12 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <ShowShadow>False</ShowShadow>
               <Title>Series 2</Title>
               <ValueDataColumn>SatisfactionPieChart.SatisfactionPercentage</ValueDataColumn>
-            </Item46>
+            </Item47>
           </Series>
-          <SeriesLabels Ref="82" type="Stimulsoft.Report.Chart.StiCenterAxisLabels" isKey="true">
+          <SeriesLabels Ref="83" type="Stimulsoft.Report.Chart.StiCenterAxisLabels" isKey="true">
             <BorderColor>Transparent</BorderColor>
             <Brush>[119:255:255:255]</Brush>
-            <Chart isRef="77" />
+            <Chart isRef="78" />
             <DrawBorder>False</DrawBorder>
             <Font>Arial,10</Font>
             <LabelColor>51, 71, 91</LabelColor>
@@ -2720,12 +2734,12 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
           <SeriesLabelsConditions isList="true" count="0" />
           <Sort isList="true" count="0" />
           <Strips isList="true" count="0" />
-          <Style Ref="83" type="Stimulsoft.Report.Chart.StiStyle25" isKey="true">
+          <Style Ref="84" type="Stimulsoft.Report.Chart.StiStyle25" isKey="true">
             <Conditions isList="true" count="0" />
             <Name />
           </Style>
-          <Table Ref="84" type="Stimulsoft.Report.Chart.StiChartTable" isKey="true">
-            <DataCells Ref="85" type="Stimulsoft.Report.Chart.StiChartTableDataCells" isKey="true">
+          <Table Ref="85" type="Stimulsoft.Report.Chart.StiChartTable" isKey="true">
+            <DataCells Ref="86" type="Stimulsoft.Report.Chart.StiChartTableDataCells" isKey="true">
               <Font>Tahoma,8</Font>
               <TextColor>140, 140, 140</TextColor>
             </DataCells>
@@ -2734,76 +2748,76 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
             <MarkerVisible>False</MarkerVisible>
           </Table>
         </Chart1>
-        <HeaderBand2 Ref="86" type="HeaderBand" isKey="true">
+        <HeaderBand2 Ref="87" type="HeaderBand" isKey="true">
           <Brush>Transparent</Brush>
           <ClientRectangle>0,1.8,10.91,0.5</ClientRectangle>
           <Components isList="true" count="4">
-            <Text9 Ref="87" type="Text" isKey="true">
+            <Text9 Ref="88" type="Text" isKey="true">
               <Border>Top, Bottom;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>5.4,0.1,3,0.2</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>IRANSans,8</Font>
+              <Font>IRANSansWeb(FaNum),8</Font>
               <Guid>9d9c1ab3ef2c4a10bd84bf524d819f1b</Guid>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text9</Name>
-              <Page isRef="37" />
-              <Parent isRef="86" />
+              <Page isRef="38" />
+              <Parent isRef="87" />
               <Text>تعداد دفعات در بازه زمانی</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text9>
-            <Text10 Ref="88" type="Text" isKey="true">
+            <Text10 Ref="89" type="Text" isKey="true">
               <Border>Top, Bottom;Black;1;Solid;False;4;Black</Border>
               <Brush>[183:221:232]</Brush>
               <ClientRectangle>0,-0.2,10.9,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>IRANSans,12,Bold</Font>
+              <Font>IRANSansWeb(FaNum),12,Bold</Font>
               <Guid>578904eef7094757bd53b33a6e0df54a</Guid>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text10</Name>
-              <Page isRef="37" />
-              <Parent isRef="86" />
+              <Page isRef="38" />
+              <Parent isRef="87" />
               <Text>پراکندگی میزان رضایت از زندگی</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Bottom</VertAlignment>
             </Text10>
-            <Text11 Ref="89" type="Text" isKey="true">
+            <Text11 Ref="90" type="Text" isKey="true">
               <Border>Top, Bottom;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>3.8,0.1,1.6,0.2</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>IRANSans,8</Font>
+              <Font>IRANSansWeb(FaNum),8</Font>
               <Guid>f2d423bb4451452b9d2149dcca4d14a4</Guid>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text11</Name>
-              <Page isRef="37" />
-              <Parent isRef="86" />
+              <Page isRef="38" />
+              <Parent isRef="87" />
               <Text>درصد دفعات در بازه زمانی</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text11>
-            <Text12 Ref="90" type="Text" isKey="true">
+            <Text12 Ref="91" type="Text" isKey="true">
               <Border>Top, Bottom;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>8.4,0.1,2.3,0.2</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>IRANSans,8</Font>
+              <Font>IRANSansWeb(FaNum),8</Font>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text12</Name>
-              <Page isRef="37" />
-              <Parent isRef="86" />
+              <Page isRef="38" />
+              <Parent isRef="87" />
               <Text>میزان رضایت</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
@@ -2813,48 +2827,48 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
           <Conditions isList="true" count="0" />
           <Expressions isList="true" count="0" />
           <Name>HeaderBand2</Name>
-          <Page isRef="37" />
-          <Parent isRef="37" />
+          <Page isRef="38" />
+          <Parent isRef="38" />
         </HeaderBand2>
-        <DataBand2 Ref="91" type="DataBand" isKey="true">
+        <DataBand2 Ref="92" type="DataBand" isKey="true">
           <Brush>Transparent</Brush>
           <BusinessObjectGuid>93da1f4d58e44c429ea932e396daca53</BusinessObjectGuid>
           <ClientRectangle>0,2.7,10.91,0.3</ClientRectangle>
           <Components isList="true" count="4">
-            <Text13 Ref="92" type="Text" isKey="true">
+            <Text13 Ref="93" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>8.4,-0.1,2.3,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>IRANSans,9</Font>
+              <Font>IRANSansWeb(FaNum),9</Font>
               <Guid>a6bc32d2024b4ef6902921f7d8dfe6bc</Guid>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text13</Name>
-              <Page isRef="37" />
-              <Parent isRef="91" />
+              <Page isRef="38" />
+              <Parent isRef="92" />
               <Text>{SatisfactionPieChart.SatisfactionName}</Text>
               <TextBrush>Black</TextBrush>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Text13>
-            <Text14 Ref="93" type="Text" isKey="true">
+            <Text14 Ref="94" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>5.4,-0.1,3,0.3</ClientRectangle>
               <Conditions isList="true" count="1">
                 <value>AssetAllocationByAsset.Value,LessThan,_x0030_,,Numeric,Red,Transparent,IRANSans_x0028_FaNum_x0029__x002C_9_x002C_Regular_x002C_Point_x002C_False_x002C_178,True,False,,,None</value>
               </Conditions>
               <Expressions isList="true" count="0" />
-              <Font>IRANSans,9</Font>
+              <Font>IRANSansWeb(FaNum),9</Font>
               <Guid>de9b7a71e8d9420aaaf7b6fc0d02617e</Guid>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text14</Name>
-              <Page isRef="37" />
-              <Parent isRef="91" />
+              <Page isRef="38" />
+              <Parent isRef="92" />
               <Text>{SatisfactionPieChart.SatisfactionCount}</Text>
               <TextBrush>Black</TextBrush>
-              <TextFormat Ref="94" type="NumberFormat" isKey="true">
+              <TextFormat Ref="95" type="NumberFormat" isKey="true">
                 <DecimalDigits>0</DecimalDigits>
                 <GroupSeparator>,</GroupSeparator>
                 <NegativePattern>0</NegativePattern>
@@ -2863,23 +2877,23 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Text14>
-            <Text15 Ref="95" type="Text" isKey="true">
+            <Text15 Ref="96" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>3.8,-0.1,1.6,0.3</ClientRectangle>
               <Conditions isList="true" count="1">
                 <value>AssetAllocationByAsset.Percentage,LessThan,_x0030_,,Numeric,Red,Transparent,IRANSans_x002C_9_x002C_Regular_x002C_Point_x002C_False_x002C_178,True,False,,,None</value>
               </Conditions>
               <Expressions isList="true" count="0" />
-              <Font>IRANSans,9</Font>
+              <Font>IRANSansWeb(FaNum),9</Font>
               <Guid>9b00c393d33145baa9b497f27fdb034a</Guid>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text15</Name>
-              <Page isRef="37" />
-              <Parent isRef="91" />
+              <Page isRef="38" />
+              <Parent isRef="92" />
               <Text>{SatisfactionPieChart.SatisfactionPercentage}</Text>
               <TextBrush>Black</TextBrush>
-              <TextFormat Ref="96" type="NumberFormat" isKey="true">
+              <TextFormat Ref="97" type="NumberFormat" isKey="true">
                 <DecimalDigits>2</DecimalDigits>
                 <GroupSeparator>,</GroupSeparator>
                 <NegativePattern>0</NegativePattern>
@@ -2888,7 +2902,7 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Text15>
-            <Image2 Ref="97" type="Image" isKey="true">
+            <Image2 Ref="98" type="Image" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>10.8,0,0.1,0.1</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -2898,8 +2912,8 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <IconColor>68, 114, 196</IconColor>
               <Margins>0,0,0,0</Margins>
               <Name>Image2</Name>
-              <Page isRef="37" />
-              <Parent isRef="91" />
+              <Page isRef="38" />
+              <Parent isRef="92" />
             </Image2>
           </Components>
           <Conditions isList="true" count="0" />
@@ -2907,49 +2921,49 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
           <Expressions isList="true" count="0" />
           <Filters isList="true" count="0" />
           <Name>DataBand2</Name>
-          <Page isRef="37" />
-          <Parent isRef="37" />
+          <Page isRef="38" />
+          <Parent isRef="38" />
           <RightToLeft>True</RightToLeft>
           <Sort isList="true" count="0" />
         </DataBand2>
-        <FooterBand2 Ref="98" type="FooterBand" isKey="true">
+        <FooterBand2 Ref="99" type="FooterBand" isKey="true">
           <Brush>Transparent</Brush>
           <ClientRectangle>0,3.4,10.91,0.2</ClientRectangle>
           <Components isList="true" count="3">
-            <Text16 Ref="99" type="Text" isKey="true">
+            <Text16 Ref="100" type="Text" isKey="true">
               <Border>Top;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>8.4,0,2.3,0.2</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>IRANSans,9,Bold</Font>
+              <Font>IRANSansWeb(FaNum),9,Bold</Font>
               <Guid>666c089609d744ec8d03464d23ca98d5</Guid>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text16</Name>
-              <Page isRef="37" />
-              <Parent isRef="98" />
+              <Page isRef="38" />
+              <Parent isRef="99" />
               <Text>جمع کل</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text16>
-            <Text17 Ref="100" type="Text" isKey="true">
+            <Text17 Ref="101" type="Text" isKey="true">
               <Border>Top;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>5.4,0,3,0.2</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>IRANSans,9,Bold</Font>
+              <Font>IRANSansWeb(FaNum),9,Bold</Font>
               <Guid>76e15a35d2534560a45151afbbd6f53f</Guid>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text17</Name>
-              <Page isRef="37" />
-              <Parent isRef="98" />
+              <Page isRef="38" />
+              <Parent isRef="99" />
               <Text>{Sum(SatisfactionPieChart.SatisfactionCount)}</Text>
               <TextBrush>Black</TextBrush>
-              <TextFormat Ref="101" type="NumberFormat" isKey="true">
+              <TextFormat Ref="102" type="NumberFormat" isKey="true">
                 <DecimalDigits>0</DecimalDigits>
                 <GroupSeparator>,</GroupSeparator>
                 <NegativePattern>2</NegativePattern>
@@ -2958,22 +2972,22 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <Type>Totals</Type>
               <VertAlignment>Center</VertAlignment>
             </Text17>
-            <Text28 Ref="102" type="Text" isKey="true">
+            <Text28 Ref="103" type="Text" isKey="true">
               <Border>Top;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>3.8,0,1.6,0.2</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>IRANSans,9,Bold</Font>
+              <Font>IRANSansWeb(FaNum),9,Bold</Font>
               <Guid>eba70ae78dd84fbb8d5c3f4f4811bc0b</Guid>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text28</Name>
-              <Page isRef="37" />
-              <Parent isRef="98" />
+              <Page isRef="38" />
+              <Parent isRef="99" />
               <Text>100</Text>
               <TextBrush>Black</TextBrush>
-              <TextFormat Ref="103" type="NumberFormat" isKey="true">
+              <TextFormat Ref="104" type="NumberFormat" isKey="true">
                 <DecimalDigits>2</DecimalDigits>
                 <GroupSeparator>,</GroupSeparator>
                 <NegativePattern>2</NegativePattern>
@@ -2986,8 +3000,8 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
           <Conditions isList="true" count="0" />
           <Expressions isList="true" count="0" />
           <Name>FooterBand2</Name>
-          <Page isRef="37" />
-          <Parent isRef="37" />
+          <Page isRef="38" />
+          <Parent isRef="38" />
         </FooterBand2>
       </Components>
       <Conditions isList="true" count="0" />
@@ -3005,33 +3019,33 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
       <Report isRef="0" />
       <ResetPageNumber>True</ResetPageNumber>
     </Page1>
-    <Page2 Ref="104" type="Page" isKey="true">
+    <Page2 Ref="105" type="Page" isKey="true">
       <Border>None;Black;2;Solid;False;4;Black</Border>
       <Brush>[222:247:247]</Brush>
-      <Components isList="true" count="12">
-        <PageHeaderBand2 Ref="105" type="PageHeaderBand" isKey="true">
+      <Components isList="true" count="9">
+        <PageHeaderBand2 Ref="106" type="PageHeaderBand" isKey="true">
           <Brush>Transparent</Brush>
           <ClientRectangle>0,0.2,10.91,1.2</ClientRectangle>
           <Components isList="true" count="5">
-            <Text159 Ref="106" type="Text" isKey="true">
+            <Text159 Ref="107" type="Text" isKey="true">
               <Border>Bottom;Black;1;Solid;False;4;Black</Border>
               <Brush>[183:221:232]</Brush>
               <ClientRectangle>0,0.7,10.9,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>IRANSans,14,Bold</Font>
+              <Font>IRANSansWeb(FaNum),14,Bold</Font>
               <Guid>65b10e0a96f0409c9e4c1732f4f2fd4c</Guid>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text159</Name>
-              <Page isRef="104" />
-              <Parent isRef="105" />
-              <Text>{EmotionsPageTitle}</Text>
+              <Page isRef="105" />
+              <Parent isRef="106" />
+              <Text>احساس ها</Text>
               <TextBrush>[23:54:93]</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Bottom</VertAlignment>
             </Text159>
-            <Text43 Ref="107" type="Text" isKey="true">
+            <Text43 Ref="108" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>8.3,0.1,2.6,0.2</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -3041,14 +3055,14 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text43</Name>
-              <Page isRef="104" />
-              <Parent isRef="105" />
+              <Page isRef="105" />
+              <Parent isRef="106" />
               <Text>{Username} گزارش کاربر </Text>
               <TextBrush>[219:238:243]</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text43>
-            <Text129 Ref="108" type="Text" isKey="true">
+            <Text129 Ref="109" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>8.3,0.3,2.6,0.2</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -3058,14 +3072,14 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text129</Name>
-              <Page isRef="104" />
-              <Parent isRef="105" />
+              <Page isRef="105" />
+              <Parent isRef="106" />
               <Text>از تاریخ  {FromDate} تا {ToDate}</Text>
               <TextBrush>[219:238:243]</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text129>
-            <Text133 Ref="109" type="Text" isKey="true">
+            <Text133 Ref="110" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>8.3,-0.2,2.6,0.2</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -3075,26 +3089,26 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text133</Name>
-              <Page isRef="104" />
-              <Parent isRef="105" />
+              <Page isRef="105" />
+              <Parent isRef="106" />
               <Text>صفحه {PageNumber} از {TotalPageCount}</Text>
               <TextBrush>[219:238:243]</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text133>
-            <HorizontalLinePrimitive3 Ref="110" type="HorizontalLinePrimitive" isKey="true">
+            <HorizontalLinePrimitive3 Ref="111" type="HorizontalLinePrimitive" isKey="true">
               <ClientRectangle>3,0.05,7.9,0.01</ClientRectangle>
               <Color>PaleTurquoise</Color>
               <Conditions isList="true" count="0" />
-              <EndCap Ref="111" type="Cap" isKey="true">
+              <EndCap Ref="112" type="Cap" isKey="true">
                 <Color>Black</Color>
               </EndCap>
               <Expressions isList="true" count="0" />
               <Guid>4c07058f72fb48289f2ebbf8221e5c2c</Guid>
               <Name>HorizontalLinePrimitive3</Name>
-              <Page isRef="104" />
-              <Parent isRef="105" />
-              <StartCap Ref="112" type="Cap" isKey="true">
+              <Page isRef="105" />
+              <Parent isRef="106" />
+              <StartCap Ref="113" type="Cap" isKey="true">
                 <Color>Black</Color>
               </StartCap>
             </HorizontalLinePrimitive3>
@@ -3102,10 +3116,10 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
           <Conditions isList="true" count="0" />
           <Expressions isList="true" count="0" />
           <Name>PageHeaderBand2</Name>
-          <Page isRef="104" />
-          <Parent isRef="104" />
+          <Page isRef="105" />
+          <Parent isRef="105" />
         </PageHeaderBand2>
-        <Shape11 Ref="113" type="Shape" isKey="true">
+        <Shape11 Ref="114" type="Shape" isKey="true">
           <BackgroundColor>Transparent</BackgroundColor>
           <BorderColor>Transparent</BorderColor>
           <Brush>[0:66:88]</Brush>
@@ -3118,11 +3132,11 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
           <Guid>38ae3840289045909d400478fac4552b</Guid>
           <Margins>0,0,0,0</Margins>
           <Name>Shape11</Name>
-          <Page isRef="104" />
-          <Parent isRef="104" />
-          <ShapeType Ref="114" type="Stimulsoft.Report.Components.ShapeTypes.StiRectangleShapeType" isKey="true" />
+          <Page isRef="105" />
+          <Parent isRef="105" />
+          <ShapeType Ref="115" type="Stimulsoft.Report.Components.ShapeTypes.StiRectangleShapeType" isKey="true" />
         </Shape11>
-        <Shape2 Ref="115" type="Shape" isKey="true">
+        <Shape2 Ref="116" type="Shape" isKey="true">
           <BackgroundColor>Transparent</BackgroundColor>
           <BorderColor>Transparent</BorderColor>
           <Brush>[0:66:88]</Brush>
@@ -3135,11 +3149,11 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
           <Guid>fe17ad76835745108681e48b7144bbda</Guid>
           <Margins>0,0,0,0</Margins>
           <Name>Shape2</Name>
-          <Page isRef="104" />
-          <Parent isRef="104" />
-          <ShapeType Ref="116" type="Stimulsoft.Report.Components.ShapeTypes.StiRectangleShapeType" isKey="true" />
+          <Page isRef="105" />
+          <Parent isRef="105" />
+          <ShapeType Ref="117" type="Stimulsoft.Report.Components.ShapeTypes.StiRectangleShapeType" isKey="true" />
         </Shape2>
-        <Shape3 Ref="117" type="Shape" isKey="true">
+        <Shape3 Ref="118" type="Shape" isKey="true">
           <BackgroundColor>Transparent</BackgroundColor>
           <BorderColor>Transparent</BorderColor>
           <Brush>[92:198:208]</Brush>
@@ -3152,18 +3166,18 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
           <Guid>6cc1807543514c3eb42e56a3f3758cac</Guid>
           <Margins>0,0,0,0</Margins>
           <Name>Shape3</Name>
-          <Page isRef="104" />
-          <Parent isRef="104" />
-          <ShapeType Ref="118" type="Stimulsoft.Report.Components.ShapeTypes.StiRectangleShapeType" isKey="true" />
+          <Page isRef="105" />
+          <Parent isRef="105" />
+          <ShapeType Ref="119" type="Stimulsoft.Report.Components.ShapeTypes.StiRectangleShapeType" isKey="true" />
         </Shape3>
-        <Chart2 Ref="119" type="Stimulsoft.Report.Chart.StiChart" isKey="true">
+        <Chart2 Ref="120" type="Stimulsoft.Report.Chart.StiChart" isKey="true">
           <AllowApplyStyle>False</AllowApplyStyle>
-          <Area Ref="120" type="Stimulsoft.Report.Chart.StiPieArea" isKey="true">
+          <Area Ref="121" type="Stimulsoft.Report.Chart.StiPieArea" isKey="true">
             <AllowApplyStyle>False</AllowApplyStyle>
             <BorderColor>222, 247, 247</BorderColor>
             <BorderThickness>1</BorderThickness>
             <Brush>EmptyBrush</Brush>
-            <Chart isRef="119" />
+            <Chart isRef="120" />
           </Area>
           <Border>None;Transparent;0;Solid;False;1;White</Border>
           <Brush>EmptyBrush</Brush>
@@ -3175,38 +3189,38 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
           <Expressions isList="true" count="0" />
           <Filters isList="true" count="0" />
           <Guid>f2a27c8826c74488a04b54e9221dc216</Guid>
-          <Legend Ref="121" type="Stimulsoft.Report.Chart.StiLegend" isKey="true">
+          <Legend Ref="122" type="Stimulsoft.Report.Chart.StiLegend" isKey="true">
             <BorderColor>Transparent</BorderColor>
             <Brush>[255:255:255]</Brush>
-            <Chart isRef="119" />
+            <Chart isRef="120" />
             <Font>Arial,8</Font>
             <LabelsColor>140, 140, 140</LabelsColor>
             <MarkerSize>10, 10</MarkerSize>
             <ShowShadow>False</ShowShadow>
-            <TitleColor>DimGray</TitleColor>
+            <TitleColor>105, 105, 105</TitleColor>
             <TitleFont>Arial,14,Bold</TitleFont>
             <Visible>False</Visible>
           </Legend>
           <Name>Chart2</Name>
-          <Page isRef="104" />
-          <Parent isRef="104" />
+          <Page isRef="105" />
+          <Parent isRef="105" />
           <Series isList="true" count="1">
-            <Item72 Ref="122" type="Stimulsoft.Report.Chart.StiPieSeries" isKey="true">
-              <ArgumentDataColumn>SatisfactionPieChart.SatisfactionName</ArgumentDataColumn>
-              <AutoSeriesColorDataColumn>SatisfactionPieChart.SatisfactionColor</AutoSeriesColorDataColumn>
-              <AutoSeriesKeyDataColumn>SatisfactionPieChart.SatisfactionName</AutoSeriesKeyDataColumn>
-              <AutoSeriesTitleDataColumn>SatisfactionPieChart.SatisfactionName</AutoSeriesTitleDataColumn>
-              <BorderColor>White</BorderColor>
+            <Item73 Ref="123" type="Stimulsoft.Report.Chart.StiPieSeries" isKey="true">
+              <ArgumentDataColumn>EmotionPieChart.EmotionName</ArgumentDataColumn>
+              <AutoSeriesColorDataColumn>EmotionPieChart.EmotionColor</AutoSeriesColorDataColumn>
+              <AutoSeriesKeyDataColumn>EmotionPieChart.EmotionName</AutoSeriesKeyDataColumn>
+              <AutoSeriesTitleDataColumn>EmotionPieChart.EmotionName</AutoSeriesTitleDataColumn>
+              <BorderColor>255, 255, 255</BorderColor>
               <BorderThickness>1</BorderThickness>
               <Brush>[112:173:71]</Brush>
-              <Chart isRef="119" />
+              <Chart isRef="120" />
               <Conditions isList="true" count="0" />
               <Filters isList="true" count="0" />
               <Lighting>False</Lighting>
-              <SeriesLabels Ref="123" type="Stimulsoft.Report.Chart.StiCenterAxisLabels" isKey="true">
+              <SeriesLabels Ref="124" type="Stimulsoft.Report.Chart.StiCenterAxisLabels" isKey="true">
                 <BorderColor>Transparent</BorderColor>
                 <Brush>[119:255:255:255]</Brush>
-                <Chart isRef="119" />
+                <Chart isRef="120" />
                 <Font>Arial,10</Font>
                 <LabelColor>51, 71, 91</LabelColor>
                 <MarkerSize>8, 6</MarkerSize>
@@ -3214,14 +3228,16 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
                 <Width>0</Width>
               </SeriesLabels>
               <ShowShadow>False</ShowShadow>
+              <SortBy>Argument</SortBy>
+              <SortDirection>Descending</SortDirection>
               <Title>Series 2</Title>
-              <ValueDataColumn>SatisfactionPieChart.SatisfactionPercentage</ValueDataColumn>
-            </Item72>
+              <ValueDataColumn>EmotionPieChart.EmotionPercentage</ValueDataColumn>
+            </Item73>
           </Series>
-          <SeriesLabels Ref="124" type="Stimulsoft.Report.Chart.StiCenterAxisLabels" isKey="true">
+          <SeriesLabels Ref="125" type="Stimulsoft.Report.Chart.StiCenterAxisLabels" isKey="true">
             <BorderColor>Transparent</BorderColor>
             <Brush>[119:255:255:255]</Brush>
-            <Chart isRef="119" />
+            <Chart isRef="120" />
             <DrawBorder>False</DrawBorder>
             <Font>Arial,10</Font>
             <LabelColor>51, 71, 91</LabelColor>
@@ -3233,12 +3249,12 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
           <SeriesLabelsConditions isList="true" count="0" />
           <Sort isList="true" count="0" />
           <Strips isList="true" count="0" />
-          <Style Ref="125" type="Stimulsoft.Report.Chart.StiStyle25" isKey="true">
+          <Style Ref="126" type="Stimulsoft.Report.Chart.StiStyle25" isKey="true">
             <Conditions isList="true" count="0" />
             <Name />
           </Style>
-          <Table Ref="126" type="Stimulsoft.Report.Chart.StiChartTable" isKey="true">
-            <DataCells Ref="127" type="Stimulsoft.Report.Chart.StiChartTableDataCells" isKey="true">
+          <Table Ref="127" type="Stimulsoft.Report.Chart.StiChartTable" isKey="true">
+            <DataCells Ref="128" type="Stimulsoft.Report.Chart.StiChartTableDataCells" isKey="true">
               <Font>Tahoma,8</Font>
               <TextColor>140, 140, 140</TextColor>
             </DataCells>
@@ -3247,185 +3263,7 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
             <MarkerVisible>False</MarkerVisible>
           </Table>
         </Chart2>
-        <Text27 Ref="128" type="Text" isKey="true">
-          <Border>None;Transparent;1;Solid;False;4;EmptyBrush</Border>
-          <Brush>EmptyBrush</Brush>
-          <ClientRectangle>7.3,7.2,3.5,0.2</ClientRectangle>
-          <Conditions isList="true" count="0" />
-          <Expressions isList="true" count="0" />
-          <Font>IRANSans,6</Font>
-          <HorAlignment>Right</HorAlignment>
-          <Margins>0,0,0,0</Margins>
-          <Name>Text27</Name>
-          <Page isRef="104" />
-          <Parent isRef="104" />
-          <Text>هر نقطه بیانگر میانگین رضایتمندی در آن روز است. اعداد بالاتر به معنای رضایتمندی بیشتر است*</Text>
-          <TextBrush>[255:255:255]</TextBrush>
-          <Type>Expression</Type>
-          <VertAlignment>Center</VertAlignment>
-        </Text27>
-        <Chart3 Ref="129" type="Stimulsoft.Report.Chart.StiChart" isKey="true">
-          <AllowApplyStyle>False</AllowApplyStyle>
-          <Area Ref="130" type="Stimulsoft.Report.Chart.StiClusteredColumnArea" isKey="true">
-            <AllowApplyStyle>False</AllowApplyStyle>
-            <BorderColor>171, 172, 173</BorderColor>
-            <BorderThickness>1</BorderThickness>
-            <Brush>EmptyBrush</Brush>
-            <Chart isRef="129" />
-            <GridLinesHorRight Ref="131" type="Stimulsoft.Report.Chart.StiGridLinesHor" isKey="true">
-              <Area isRef="130" />
-              <Color>Silver</Color>
-              <MinorColor>Gainsboro</MinorColor>
-              <Visible>False</Visible>
-            </GridLinesHorRight>
-            <XAxis Ref="132" type="Stimulsoft.Report.Chart.StiXBottomAxis" isKey="true">
-              <AllowApplyStyle>False</AllowApplyStyle>
-              <Area isRef="130" />
-              <Labels Ref="133" type="Stimulsoft.Report.Chart.StiAxisLabels" isKey="true">
-                <Color>140, 140, 140</Color>
-                <Font>IRANSans,6,Regular,Point,False,178</Font>
-              </Labels>
-              <LineColor>140, 140, 140</LineColor>
-            </XAxis>
-            <YAxis Ref="134" type="Stimulsoft.Report.Chart.StiYLeftAxis" isKey="true">
-              <Area isRef="130" />
-              <Labels Ref="135" type="Stimulsoft.Report.Chart.StiAxisLabels" isKey="true">
-                <Color>140, 140, 140</Color>
-                <Font>IRANSans,8.249999,Regular,Point,False,178</Font>
-                <Format>F2</Format>
-              </Labels>
-              <LineColor>140, 140, 140</LineColor>
-              <Range Ref="136" type="Stimulsoft.Report.Chart.StiAxisRange" isKey="true">
-                <Auto>False</Auto>
-                <Maximum>6</Maximum>
-              </Range>
-              <StartFromZero>False</StartFromZero>
-              <Ticks Ref="137" type="Stimulsoft.Report.Chart.StiAxisTicks" isKey="true">
-                <MinorCount>3</MinorCount>
-                <Step>1</Step>
-                <Visible>False</Visible>
-              </Ticks>
-              <Title Ref="138" type="Stimulsoft.Report.Chart.StiAxisTitle" isKey="true">
-                <Color>140, 140, 140</Color>
-                <Direction>BottomToTop</Direction>
-                <Font>Tahoma,12,Bold</Font>
-              </Title>
-            </YAxis>
-            <YRightAxis Ref="139" type="Stimulsoft.Report.Chart.StiYRightAxis" isKey="true">
-              <Area isRef="130" />
-              <Labels Ref="140" type="Stimulsoft.Report.Chart.StiAxisLabels" isKey="true">
-                <Color>140, 140, 140</Color>
-                <Font>Tahoma,8</Font>
-                <TextAlignment>Left</TextAlignment>
-              </Labels>
-              <LineColor>140, 140, 140</LineColor>
-              <Title Ref="141" type="Stimulsoft.Report.Chart.StiAxisTitle" isKey="true">
-                <Color>140, 140, 140</Color>
-                <Direction>TopToBottom</Direction>
-                <Font>Tahoma,12,Bold</Font>
-              </Title>
-            </YRightAxis>
-          </Area>
-          <Border>None;Black;0;Solid;False;4;Black</Border>
-          <Brush>EmptyBrush</Brush>
-          <ClientRectangle>0.5,4,9.9,2.9</ClientRectangle>
-          <Conditions isList="true" count="0" />
-          <ConstantLines isList="true" count="0" />
-          <CustomStyleName />
-          <DataRelationName isNull="true" />
-          <Expressions isList="true" count="0" />
-          <Filters isList="true" count="0" />
-          <Legend Ref="142" type="Stimulsoft.Report.Chart.StiLegend" isKey="true">
-            <BorderColor>81, 66, 100</BorderColor>
-            <Brush>GradientBrush,[255:246:255],[201:186:220],90</Brush>
-            <Chart isRef="129" />
-            <Font>Arial,8</Font>
-            <LabelsColor>31, 16, 50</LabelsColor>
-            <MarkerSize>10, 10</MarkerSize>
-            <ShowShadow>False</ShowShadow>
-            <TitleColor>31, 16, 50</TitleColor>
-            <TitleFont>Arial,14,Bold</TitleFont>
-            <Visible>False</Visible>
-          </Legend>
-          <Name>Chart3</Name>
-          <Page isRef="104" />
-          <Parent isRef="104" />
-          <Series isList="true" count="1">
-            <Item75 Ref="143" type="Stimulsoft.Report.Chart.StiSplineSeries" isKey="true">
-              <AllowApplyColorNegative>True</AllowApplyColorNegative>
-              <ArgumentDataColumn>SatisfactionTrend.Date</ArgumentDataColumn>
-              <Chart isRef="129" />
-              <Conditions isList="true" count="0" />
-              <Filters isList="true" count="0" />
-              <Format>F2</Format>
-              <LineColor>72, 57, 90</LineColor>
-              <LineColorNegative>Black</LineColorNegative>
-              <LineWidth>1</LineWidth>
-              <Marker Ref="144" type="Stimulsoft.Report.Chart.StiMarker" isKey="true">
-                <BorderColor>Black</BorderColor>
-                <Brush>[172:157:190]</Brush>
-              </Marker>
-              <SeriesLabels Ref="145" type="Stimulsoft.Report.Chart.StiNoneLabels" isKey="true">
-                <Chart isRef="129" />
-                <MarkerSize>8, 6</MarkerSize>
-                <ValueTypeSeparator>-</ValueTypeSeparator>
-                <Width>0</Width>
-              </SeriesLabels>
-              <ShowInLegend>False</ShowInLegend>
-              <ShowShadow>False</ShowShadow>
-              <Title>Series 1</Title>
-              <TrendLines isList="true" count="1">
-                <Item76 Ref="146" type="Stimulsoft.Report.Chart.StiTrendLineNone" isKey="true">
-                  <Font>Arial,7</Font>
-                  <LineColor>31, 16, 50</LineColor>
-                  <ShowShadow>False</ShowShadow>
-                </Item76>
-              </TrendLines>
-              <ValueDataColumn>SatisfactionTrend.SatisfactionLevel</ValueDataColumn>
-            </Item75>
-          </Series>
-          <SeriesLabels Ref="147" type="Stimulsoft.Report.Chart.StiNoneLabels" isKey="true">
-            <AllowApplyStyle>False</AllowApplyStyle>
-            <Chart isRef="129" />
-            <Format>F2</Format>
-            <MarkerSize>8, 6</MarkerSize>
-            <ValueTypeSeparator>-</ValueTypeSeparator>
-            <Width>0</Width>
-          </SeriesLabels>
-          <SeriesLabelsConditions isList="true" count="0" />
-          <Sort isList="true" count="0" />
-          <Strips isList="true" count="0" />
-          <Style Ref="148" type="Stimulsoft.Report.Chart.StiStyle04" isKey="true">
-            <Conditions isList="true" count="0" />
-            <Name />
-          </Style>
-          <Table Ref="149" type="Stimulsoft.Report.Chart.StiChartTable" isKey="true">
-            <DataCells Ref="150" type="Stimulsoft.Report.Chart.StiChartTableDataCells" isKey="true">
-              <Font>Tahoma,8</Font>
-              <TextColor>31, 16, 50</TextColor>
-            </DataCells>
-            <GridLineColor>81, 66, 100</GridLineColor>
-          </Table>
-        </Chart3>
-        <Text35 Ref="151" type="Text" isKey="true">
-          <Border>Top, Bottom;Black;1;Solid;False;4;Black</Border>
-          <Brush>[183:221:232]</Brush>
-          <ClientRectangle>0,3.7,10.9,0.3</ClientRectangle>
-          <Conditions isList="true" count="0" />
-          <Expressions isList="true" count="0" />
-          <Font>IRANSans,12,Bold</Font>
-          <Guid>52fd069528364aab8d7891a23bd2d22b</Guid>
-          <HorAlignment>Right</HorAlignment>
-          <Margins>0,0,0,0</Margins>
-          <Name>Text35</Name>
-          <Page isRef="104" />
-          <Parent isRef="104" />
-          <Text>*روند رضایت از زندگی</Text>
-          <TextBrush>Black</TextBrush>
-          <Type>Expression</Type>
-          <VertAlignment>Center</VertAlignment>
-        </Text35>
-        <Text1 Ref="152" type="Text" isKey="true">
+        <Text1 Ref="129" type="Text" isKey="true">
           <Border>Bottom;[23:54:93];3;None;False;4;[120:192:212]</Border>
           <Brush>EmptyBrush</Brush>
           <ClientRectangle>3.8,7.5,3.5,0.4</ClientRectangle>
@@ -3435,17 +3273,17 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
           <HorAlignment>Center</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text1</Name>
-          <Page isRef="104" />
-          <Parent isRef="104" />
+          <Page isRef="105" />
+          <Parent isRef="105" />
           <Text>Powered by HALOOD | تهیه شده توسط حالود</Text>
           <TextBrush>[255:255:255]</TextBrush>
           <Type>Expression</Type>
         </Text1>
-        <HeaderBand1 Ref="153" type="HeaderBand" isKey="true">
+        <HeaderBand1 Ref="130" type="HeaderBand" isKey="true">
           <Brush>Transparent</Brush>
           <ClientRectangle>0,1.8,10.91,0.5</ClientRectangle>
           <Components isList="true" count="4">
-            <Text19 Ref="154" type="Text" isKey="true">
+            <Text19 Ref="131" type="Text" isKey="true">
               <Border>Top, Bottom;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>5.4,0.1,3,0.2</ClientRectangle>
@@ -3456,32 +3294,32 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text19</Name>
-              <Page isRef="104" />
-              <Parent isRef="153" />
+              <Page isRef="105" />
+              <Parent isRef="130" />
               <Text>تعداد دفعات در بازه زمانی</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text19>
-            <Text33 Ref="155" type="Text" isKey="true">
+            <Text33 Ref="132" type="Text" isKey="true">
               <Border>Top, Bottom;Black;1;Solid;False;4;Black</Border>
               <Brush>[183:221:232]</Brush>
               <ClientRectangle>0,-0.2,10.9,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
-              <Font>IRANSans,12,Bold</Font>
+              <Font>IRANSansWeb(FaNum),12,Bold</Font>
               <Guid>65cff197f1d245be8356edcf33080349</Guid>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text33</Name>
-              <Page isRef="104" />
-              <Parent isRef="153" />
-              <Text>پراکندگی میزان رضایت از زندگی</Text>
+              <Page isRef="105" />
+              <Parent isRef="130" />
+              <Text>پراکندگی احساس ها</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Bottom</VertAlignment>
             </Text33>
-            <Text20 Ref="156" type="Text" isKey="true">
+            <Text20 Ref="133" type="Text" isKey="true">
               <Border>Top, Bottom;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>3.8,0.1,1.6,0.2</ClientRectangle>
@@ -3492,14 +3330,14 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text20</Name>
-              <Page isRef="104" />
-              <Parent isRef="153" />
+              <Page isRef="105" />
+              <Parent isRef="130" />
               <Text>درصد دفعات در بازه زمانی</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text20>
-            <Text18 Ref="157" type="Text" isKey="true">
+            <Text18 Ref="134" type="Text" isKey="true">
               <Border>Top, Bottom;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>8.4,0.1,2.3,0.2</ClientRectangle>
@@ -3509,9 +3347,9 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text18</Name>
-              <Page isRef="104" />
-              <Parent isRef="153" />
-              <Text>میزان رضایت</Text>
+              <Page isRef="105" />
+              <Parent isRef="130" />
+              <Text>احساس</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
@@ -3520,15 +3358,15 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
           <Conditions isList="true" count="0" />
           <Expressions isList="true" count="0" />
           <Name>HeaderBand1</Name>
-          <Page isRef="104" />
-          <Parent isRef="104" />
+          <Page isRef="105" />
+          <Parent isRef="105" />
         </HeaderBand1>
-        <DataBand1 Ref="158" type="DataBand" isKey="true">
+        <DataBand1 Ref="135" type="DataBand" isKey="true">
           <Brush>Transparent</Brush>
-          <BusinessObjectGuid>93da1f4d58e44c429ea932e396daca53</BusinessObjectGuid>
+          <BusinessObjectGuid>ed9e06789b7b459192c9e85e3811e18f</BusinessObjectGuid>
           <ClientRectangle>0,2.7,10.91,0.3</ClientRectangle>
           <Components isList="true" count="4">
-            <Text21 Ref="159" type="Text" isKey="true">
+            <Text21 Ref="136" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>8.4,-0.1,2.3,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -3538,14 +3376,14 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text21</Name>
-              <Page isRef="104" />
-              <Parent isRef="158" />
-              <Text>{SatisfactionPieChart.SatisfactionName}</Text>
+              <Page isRef="105" />
+              <Parent isRef="135" />
+              <Text>{EmotionPieChart.EmotionName}</Text>
               <TextBrush>Black</TextBrush>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Text21>
-            <Text22 Ref="160" type="Text" isKey="true">
+            <Text22 Ref="137" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>5.4,-0.1,3,0.3</ClientRectangle>
               <Conditions isList="true" count="1">
@@ -3557,11 +3395,11 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text22</Name>
-              <Page isRef="104" />
-              <Parent isRef="158" />
-              <Text>{SatisfactionPieChart.SatisfactionCount}</Text>
+              <Page isRef="105" />
+              <Parent isRef="135" />
+              <Text>{EmotionPieChart.EmotionCount}</Text>
               <TextBrush>Black</TextBrush>
-              <TextFormat Ref="161" type="NumberFormat" isKey="true">
+              <TextFormat Ref="138" type="NumberFormat" isKey="true">
                 <DecimalDigits>0</DecimalDigits>
                 <GroupSeparator>,</GroupSeparator>
                 <NegativePattern>0</NegativePattern>
@@ -3570,7 +3408,7 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Text22>
-            <Text23 Ref="162" type="Text" isKey="true">
+            <Text23 Ref="139" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>3.8,-0.1,1.6,0.3</ClientRectangle>
               <Conditions isList="true" count="1">
@@ -3582,11 +3420,11 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text23</Name>
-              <Page isRef="104" />
-              <Parent isRef="158" />
-              <Text>{SatisfactionPieChart.SatisfactionPercentage}</Text>
+              <Page isRef="105" />
+              <Parent isRef="135" />
+              <Text>{EmotionPieChart.EmotionPercentage}</Text>
               <TextBrush>Black</TextBrush>
-              <TextFormat Ref="163" type="NumberFormat" isKey="true">
+              <TextFormat Ref="140" type="NumberFormat" isKey="true">
                 <DecimalDigits>2</DecimalDigits>
                 <GroupSeparator>,</GroupSeparator>
                 <NegativePattern>0</NegativePattern>
@@ -3595,18 +3433,18 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Text23>
-            <Image1 Ref="164" type="Image" isKey="true">
+            <Image1 Ref="141" type="Image" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>10.8,0,0.1,0.1</ClientRectangle>
               <Conditions isList="true" count="0" />
-              <DataColumn>SatisfactionPieChart.SatisfactionBinaryColor</DataColumn>
+              <DataColumn>EmotionPieChart.EmotionBinaryColor</DataColumn>
               <Expressions isList="true" count="0" />
               <Guid>474bb5081ff0436fb07471487f88b383</Guid>
               <IconColor>68, 114, 196</IconColor>
               <Margins>0,0,0,0</Margins>
               <Name>Image1</Name>
-              <Page isRef="104" />
-              <Parent isRef="158" />
+              <Page isRef="105" />
+              <Parent isRef="135" />
             </Image1>
           </Components>
           <Conditions isList="true" count="0" />
@@ -3614,16 +3452,16 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
           <Expressions isList="true" count="0" />
           <Filters isList="true" count="0" />
           <Name>DataBand1</Name>
-          <Page isRef="104" />
-          <Parent isRef="104" />
+          <Page isRef="105" />
+          <Parent isRef="105" />
           <RightToLeft>True</RightToLeft>
           <Sort isList="true" count="0" />
         </DataBand1>
-        <FooterBand1 Ref="165" type="FooterBand" isKey="true">
+        <FooterBand1 Ref="142" type="FooterBand" isKey="true">
           <Brush>Transparent</Brush>
           <ClientRectangle>0,3.4,10.91,0.2</ClientRectangle>
           <Components isList="true" count="3">
-            <Text24 Ref="166" type="Text" isKey="true">
+            <Text24 Ref="143" type="Text" isKey="true">
               <Border>Top;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>8.4,0,2.3,0.2</ClientRectangle>
@@ -3634,14 +3472,14 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text24</Name>
-              <Page isRef="104" />
-              <Parent isRef="165" />
+              <Page isRef="105" />
+              <Parent isRef="142" />
               <Text>جمع کل</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text24>
-            <Text25 Ref="167" type="Text" isKey="true">
+            <Text25 Ref="144" type="Text" isKey="true">
               <Border>Top;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>5.4,0,3,0.2</ClientRectangle>
@@ -3652,11 +3490,11 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text25</Name>
-              <Page isRef="104" />
-              <Parent isRef="165" />
-              <Text>{Sum(SatisfactionPieChart.SatisfactionCount)}</Text>
+              <Page isRef="105" />
+              <Parent isRef="142" />
+              <Text>{Sum(EmotionPieChart.EmotionCount)}</Text>
               <TextBrush>Black</TextBrush>
-              <TextFormat Ref="168" type="NumberFormat" isKey="true">
+              <TextFormat Ref="145" type="NumberFormat" isKey="true">
                 <DecimalDigits>0</DecimalDigits>
                 <GroupSeparator>,</GroupSeparator>
                 <NegativePattern>2</NegativePattern>
@@ -3665,7 +3503,7 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <Type>Totals</Type>
               <VertAlignment>Center</VertAlignment>
             </Text25>
-            <Text26 Ref="169" type="Text" isKey="true">
+            <Text26 Ref="146" type="Text" isKey="true">
               <Border>Top;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>3.8,0,1.6,0.2</ClientRectangle>
@@ -3676,11 +3514,11 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <HorAlignment>Right</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text26</Name>
-              <Page isRef="104" />
-              <Parent isRef="165" />
+              <Page isRef="105" />
+              <Parent isRef="142" />
               <Text>100</Text>
               <TextBrush>Black</TextBrush>
-              <TextFormat Ref="170" type="NumberFormat" isKey="true">
+              <TextFormat Ref="147" type="NumberFormat" isKey="true">
                 <DecimalDigits>2</DecimalDigits>
                 <GroupSeparator>,</GroupSeparator>
                 <NegativePattern>2</NegativePattern>
@@ -3693,8 +3531,8 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
           <Conditions isList="true" count="0" />
           <Expressions isList="true" count="0" />
           <Name>FooterBand1</Name>
-          <Page isRef="104" />
-          <Parent isRef="104" />
+          <Page isRef="105" />
+          <Parent isRef="105" />
         </FooterBand1>
       </Components>
       <Conditions isList="true" count="0" />
@@ -3723,10 +3561,10 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>8/28/2024 8:08:22 PM</ReportChanged>
+  <ReportChanged>8/29/2024 6:17:41 PM</ReportChanged>
   <ReportCreated>8/27/2016 10:55:30 AM</ReportCreated>
   <ReportFile>C:\Users\behza\Downloads\Telegram.Bot.Examples-master\Telegram.Bot.Examples-master\Telegram.Bot.Examples.WebHook\Files\report.mrt</ReportFile>
-  <ReportGuid>0b462e4f377a4b089b7b52a6fe6227db</ReportGuid>
+  <ReportGuid>9f12463de53b42859b9364a2cfcc737f</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Inches</ReportUnit>
   <ReportVersion>2023.1.1.0</ReportVersion>
@@ -3755,7 +3593,7 @@ namespace Reports
 </Script>
   <ScriptLanguage>CSharp</ScriptLanguage>
   <Styles isList="true" count="1">
-    <Style1 Ref="171" type="Stimulsoft.Report.StiChartStyle" isKey="true">
+    <Style1 Ref="148" type="Stimulsoft.Report.StiChartStyle" isKey="true">
       <AxisLabelsColor>140, 140, 140</AxisLabelsColor>
       <AxisLineColor>140, 140, 140</AxisLineColor>
       <AxisTitleColor>140, 140, 140</AxisTitleColor>
