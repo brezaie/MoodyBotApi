@@ -36,6 +36,8 @@ public class EmotionReminderJob : IJob
             try
             {
                 var user = await _userRepository.GetAsync(reminder.UserId);
+                if(user.HasBlockedBot)
+                    continue;
 
                 await _botClient.SendTextMessageAsync(
                     chatId: user.ChatId,

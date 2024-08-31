@@ -2684,7 +2684,7 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
             <LabelsColor>140, 140, 140</LabelsColor>
             <MarkerSize>10, 10</MarkerSize>
             <ShowShadow>False</ShowShadow>
-            <TitleColor>105, 105, 105</TitleColor>
+            <TitleColor>DimGray</TitleColor>
             <TitleFont>Arial,14,Bold</TitleFont>
             <Visible>False</Visible>
           </Legend>
@@ -2697,7 +2697,7 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <AutoSeriesColorDataColumn>SatisfactionPieChart.SatisfactionColor</AutoSeriesColorDataColumn>
               <AutoSeriesKeyDataColumn>SatisfactionPieChart.SatisfactionName</AutoSeriesKeyDataColumn>
               <AutoSeriesTitleDataColumn>SatisfactionPieChart.SatisfactionName</AutoSeriesTitleDataColumn>
-              <BorderColor>255, 255, 255</BorderColor>
+              <BorderColor>White</BorderColor>
               <BorderThickness>1</BorderThickness>
               <Brush>[112:173:71]</Brush>
               <Chart isRef="78" />
@@ -3197,7 +3197,7 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
             <LabelsColor>140, 140, 140</LabelsColor>
             <MarkerSize>10, 10</MarkerSize>
             <ShowShadow>False</ShowShadow>
-            <TitleColor>105, 105, 105</TitleColor>
+            <TitleColor>DimGray</TitleColor>
             <TitleFont>Arial,14,Bold</TitleFont>
             <Visible>False</Visible>
           </Legend>
@@ -3210,7 +3210,7 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
               <AutoSeriesColorDataColumn>EmotionPieChart.EmotionColor</AutoSeriesColorDataColumn>
               <AutoSeriesKeyDataColumn>EmotionPieChart.EmotionName</AutoSeriesKeyDataColumn>
               <AutoSeriesTitleDataColumn>EmotionPieChart.EmotionName</AutoSeriesTitleDataColumn>
-              <BorderColor>255, 255, 255</BorderColor>
+              <BorderColor>White</BorderColor>
               <BorderThickness>1</BorderThickness>
               <Brush>[112:173:71]</Brush>
               <Chart isRef="120" />
@@ -3561,10 +3561,10 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>8/29/2024 6:17:41 PM</ReportChanged>
+  <ReportChanged>8/30/2024 11:43:06 PM</ReportChanged>
   <ReportCreated>8/27/2016 10:55:30 AM</ReportCreated>
   <ReportFile>C:\Users\behza\Downloads\Telegram.Bot.Examples-master\Telegram.Bot.Examples-master\Telegram.Bot.Examples.WebHook\Files\report.mrt</ReportFile>
-  <ReportGuid>9f12463de53b42859b9364a2cfcc737f</ReportGuid>
+  <ReportGuid>4afd264017694968afcd56032b7025f2</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Inches</ReportUnit>
   <ReportVersion>2023.1.1.0</ReportVersion>

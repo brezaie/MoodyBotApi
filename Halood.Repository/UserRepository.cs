@@ -29,11 +29,12 @@ public class UserRepository : BaseRepository<User>, IUserRepository
             return;
 
         entity.IsGlobalSatisfactionReminderActive = user.IsGlobalSatisfactionReminderActive;
+        entity.HasBlockedBot = user.HasBlockedBot;
     }
 
     public async Task<List<User>> GetSatisfactionRemindersAsync()
     {
-        return await Context.Users.AsNoTracking().Where(x => x.IsGlobalSatisfactionReminderActive && x.ChatId > 0)
+        return await Context.Users.AsNoTracking().Where(x => x.IsGlobalSatisfactionReminderActive && x.ChatId > 0 && !x.HasBlockedBot)
             .ToListAsync();
     }
 }

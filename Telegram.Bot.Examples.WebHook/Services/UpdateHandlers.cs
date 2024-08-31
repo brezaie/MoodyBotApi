@@ -147,7 +147,8 @@ public class UpdateHandlers
                 ChatId = message.Chat.Id,
                 IsBot = message.From.IsBot,
                 IsPremium = message.From.IsPremium,
-                IsGlobalSatisfactionReminderActive = true
+                IsGlobalSatisfactionReminderActive = true,
+                HasBlockedBot = false
             });
             await _userRepository.CommitAsync();
 

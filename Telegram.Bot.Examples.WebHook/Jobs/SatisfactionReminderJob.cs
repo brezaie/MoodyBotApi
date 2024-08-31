@@ -1,5 +1,6 @@
 using Halood.Domain.Interfaces.User;
 using Halood.Common;
+using Halood.Domain.Entities;
 using Halood.Domain.Enums;
 
 namespace Telegram.Bot.Examples.WebHook.Jobs;
@@ -34,7 +35,16 @@ public class SatisfactionReminderJob : IJob
             }
             catch (Exception ex)
             {
-                //TODO: In case of having any error, ignore it
+                if (ex.Message.Contains("bot was blocked by the user"))
+                {
+                    await _userRepository.UpdateAsync(new User
+                    {
+                        Username = user.Username,
+                        IsGlobalSatisfactionReminderActive = user.IsGlobalSatisfactionReminderActive,
+                        HasBlockedBot = true
+                    });
+                    await _userRepository.CommitAsync();
+                }
             }
         }
     }
