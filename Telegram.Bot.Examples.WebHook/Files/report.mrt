@@ -3248,12 +3248,13 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
             </Item74>
           </Series>
           <SeriesLabels Ref="126" type="Stimulsoft.Report.Chart.StiCenterTreemapLabels" isKey="true">
+            <AllowApplyStyle>False</AllowApplyStyle>
             <BorderColor>Transparent</BorderColor>
-            <Brush>[119:255:255:255]</Brush>
+            <Brush>EmptyBrush</Brush>
             <Chart isRef="121" />
-            <Font>Arial,10</Font>
+            <Font>IRANSansWeb(FaNum),10</Font>
             <Format>P2</Format>
-            <LabelColor>51, 71, 91</LabelColor>
+            <LabelColor>255, 255, 255</LabelColor>
             <MarkerAlignment>Center</MarkerAlignment>
             <MarkerSize>4, 2</MarkerSize>
             <PreventIntersection>True</PreventIntersection>
@@ -3561,10 +3562,10 @@ XmS9jNk1KfS8dNtrY0xd7sxXSIz33KWrfcunxyVvnkg//9k=</ImageBytes>
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>8/31/2024 11:57:50 PM</ReportChanged>
+  <ReportChanged>9/7/2024 11:02:27 PM</ReportChanged>
   <ReportCreated>8/27/2016 10:55:30 AM</ReportCreated>
   <ReportFile>C:\Users\behza\Downloads\Telegram.Bot.Examples-master\Telegram.Bot.Examples-master\Telegram.Bot.Examples.WebHook\Files\report.mrt</ReportFile>
-  <ReportGuid>5af65b6246ba41429af3295196fdaa59</ReportGuid>
+  <ReportGuid>c5f13ce37fbc460b94e294e632192b72</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Inches</ReportUnit>
   <ReportVersion>2023.1.1.0</ReportVersion>
