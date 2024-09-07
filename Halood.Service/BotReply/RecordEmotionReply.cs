@@ -8,6 +8,7 @@ using Halood.Domain.Interfaces.UserEmotion;
 using Halood.Service.BotCommand;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Halood.Service.BotReply;
 
@@ -46,6 +47,8 @@ public class RecordEmotionReply : IBotReply
 
         await _userEmotionRepository.CommitAsync();
 
+        InlineKeyboardButton reply = null;
+
         foreach (var satLevel in emotionsList.InlineKeyboard)
         {
             foreach (var row in satLevel)
@@ -53,6 +56,7 @@ public class RecordEmotionReply : IBotReply
                 if (row.Text != emotion.GetDescription()) continue;
 
                 row.Text = $"{row.Text} ✅";
+                reply = row;
                 break;
             }
         }
@@ -61,7 +65,13 @@ public class RecordEmotionReply : IBotReply
         await _botClient.SendTextMessageAsync(
             chatId: message.ChatId,
             text: _text,
-            replyMarkup:emotionsList,
+            replyMarkup: new InlineKeyboardMarkup(new List<IEnumerable<InlineKeyboardButton>>
+            {
+                new List<InlineKeyboardButton>
+                {
+                    reply
+                }
+            }),
             cancellationToken: cancellationToken);
     }
 }

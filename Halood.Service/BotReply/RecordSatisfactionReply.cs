@@ -8,6 +8,7 @@ using Halood.Domain.Interfaces.UserSatisfaction;
 using Halood.Service.BotCommand;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Halood.Service.BotReply;
 
@@ -47,6 +48,8 @@ public class RecordSatisfactionReply : IBotReply
 
         _text = $"گزینه \"{satisfactionLevel.GetDescription()}\" بعنوان میزان رضایت از زندگی امروزتان با موفقیت ثبت شد. 👍";
 
+        InlineKeyboardButton reply = null;
+
         foreach (var satLevel in satisfactions.InlineKeyboard)
         {
             foreach (var row in satLevel)
@@ -56,6 +59,7 @@ public class RecordSatisfactionReply : IBotReply
                     if (row.Text != satisfactionLevel.GetDescription()) continue;
 
                     row.Text = $"{row.Text} ✅";
+                    reply = row;
                     break;
                 }
             }
@@ -64,7 +68,13 @@ public class RecordSatisfactionReply : IBotReply
         await _botClient.SendTextMessageAsync(
             chatId: message.ChatId,
             text: _text,
-            replyMarkup: satisfactions,
+            replyMarkup: new InlineKeyboardMarkup(new List<IEnumerable<InlineKeyboardButton>>
+            {
+                new List<InlineKeyboardButton>
+                {
+                    reply
+                }
+            }),
             cancellationToken: cancellationToken);
     }
 }
