@@ -45,83 +45,19 @@ namespace Halood.Common
         {
             new List<InlineKeyboardButton>
             {
-                InlineKeyboardButton.WithCallbackData(Emotion.Serenity.GetDescription(), Emotion.Serenity.GetRoute()),
-                InlineKeyboardButton.WithCallbackData(Emotion.Joy.GetDescription(), Emotion.Joy.GetRoute()),
-                InlineKeyboardButton.WithCallbackData(Emotion.Ecstacy.GetDescription(), Emotion.Ecstacy.GetRoute()),
+                InlineKeyboardButton.WithCallbackData(Emotion.Happiness.GetDescription(), Emotion.Happiness.GetRoute()),
+                InlineKeyboardButton.WithCallbackData(Emotion.Fear.GetDescription(), Emotion.Fear.GetRoute())
             },
             new List<InlineKeyboardButton>
             {
-                InlineKeyboardButton.WithCallbackData(Emotion.Love.GetDescription(), Emotion.Love.GetRoute())
-            },
-            new List<InlineKeyboardButton>
-            {
-                InlineKeyboardButton.WithCallbackData(Emotion.Acceptance.GetDescription(), Emotion.Acceptance.GetRoute()),
-                InlineKeyboardButton.WithCallbackData(Emotion.Trust.GetDescription(), Emotion.Trust.GetRoute()),
-                InlineKeyboardButton.WithCallbackData(Emotion.Admiration.GetDescription(), Emotion.Admiration.GetRoute()),
-            },
-            new List<InlineKeyboardButton>
-            {
-                InlineKeyboardButton.WithCallbackData(Emotion.Submission.GetDescription(), Emotion.Submission.GetRoute()),
-            },
-            new List<InlineKeyboardButton>
-            {
-                InlineKeyboardButton.WithCallbackData(Emotion.Apprehension.GetDescription(), Emotion.Apprehension.GetRoute()),
-                InlineKeyboardButton.WithCallbackData(Emotion.Fear.GetDescription(), Emotion.Fear.GetRoute()),
-                InlineKeyboardButton.WithCallbackData(Emotion.Terror.GetDescription(), Emotion.Terror.GetRoute()),
-            },
-            new List<InlineKeyboardButton>
-            {
-                InlineKeyboardButton.WithCallbackData(Emotion.Awe.GetDescription(), Emotion.Awe.GetRoute()),
-            },
-            new List<InlineKeyboardButton>
-            {
-                InlineKeyboardButton.WithCallbackData(Emotion.Distraction.GetDescription(), Emotion.Distraction.GetRoute()),
                 InlineKeyboardButton.WithCallbackData(Emotion.Surprise.GetDescription(), Emotion.Surprise.GetRoute()),
-                InlineKeyboardButton.WithCallbackData(Emotion.Amazement.GetDescription(), Emotion.Amazement.GetRoute()),
+                InlineKeyboardButton.WithCallbackData(Emotion.Sadness.GetDescription(), Emotion.Sadness.GetRoute())
+
             },
             new List<InlineKeyboardButton>
             {
-                InlineKeyboardButton.WithCallbackData(Emotion.Disapproval.GetDescription(), Emotion.Disapproval.GetRoute()),
-            },
-            new List<InlineKeyboardButton>
-            {
-                InlineKeyboardButton.WithCallbackData(Emotion.Pensiveness.GetDescription(), Emotion.Pensiveness.GetRoute()),
-                InlineKeyboardButton.WithCallbackData(Emotion.Sadness.GetDescription(), Emotion.Sadness.GetRoute()),
-                InlineKeyboardButton.WithCallbackData(Emotion.Grief.GetDescription(), Emotion.Grief.GetRoute()),
-            },
-            new List<InlineKeyboardButton>
-            {
-                InlineKeyboardButton.WithCallbackData(Emotion.Remorse.GetDescription(), Emotion.Remorse.GetRoute()),
-            },
-            new List<InlineKeyboardButton>
-            {
-                InlineKeyboardButton.WithCallbackData(Emotion.Boredom.GetDescription(), Emotion.Boredom.GetRoute()),
                 InlineKeyboardButton.WithCallbackData(Emotion.Disgust.GetDescription(), Emotion.Disgust.GetRoute()),
-                InlineKeyboardButton.WithCallbackData(Emotion.Loathing.GetDescription(), Emotion.Loathing.GetRoute()),
-            },
-            new List<InlineKeyboardButton>
-            {
-                InlineKeyboardButton.WithCallbackData(Emotion.Contempt.GetDescription(), Emotion.Contempt.GetRoute()),
-            },
-            new List<InlineKeyboardButton>
-            {
-                InlineKeyboardButton.WithCallbackData(Emotion.Annoyance.GetDescription(), Emotion.Annoyance.GetRoute()),
-                InlineKeyboardButton.WithCallbackData(Emotion.Anger.GetDescription(), Emotion.Anger.GetRoute()),
-                InlineKeyboardButton.WithCallbackData(Emotion.Rage.GetDescription(), Emotion.Rage.GetRoute()),
-            },
-            new List<InlineKeyboardButton>
-            {
-                InlineKeyboardButton.WithCallbackData(Emotion.Aggressiveness.GetDescription(), Emotion.Aggressiveness.GetRoute()),
-            },
-            new List<InlineKeyboardButton>
-            {
-                InlineKeyboardButton.WithCallbackData(Emotion.Interest.GetDescription(), Emotion.Interest.GetRoute()),
-                InlineKeyboardButton.WithCallbackData(Emotion.Anticipation.GetDescription(), Emotion.Anticipation.GetRoute()),
-                InlineKeyboardButton.WithCallbackData(Emotion.Vigilance.GetDescription(), Emotion.Vigilance.GetRoute()),
-            },
-            new List<InlineKeyboardButton>
-            {
-                InlineKeyboardButton.WithCallbackData(Emotion.Optimism.GetDescription(), Emotion.Optimism.GetRoute()),
+                InlineKeyboardButton.WithCallbackData(Emotion.Anger.GetDescription(), Emotion.Anger.GetRoute())
             }
         });
 
