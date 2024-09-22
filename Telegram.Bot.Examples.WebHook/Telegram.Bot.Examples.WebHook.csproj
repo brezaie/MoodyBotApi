@@ -91,6 +91,9 @@
     <None Update="Files\happiness.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Files\happiness_color.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Files\interest_color.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
