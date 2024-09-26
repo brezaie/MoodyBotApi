@@ -29,13 +29,33 @@ public class RecordEmotionReply : IBotReply
 
     public async Task ExecuteAsync(BotCommandMessage message, CancellationToken cancellationToken)
     {
-        var emotionsList = CommandHandler.GetEmotionInlineKeyboardMarkup();
         var givenEmotion = message.Text.Split(" ")[1];
-        
+        if (givenEmotion == CommandHandler.MoreEmotionsRoute.Split(" ")[1])
+        {
+            await _botClient.SendTextMessageAsync(
+                chatId: message.ChatId,
+                text: $"کدام‌یک از احساس‌های زیر به احساسی که در این لحظه تجربه می‌کنید، نزدیک‌تر است؟\n\n",
+                replyMarkup: CommandHandler.GetMoreEmotionsInlineKeyboardMarkup(),
+                cancellationToken: cancellationToken);
+            return;
+        }
+        if (givenEmotion == CommandHandler.LessEmotionsRoute.Split(" ")[1])
+        {
+            await _botClient.SendTextMessageAsync(
+                chatId: message.ChatId,
+                text: $"کدام‌یک از احساس‌های زیر به احساسی که در این لحظه تجربه می‌کنید، نزدیک‌تر است؟\n\n",
+                replyMarkup: CommandHandler.GetBasicEmotionsInlineKeyboardMarkup(),
+                cancellationToken: cancellationToken);
+            return;
+        }
+
+
         var emotion = ((Emotion[]) Enum.GetValues(typeof(Emotion)))
             .FirstOrDefault(x =>
                 x.ToString() == givenEmotion);
 
+        var basicEmotionsList = CommandHandler.GetBasicEmotionsInlineKeyboardMarkup();
+        var moreEmotionsList = CommandHandler.GetMoreEmotionsInlineKeyboardMarkup();
         var userId = (await _userRepository.GetByAsync(message.Username)).Id;
         await _userEmotionRepository.SaveAsync(new UserEmotion
         {
@@ -49,7 +69,7 @@ public class RecordEmotionReply : IBotReply
 
         InlineKeyboardButton reply = null;
 
-        foreach (var satLevel in emotionsList.InlineKeyboard)
+        foreach (var satLevel in basicEmotionsList.InlineKeyboard)
         {
             foreach (var row in satLevel)
             {
@@ -60,6 +80,19 @@ public class RecordEmotionReply : IBotReply
                 break;
             }
         }
+
+        if(reply == null)
+            foreach (var satLevel in moreEmotionsList.InlineKeyboard)
+            {
+                foreach (var row in satLevel)
+                {
+                    if (row.Text != emotion.GetDescription()) continue;
+
+                    row.Text = $"{row.Text} ✅";
+                    reply = row;
+                    break;
+                }
+            }
 
         _text = $"احساس \"{emotion.GetDescription()}\" برای این لحظه‌تان با موفقبت ثبت شد.  👍";
         await _botClient.SendTextMessageAsync(

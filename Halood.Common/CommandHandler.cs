@@ -8,12 +8,17 @@ namespace Halood.Common
     {
         private static Dictionary<string, CommandType> _commands;
         private static List<(string Username, int Hour)> _emotionReminders;
+        public static string MoreEmotionsText = "احساس‌های بیش‌تر";
+        public static string MoreEmotionsRoute = "/record_emotion_reply MoreEmotions";
+        public static string LessEmotionsText = "لیست قبلی احساس‌ها";
+        public static string LessEmotionsRoute = "/record_emotion_reply LessEmotions";
 
-        public static List<string> SpecialUserNames = new()
+
+        public static Dictionary<string, long> SpecialUserNames = new()
         {
-            "brezaie"
+            {"brezaie", 92700050}
         };
-        
+
         public static InlineKeyboardMarkup GetSatisfactionLevelInlineKeyboardMarkup() => 
             new(new List<IEnumerable<InlineKeyboardButton>>
             {
@@ -40,26 +45,53 @@ namespace Halood.Common
             });
 
 
-        public static InlineKeyboardMarkup GetEmotionInlineKeyboardMarkup() =>
-        new(new List<IEnumerable<InlineKeyboardButton>>
-        {
-            new List<InlineKeyboardButton>
+        public static InlineKeyboardMarkup GetBasicEmotionsInlineKeyboardMarkup() =>
+            new(new List<IEnumerable<InlineKeyboardButton>>
             {
-                InlineKeyboardButton.WithCallbackData(Emotion.Happiness.GetDescription(), Emotion.Happiness.GetRoute()),
-                InlineKeyboardButton.WithCallbackData(Emotion.Fear.GetDescription(), Emotion.Fear.GetRoute())
-            },
-            new List<InlineKeyboardButton>
-            {
-                InlineKeyboardButton.WithCallbackData(Emotion.Surprise.GetDescription(), Emotion.Surprise.GetRoute()),
-                InlineKeyboardButton.WithCallbackData(Emotion.Sadness.GetDescription(), Emotion.Sadness.GetRoute())
+                new List<InlineKeyboardButton>
+                {
+                    InlineKeyboardButton.WithCallbackData(Emotion.Happiness.GetDescription(),
+                        Emotion.Happiness.GetRoute()),
+                    InlineKeyboardButton.WithCallbackData(Emotion.Fear.GetDescription(), Emotion.Fear.GetRoute())
+                },
+                new List<InlineKeyboardButton>
+                {
+                    InlineKeyboardButton.WithCallbackData(Emotion.Surprise.GetDescription(),
+                        Emotion.Surprise.GetRoute()),
+                    InlineKeyboardButton.WithCallbackData(Emotion.Sadness.GetDescription(), Emotion.Sadness.GetRoute())
 
-            },
-            new List<InlineKeyboardButton>
+                },
+                new List<InlineKeyboardButton>
+                {
+                    InlineKeyboardButton.WithCallbackData(Emotion.Disgust.GetDescription(), Emotion.Disgust.GetRoute()),
+                    InlineKeyboardButton.WithCallbackData(Emotion.Anger.GetDescription(), Emotion.Anger.GetRoute())
+                },
+                new List<InlineKeyboardButton>
+                {
+                    InlineKeyboardButton.WithCallbackData(MoreEmotionsText, MoreEmotionsRoute)
+                }
+            });
+
+        public static InlineKeyboardMarkup GetMoreEmotionsInlineKeyboardMarkup()
+        {
+            var items = new List<IEnumerable<InlineKeyboardButton>>();
+            var counter = 1;
+            var coupleItems = new List<InlineKeyboardButton>();
+            foreach (var emotion in Enum.GetValues<Emotion>().Where(x => (int) x > (int) Emotion.Anger))
             {
-                InlineKeyboardButton.WithCallbackData(Emotion.Disgust.GetDescription(), Emotion.Disgust.GetRoute()),
-                InlineKeyboardButton.WithCallbackData(Emotion.Anger.GetDescription(), Emotion.Anger.GetRoute())
+                coupleItems.Add(InlineKeyboardButton.WithCallbackData(emotion.GetDescription(), emotion.GetRoute()));
+                counter++;
+                if (counter % 2 == 0) continue;
+
+                items.Add(coupleItems);
+                coupleItems = new List<InlineKeyboardButton>();
             }
-        });
+
+            items.Add(new List<InlineKeyboardButton>{ InlineKeyboardButton.WithCallbackData(LessEmotionsText, LessEmotionsRoute) });
+
+            return new InlineKeyboardMarkup(items);
+        }
+            
 
         public static InlineKeyboardMarkup MenuInlineKeyboardMarkup = new InlineKeyboardMarkup(
             new List<InlineKeyboardButton>

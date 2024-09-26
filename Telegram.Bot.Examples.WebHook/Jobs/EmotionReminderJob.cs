@@ -42,7 +42,7 @@ public class EmotionReminderJob : IJob
                 await _botClient.SendTextMessageAsync(
                     chatId: user.ChatId,
                     text: text,
-                    replyMarkup: CommandHandler.GetEmotionInlineKeyboardMarkup());
+                    replyMarkup: CommandHandler.GetBasicEmotionsInlineKeyboardMarkup());
             }
             catch (Exception ex)
             {

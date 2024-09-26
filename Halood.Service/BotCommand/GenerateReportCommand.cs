@@ -84,8 +84,7 @@ public class GenerateReportCommand : IBotCommand
             report.RegBusinessObject("Satisfaction", "SatisfactionTrend", ConvertToSatisfactionTrend(satisfactions));
 
             #endregion
-
-
+            
             #region Emotions Page
 
             report.Dictionary.Variables.Add("IsEmotionPageEnabled", true);
@@ -143,8 +142,8 @@ public class GenerateReportCommand : IBotCommand
         catch (Exception ex)
         {
             await _botClient.SendTextMessageAsync(
-                chatId: message.ChatId,
-                text: $"مشکلی در تولید گزارش به وجود آمده است \n {ex.Message}",
+                chatId: CommandHandler.SpecialUserNames.FirstOrDefault().Value,
+                text: $"مشکلی در تولید گزارش برای {message.Username} به وجود آمده است \n {ex.Message}",
                 cancellationToken: cancellationToken);
         }
     }
