@@ -45,125 +45,125 @@ public enum Emotion
     [Description("وجد")]
     [Route("/record_emotion_reply Ecstacy")]
     [Color("#FFC50C")]
-    Ecstacy = 3,
+    Ecstacy = 8,
 
     [Description("عشق")]
     [Route("/record_emotion_reply Love")]
     [Color("#F3F2B2")]
-    Love = 4,
+    Love = 9,
 
     [Description("پذیرش")]
     [Route("/record_emotion_reply Acceptance")]
     [Color("#C7C88F")]
-    Acceptance = 5,
+    Acceptance = 10,
 
     [Description("اعتماد")]
     [Route("/record_emotion_reply Trust")]
     [Color("#B4B46A")]
-    Trust = 6,
+    Trust = 11,
 
     [Description("تحسین")]
     [Route("/record_emotion_reply Admiration")]
     [Color("#A2A346")]
-    Admiration = 7,
+    Admiration = 12,
 
     [Description("سلطه پذیری")]
     [Route("/record_emotion_reply Submission")]
     [Color("#DCECBD")]
-    Submission = 8,
+    Submission = 13,
 
     [Description("دلهره")]
     [Route("/record_emotion_reply Apprehension")]
     [Color("#81AF81")]
-    Apprehension = 9,
+    Apprehension = 14,
 
     [Description("وحشت")]
     [Route("/record_emotion_reply Terror")]
     [Color("#4C8D4D")]
-    Terror = 10,
+    Terror = 15,
 
     [Description("حیرت")]
     [Route("/record_emotion_reply Awe")]
     [Color("#CFE5BF")]
-    Awe = 11,
+    Awe = 16,
 
     [Description("حواس پرتی")]
     [Route("/record_emotion_reply Distraction")]
     [Color("#789DA3")]
-    Distraction = 12,
+    Distraction = 17,
 
     [Description("شگفتی")]
     [Route("/record_emotion_reply Amazement")]
     [Color("#3E727D")]
-    Amazement = 13,
+    Amazement = 18,
 
     [Description("مخالفت")]
     [Route("/record_emotion_reply Disapproval")]
     [Color("#C3DFE2")]
-    Disapproval = 14,
+    Disapproval = 19,
 
     [Description("پکری")]
     [Route("/record_emotion_reply Pensiveness")]
     [Color("#778CB9")]
-    Pensiveness = 15,
+    Pensiveness = 20,
 
     [Description("سوگ")]
     [Route("/record_emotion_reply Grief")]
     [Color("#3D5B99")]
-    Grief = 16,
+    Grief = 21,
 
     [Description("پشیمانی")]
     [Route("/record_emotion_reply Remorse")]
     [Color("#C3C8E5")]
-    Remorse = 17,
+    Remorse = 22,
 
     [Description("ملال")]
     [Route("/record_emotion_reply Boredom")]
     [Color("#A285B1")]
-    Boredom = 18,
+    Boredom = 23,
 
     [Description("انزجار")]
     [Route("/record_emotion_reply Loathing")]
     [Color("#7A508F")]
-    Loathing = 19,
+    Loathing = 24,
 
     [Description("تحقیر")]
     [Route("/record_emotion_reply Contempt")]
     [Color("#DFB4D2")]
-    Contempt = 20,
+    Contempt = 25,
 
     [Description("رنج")]
     [Route("/record_emotion_reply Annoyance")]
     [Color("#FF894C")]
-    Annoyance = 21,
+    Annoyance = 26,
 
     [Description("جنون")]
     [Route("/record_emotion_reply Rage")]
     [Color("#F46322")]
-    Rage = 22,
+    Rage = 27,
 
     [Description("پرخاشگری")]
     [Route("/record_emotion_reply Aggressiveness")]
     [Color("#FAC5BD")]
-    Aggressiveness = 23,
+    Aggressiveness = 28,
 
     [Description("دلبستگی")]
     [Route("/record_emotion_reply Interest")]
     [Color("#FEB04C")]
-    Interest = 24,
+    Interest = 29,
 
     [Description("انتظار")]
     [Route("/record_emotion_reply Anticipation")]
     [Color("#FF9818")]
-    Anticipation = 35,
+    Anticipation = 30,
 
     [Description("هشیاری")]
     [Route("/record_emotion_reply Vigilance")]
     [Color("#FF8B00")]
-    Vigilance = 26,
+    Vigilance = 31,
 
     [Description("خوشبینی")]
     [Route("/record_emotion_reply Optimism")]
     [Color("#FCE9AE")]
-    Optimism = 27
+    Optimism = 32
 }
