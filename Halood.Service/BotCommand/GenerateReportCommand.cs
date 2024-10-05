@@ -87,7 +87,7 @@ public class GenerateReportCommand : IBotCommand
             
             #region Emotions Page
 
-            report.Dictionary.Variables.Add("IsEmotionPageEnabled", true);
+            report.Dictionary.Variables.Add("IsEmotionPageEnabled", emotions.Count > 0);
             report.RegBusinessObject("Emotion", "EmotionPieChart", ConvertToEmotionDistribution(emotions));
 
 
