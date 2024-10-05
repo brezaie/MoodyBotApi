@@ -12,12 +12,37 @@ namespace Telegram.Bot.Examples.WebHook.Controllers
         private readonly IJob _satisfactionReminderJob;
         private readonly IJob _reportJob;
         private readonly IJob _emotionReminderJob;
+        private readonly IJob _adminStatisticsJob;
 
         public JobController(IEnumerable<IJob> jobs, IJob emotionReminderJob)
         {
             _satisfactionReminderJob = jobs.FirstOrDefault(x => x.GetType() == typeof(SatisfactionReminderJob));
             _reportJob = jobs.FirstOrDefault(x => x.GetType() == typeof(ReportJob));
             _emotionReminderJob = jobs.FirstOrDefault(x => x.GetType() == typeof(EmotionReminderJob));
+            _adminStatisticsJob = jobs.FirstOrDefault(x => x.GetType() == typeof(AdminStatisticsJob));
+        }
+
+        [HttpGet]
+        [Route("CreateAdminStatisticsJob")]
+        public ActionResult CreateAdminStatisticsJob(string cronExp)
+        {
+            try
+            {
+                RecurringJobOptions jobOptions = new()
+                {
+                    TimeZone = TimeZoneInfo.Utc
+                };
+
+                RecurringJob.AddOrUpdate("AdminStatisticsJob", () => _adminStatisticsJob.Run(),
+                    cronExp, jobOptions);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]

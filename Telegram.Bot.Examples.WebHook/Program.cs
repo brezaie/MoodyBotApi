@@ -50,6 +50,7 @@ builder.Services.AddServiceDependencies();
 builder.Services.AddTransient<IJob, SatisfactionReminderJob>();
 builder.Services.AddTransient<IJob, ReportJob>();
 builder.Services.AddTransient<IJob, EmotionReminderJob>();
+builder.Services.AddTransient<IJob, AdminStatisticsJob>();
 // Dummy business-logic service
 builder.Services.AddTransient<UpdateHandlers>();
 

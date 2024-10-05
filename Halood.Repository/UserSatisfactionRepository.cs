@@ -1,5 +1,4 @@
 using Halood.Domain.Entities;
-using Halood.Domain.Interfaces.User;
 using Halood.Domain.Interfaces.UserSatisfaction;
 using Halood.Repository.EntityFramework;
 using Microsoft.EntityFrameworkCore;
@@ -25,5 +24,12 @@ public class UserSatisfactionRepository : BaseRepository<UserSatisfaction>, IUse
                         && x.CreatedDate.Value.Date >= DateTime.Now.Date.AddDays(-days)
                         && x.CreatedDate.Value.Date < DateTime.Now.Date)
             .ToListAsync();
+    }
+
+    public async Task<int> GetTodayNumberOfSatisfactions()
+    {
+        return await Context.UserSatisfactions
+            .Where(x => x.CreatedDate.Value.Date == DateTime.Now.Date)
+            .CountAsync();
     }
 }

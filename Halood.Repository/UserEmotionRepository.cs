@@ -27,4 +27,10 @@ public class UserEmotionRepository : BaseRepository<UserEmotion>, IUserEmotionRe
                         && x.CreatedDate.Value.Date < DateTime.Now.Date)
             .ToListAsync();
     }
+    public async Task<int> GetTodayNumberOfEmotions()
+    {
+        return await Context.UserEmotions
+            .Where(x => x.CreatedDate.Value.Date == DateTime.Now.Date)
+            .CountAsync();
+    }
 }

@@ -37,4 +37,9 @@ public class UserRepository : BaseRepository<User>, IUserRepository
         return await Context.Users.AsNoTracking().Where(x => x.IsGlobalSatisfactionReminderActive && x.ChatId > 0 && !x.HasBlockedBot)
             .ToListAsync();
     }
+
+    public async Task<List<User>> GetTodayNewUsersAsync()
+    {
+        return await Context.Users.AsNoTracking().Where(x => x.CreatedDate.Value.Date == DateTime.Now.Date).ToListAsync();
+    }
 }

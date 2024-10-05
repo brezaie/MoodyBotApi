@@ -6,4 +6,5 @@ public interface IUserSatisfactionRepository : IBaseRepository<Entities.UserSati
 {
     Task<Entities.UserSatisfaction?> GetLastUserSatisfactionAsync(long userId);
     Task<List<Entities.UserSatisfaction>> GetLastUserSatisfactionsByDaysAsync(long userId, int days);
+    Task<int> GetTodayNumberOfSatisfactions();
 }
