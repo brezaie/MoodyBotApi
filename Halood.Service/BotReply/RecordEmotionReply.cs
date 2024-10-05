@@ -32,20 +32,24 @@ public class RecordEmotionReply : IBotReply
         var givenEmotion = message.Text.Split(" ")[1];
         if (givenEmotion == CommandHandler.MoreEmotionsRoute.Split(" ")[1])
         {
-            await _botClient.SendTextMessageAsync(
+            await _botClient.EditMessageTextAsync(
                 chatId: message.ChatId,
+                messageId: message.CommandMessageId,
                 text: $"کدام‌یک از احساس‌های زیر به احساسی که در این لحظه تجربه می‌کنید، نزدیک‌تر است؟\n\n",
                 replyMarkup: CommandHandler.GetMoreEmotionsInlineKeyboardMarkup(),
-                cancellationToken: cancellationToken);
+                cancellationToken: cancellationToken
+            );
             return;
         }
         if (givenEmotion == CommandHandler.LessEmotionsRoute.Split(" ")[1])
         {
-            await _botClient.SendTextMessageAsync(
+            await _botClient.EditMessageTextAsync(
                 chatId: message.ChatId,
+                messageId: message.CommandMessageId,
                 text: $"کدام‌یک از احساس‌های زیر به احساسی که در این لحظه تجربه می‌کنید، نزدیک‌تر است؟\n\n",
                 replyMarkup: CommandHandler.GetBasicEmotionsInlineKeyboardMarkup(),
-                cancellationToken: cancellationToken);
+                cancellationToken: cancellationToken
+            );
             return;
         }
 
@@ -95,16 +99,10 @@ public class RecordEmotionReply : IBotReply
             }
 
         _text = $"احساس \"{emotion.GetDescription()}\" برای این لحظه‌تان با موفقبت ثبت شد.  👍";
-        await _botClient.SendTextMessageAsync(
-            chatId: message.ChatId,
+
+        await _botClient.EditMessageTextAsync(message.ChatId, message.CommandMessageId,
             text: _text,
-            replyMarkup: new InlineKeyboardMarkup(new List<IEnumerable<InlineKeyboardButton>>
-            {
-                new List<InlineKeyboardButton>
-                {
-                    reply
-                }
-            }),
-            cancellationToken: cancellationToken);
+            cancellationToken: cancellationToken
+        );
     }
 }

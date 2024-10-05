@@ -65,16 +65,9 @@ public class RecordSatisfactionReply : IBotReply
             }
         }
 
-        await _botClient.SendTextMessageAsync(
-            chatId: message.ChatId,
+        await _botClient.EditMessageTextAsync(message.ChatId, message.CommandMessageId,
             text: _text,
-            replyMarkup: new InlineKeyboardMarkup(new List<IEnumerable<InlineKeyboardButton>>
-            {
-                new List<InlineKeyboardButton>
-                {
-                    reply
-                }
-            }),
-            cancellationToken: cancellationToken);
+            cancellationToken: cancellationToken
+        );
     }
 }

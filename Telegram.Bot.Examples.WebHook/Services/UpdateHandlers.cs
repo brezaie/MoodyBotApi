@@ -257,7 +257,8 @@ public class UpdateHandlers
             Text = callbackQuery.Data,
             ChatId = callbackQuery.Message.Chat.Id,
             Date = callbackQuery.Message.Date,
-            Username = callbackQuery.Message.Chat.Username
+            Username = callbackQuery.Message.Chat.Username,
+            CommandMessageId = callbackQuery.Message.MessageId
         };
     }
 
