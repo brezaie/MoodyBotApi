@@ -6,5 +6,5 @@ public interface IUserEmotionRepository : IBaseRepository<Entities.UserEmotion>
 {
     Task<Entities.UserEmotion?> GetLastUserEmotionAsync(long userId);
     Task<List<Entities.UserEmotion>> GetLastUserEmotionsByDaysAsync(long userId, int days);
-    Task<int> GetCurrentDateNumberOfEmotions();
+    Task<int> GetTodayNumberOfEmotions();
 }
