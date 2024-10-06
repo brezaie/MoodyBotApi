@@ -70,7 +70,7 @@ public class GenerateReportCommand : IBotCommand
 
             StiFontCollection.AddFontFile(@"Files\IRANSansWebFaNum.ttf", "IRANSans", FontStyle.Regular);
 
-            report.Dictionary.Variables.Add("Username", GetFullName(user));
+            report.Dictionary.Variables.Add("Username", user.Username);
             report.Dictionary.Variables.Add("FromDate", DateTime.Now.AddDays(-previousDays).ToPersianDigitalDateTimeString().Substring(0, 10));
             report.Dictionary.Variables.Add("ToDate", DateTime.Now.AddDays(-1).ToPersianDigitalDateTimeString().Substring(0, 10));
             report.Dictionary.Variables.Add("CurrentDate", DateTime.Now.ToPersianDigitalDateTimeString().Substring(0, 10));
@@ -136,7 +136,7 @@ public class GenerateReportCommand : IBotCommand
                 await _botClient.SendDocumentAsync(
                     chatId: message.ChatId,
                     document: InputFile.FromStream(stream, filename),
-                    caption: $"گزارش عمل‌کرد شما در هفته گذشته در فایل پیوست آمده است. می‌توانید آن را دانلود و مشاهده کنید.\r\nدر صورتی که محتویات فایل به‌درستی بارگذاری نشده، فایل را با یک اپلیکیشن دیگر باز کنید.\r\n",
+                    caption: $"گزارش عمل‌کرد شما در هفته گذشته در فایل پیوست آمده است. می‌توانید آن را دانلود و مشاهده کنید.\r\nدر صورتی که محتویات فایل به‌درستی بارگذاری نشده، فایل را با یک اپلیکیشن یا دیوایس دیگر باز کنید.\r\n",
                     cancellationToken: cancellationToken);
         }
         catch (Exception ex)

@@ -32,7 +32,7 @@ public class AdminStatisticsJob : IJob
 
             await _botClient.SendTextMessageAsync(
                 chatId: CommandHandler.SpecialUserNames.FirstOrDefault().Value,
-                text: $"New Users: \n {newUsersString}\n#Satisfactions: {newSatisfactions}\n#Emotions: {newEmotions}");
+                text: $"New Users: ({newUsers.Count}) \n#Satisfactions: ({newSatisfactions})\n#Emotions: ({newEmotions})\n\nUsersList:\n{newUsersString}");
         }
         catch (Exception ex)
         {
