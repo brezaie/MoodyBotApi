@@ -19,6 +19,7 @@ public static class ServiceIoC
         services.AddTransient<IBotCommand, GenerateReportCommand>();
         services.AddTransient<IBotCommand, ChangeEmotionReminderCommand>();
         services.AddTransient<IBotCommand, RecordThoughtCommand>();
+        services.AddTransient<IBotCommand, SendEmergencyMessageCommand>();
 
 
         services.AddTransient<IBotReply, UnknownReply>();

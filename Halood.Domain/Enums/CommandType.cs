@@ -60,5 +60,8 @@ public enum CommandType
     RecordThoughtCommand = 14,
 
     [Route("/record_thought_reply")]
-    RecordThoughtReply = 15
+    RecordThoughtReply = 15,
+
+    [Route("/send_emergency_message")]
+    SendEmergencyMessage = 16
 }

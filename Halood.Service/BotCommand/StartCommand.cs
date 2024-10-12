@@ -39,9 +39,4 @@ public class StartCommand : IBotCommand
             text: _text,
             cancellationToken: cancellationToken);
     }
-
-    public Task Execute(CallbackQuery callBackQuery, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
 }

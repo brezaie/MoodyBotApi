@@ -31,6 +31,7 @@ public class UpdateHandlers
     private readonly IBotCommand _generateReportCommand;
     private readonly IBotCommand _changeEmotionReminder;
     private readonly IBotCommand _recordThoughtCommand;
+    private readonly IBotCommand _sendEmergencyMessageCommand;
 
     private readonly IBotReply _recordSatisfactionReply;
     private readonly IBotReply _recordEmotionReply;
@@ -59,7 +60,7 @@ public class UpdateHandlers
         _generateReportCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(GenerateReportCommand));
         _changeEmotionReminder = botActions.FirstOrDefault(x => x.GetType() == typeof(ChangeEmotionReminderCommand));
         _recordThoughtCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(RecordThoughtCommand));
-
+        _sendEmergencyMessageCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(SendEmergencyMessageCommand));
 
         _recordSatisfactionReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(RecordSatisfactionReply));
         _recordEmotionReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(RecordEmotionReply));
@@ -200,6 +201,7 @@ public class UpdateHandlers
             CommandType.SatisfactionReminderReply => _toggleSatisfactionReminderReply.ExecuteAsync(botCommandMessage, cancellationToken),
             CommandType.RecordThoughtCommand => _recordThoughtCommand.ExecuteAsync(botCommandMessage, cancellationToken),
             CommandType.RecordThoughtReply => _recordThoughtReply.ExecuteAsync(botCommandMessage, cancellationToken),
+            CommandType.SendEmergencyMessage => _sendEmergencyMessageCommand.ExecuteAsync(botCommandMessage, cancellationToken),
             _ => _noCommand.ExecuteAsync(botCommandMessage, cancellationToken)
         };
 
