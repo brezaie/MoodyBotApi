@@ -72,6 +72,32 @@ namespace Halood.Common
                 }
             });
 
+        public static InlineKeyboardMarkup GetFaqInlineKeyboardMarkup() =>
+            new(new List<IEnumerable<InlineKeyboardButton>>
+            {
+                new List<InlineKeyboardButton>
+                {
+                    InlineKeyboardButton.WithCallbackData(Faq.WhatTheBotIsFor.GetDescription(), Faq.WhatTheBotIsFor.GetRoute()),
+                },
+                new List<InlineKeyboardButton>
+                {
+                    InlineKeyboardButton.WithCallbackData(Faq.HowToWorkWithBot.GetDescription(), Faq.HowToWorkWithBot.GetRoute())
+
+                },
+                new List<InlineKeyboardButton>
+                {
+                    InlineKeyboardButton.WithCallbackData(Faq.HowToChangeReminders.GetDescription(), Faq.HowToChangeReminders.GetRoute())
+                },
+                new List<InlineKeyboardButton>
+                {
+                    InlineKeyboardButton.WithCallbackData(Faq.WhenWeeklyReportIsSent.GetDescription(), Faq.WhenWeeklyReportIsSent.GetRoute())
+                },
+                new List<InlineKeyboardButton>
+                {
+                    InlineKeyboardButton.WithCallbackData(Faq.HowToReportProblem.GetDescription(), Faq.HowToReportProblem.GetRoute())
+                }
+            });
+
         public static InlineKeyboardMarkup GetMoreEmotionsInlineKeyboardMarkup()
         {
             var items = new List<IEnumerable<InlineKeyboardButton>>();

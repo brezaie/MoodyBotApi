@@ -32,6 +32,7 @@ public class UpdateHandlers
     private readonly IBotCommand _changeEmotionReminder;
     private readonly IBotCommand _recordThoughtCommand;
     private readonly IBotCommand _sendEmergencyMessageCommand;
+    private readonly IBotCommand _faqCommand;
 
     private readonly IBotReply _recordSatisfactionReply;
     private readonly IBotReply _recordEmotionReply;
@@ -39,9 +40,11 @@ public class UpdateHandlers
     private readonly IBotReply _change_emotion_reminder_reply;
     private readonly IBotReply _toggleSatisfactionReminderReply;
     private readonly IBotReply _recordThoughtReply;
+    private readonly IBotReply _faqReply;
 
     public UpdateHandlers(ITelegramBotClient botClient, ILogger<UpdateHandlers> logger, IUserRepository userRepository,
-        IEnumerable<IBotCommand> botActions, IEnumerable<IBotReply> botReplies, IUserEmotionReminderRepository userEmotionReminderRepository)
+        IEnumerable<IBotCommand> botActions, IEnumerable<IBotReply> botReplies,
+        IUserEmotionReminderRepository userEmotionReminderRepository)
     {
         _botClient = botClient;
         _logger = logger;
@@ -60,14 +63,20 @@ public class UpdateHandlers
         _generateReportCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(GenerateReportCommand));
         _changeEmotionReminder = botActions.FirstOrDefault(x => x.GetType() == typeof(ChangeEmotionReminderCommand));
         _recordThoughtCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(RecordThoughtCommand));
-        _sendEmergencyMessageCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(SendEmergencyMessageCommand));
+        _sendEmergencyMessageCommand =
+            botActions.FirstOrDefault(x => x.GetType() == typeof(SendEmergencyMessageCommand));
+        _faqCommand = botActions.FirstOrDefault(x => x.GetType() == typeof(FaqCommand));
+
 
         _recordSatisfactionReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(RecordSatisfactionReply));
         _recordEmotionReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(RecordEmotionReply));
         _changeLanguageReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(ChangeLanguageReply));
-        _change_emotion_reminder_reply = botReplies.FirstOrDefault(x => x.GetType() == typeof(ChangeEmotionReminderReply));
-        _toggleSatisfactionReminderReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(ToggleSatisfactionReminderReply));
+        _change_emotion_reminder_reply =
+            botReplies.FirstOrDefault(x => x.GetType() == typeof(ChangeEmotionReminderReply));
+        _toggleSatisfactionReminderReply =
+            botReplies.FirstOrDefault(x => x.GetType() == typeof(ToggleSatisfactionReminderReply));
         _recordThoughtReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(RecordThoughtReply));
+        _faqReply = botReplies.FirstOrDefault(x => x.GetType() == typeof(FaqReply));
     }
 
     public Task HandleErrorAsync(Exception exception, CancellationToken cancellationToken)
@@ -202,6 +211,8 @@ public class UpdateHandlers
             CommandType.RecordThoughtCommand => _recordThoughtCommand.ExecuteAsync(botCommandMessage, cancellationToken),
             CommandType.RecordThoughtReply => _recordThoughtReply.ExecuteAsync(botCommandMessage, cancellationToken),
             CommandType.SendEmergencyMessage => _sendEmergencyMessageCommand.ExecuteAsync(botCommandMessage, cancellationToken),
+            CommandType.Faq => _faqCommand.ExecuteAsync(botCommandMessage, cancellationToken),
+            CommandType.FaqReply => _faqReply.ExecuteAsync(botCommandMessage, cancellationToken),
             _ => _noCommand.ExecuteAsync(botCommandMessage, cancellationToken)
         };
 

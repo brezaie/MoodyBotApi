@@ -20,6 +20,7 @@ public static class ServiceIoC
         services.AddTransient<IBotCommand, ChangeEmotionReminderCommand>();
         services.AddTransient<IBotCommand, RecordThoughtCommand>();
         services.AddTransient<IBotCommand, SendEmergencyMessageCommand>();
+        services.AddTransient<IBotCommand, FaqCommand>();
 
 
         services.AddTransient<IBotReply, UnknownReply>();
@@ -29,6 +30,7 @@ public static class ServiceIoC
         services.AddTransient<IBotReply, ChangeLanguageReply>();
         services.AddTransient<IBotReply, ChangeEmotionReminderReply>();
         services.AddTransient<IBotReply, RecordThoughtReply>();
+        services.AddTransient<IBotReply, FaqReply>();
 
         return services;
     }
