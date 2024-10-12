@@ -28,11 +28,11 @@ public class AdminStatisticsJob : IJob
             var newSatisfactions = await _userSatisfactionRepository.GetTodayNumberOfSatisfactions();
             var newEmotions = await _userEmotionRepository.GetTodayNumberOfEmotions();
 
-            var newUsersString = string.Join("\n", newUsers.Select(x => $"{x.FirstName} {x.LastName} | {x.Username}"));
+            var newUsersString = string.Join("\n", newUsers.Select(x => $"{x.FirstName} {x.LastName} | @{x.Username}"));
 
             await _botClient.SendTextMessageAsync(
                 chatId: CommandHandler.SpecialUserNames.FirstOrDefault().Value,
-                text: $"New Users: ({newUsers.Count}) \n#Satisfactions: ({newSatisfactions})\n#Emotions: ({newEmotions})\n\nUsersList:\n{newUsersString}");
+                text: $"#NewUsers: ({newUsers.Count}) \n#Satisfactions: ({newSatisfactions})\n#Emotions: ({newEmotions})\n\nUsersList:\n{newUsersString}");
         }
         catch (Exception ex)
         {
